@@ -45,9 +45,9 @@ npm install @types/gtag       # 分析的TypeScript定义
 
 ## 1126 课程重构状态与协作提示
 
-- 体系已彻底收敛为 basic/intermediate/advanced，`StageMeta`/`StageKeySchema` 提供唯一数据源与运行时校验，禁止新增旧阶段或引入旧→新映射逻辑。【F:src/types/index.ts†L4-L20】【F:src/utils/stageMap.ts†L4-L63】
+- 体系已彻底收敛为 basic/intermediate/advanced，`StageMeta`/`StageKeySchema` 提供唯一数据源与运行时校验，禁止新增旧阶段或引入旧 → 新映射逻辑。【F:src/types/index.ts†L4-L20】【F:src/utils/stageMap.ts†L4-L63】
 - 阶段数据进入 store、路由或组件前应调用 `assertStageKey`，保持 fail-fast；新增工具/接口需沿用该策略，避免 silent fallback。【F:src/types/index.ts†L4-L20】
-- Program A/B 路由骨架已存在，后续接入课程数据或 JSON-LD 时应按 PRD 将构建函数抽到 `src/utils/jsonld/` 复用，覆盖 Level/Type/Access/Outcome/Pathway 五维字段。【F:src/router/index.ts†L52-L89】【F:docs/前端课程重构资料/03 课程体系重构PRD.md†L131-L190】
+- Program A/B 路由骨架已存在，后续接入课程数据或 JSON-LD 时应按 PRD 将构建函数抽到 `src/utils/jsonld/` 复用，覆盖 Level/Type/Access/Outcome/Pathway 五维字段。【F:src/router/index.ts†L52-L89】【F:docs/前端课程重构资料/03 课程体系重构 PRD.md†L131-L190】
 
 ## 前端架构
 
@@ -292,6 +292,72 @@ body {
 
 .glass-background {
   z-index: 1; /* 模糊效果 */
+}
+```
+
+### 动画效果规范
+
+**核心原则**: 使用流畅、一致的动画效果提升用户体验，避免过度动画导致的视觉疲劳。
+
+**Motion & Animation Rule**
+
+- 动画仅用于结构引导，而非吸引注意
+- 采用逐元素淡入 / 轻微滑入 / 轻度模糊
+- 禁止使用 `opacity: 0` 隐藏内容
+- 动画使用 `animation-fill-mode: both`
+- 位移不超过 12px（Y 轴）/ 16px（X 轴）
+- blur 强度不超过 6px
+- 动画仅作为状态变化，不应创建或隐藏内容
+- 统一使用 `ease-out` 缓动函数，保持动画风格一致性
+- 动画时长控制在 0.3s-0.8s 之间，确保流畅不卡顿
+
+**示例代码**:
+
+```css
+/* 推荐的动画实现 */
+.fade-in {
+  animation: fadeIn 0.6s ease-out both;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out both;
+}
+
+.blur-in {
+  animation: blurIn 0.8s ease-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(12px); /* 不超过12px */
+    filter: blur(4px); /* 不超过6px */
+  }
+  to {
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(16px); /* 不超过16px */
+    filter: blur(3px); /* 不超过6px */
+  }
+  to {
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes blurIn {
+  from {
+    filter: blur(6px); /* 不超过6px */
+    transform: scale(0.98);
+  }
+  to {
+    filter: blur(0);
+    transform: scale(1);
+  }
 }
 ```
 
