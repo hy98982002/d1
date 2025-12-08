@@ -4,7 +4,7 @@
     {
       "from": "initial",
       "command": "init",
-      "timestamp": "2025-11-26T13:52:04.456Z",
+      "timestamp": "2025-12-08T14:01:00.370Z",
       "args": [
         {
           "workingDirectory": "/Users/dongqingzhai/Desktop/UAI_project/frontend",
@@ -14,34 +14,26 @@
     },
     {
       "from": "initialized",
-      "command": "action",
-      "timestamp": "2025-11-26T13:52:10.162Z",
-      "args": [
-        "assistant"
-      ]
-    },
-    {
-      "from": "role_activated_with_memory",
       "command": "remember",
-      "timestamp": "2025-11-26T13:52:42.723Z",
+      "timestamp": "2025-12-08T14:01:29.502Z",
       "args": [
         "assistant",
-        "Doviai前端课程体系\"纯新阶段\"重构项目 - 进度记录\n\n## 项目背景\n- 项目路径: /Users/dongqingzhai/Desktop/UAI_project/frontend\n- 目标: 将旧的7层课程体系完全切换到新的3层体系\n- 旧体系: free/beginner/advanced/hands-on/project/vip/landing/high\n- 新体系: basic/intermediate/advanced (仅保留这3个枚举)\n\n## 已完成工作\n\n### ✅ 阶段0: 图片资源重命名 (已完成)\n1. 创建重命名脚本: tools/rename-course-images.cjs\n2. 执行映射规则:\n   - free → basic\n   - beginner → basic\n   - advanced (旧) → intermediate\n   - hands-on → intermediate\n   - project → intermediate\n   - vip → membership-intermediate\n3. 成功重命名54个文件\n4. 删除42个重复的旧格式文件\n5. 最终结果: 所有图片符合新规则 {courseName}-{stage}-cover-{width}.{ext}\n\n### ✅ 阶段1.1: 安装依赖 (已完成)\n- 成功安装 zod@latest 用于运行时类型校验\n- 安装耗时: 883ms (npm镜像正常)\n\n## 当前状态\n- 待办清单: 15项任务，已完成2项\n- 下一步: 阶段1.2 重写 src/types/index.ts\n\n## 关键文件状态\n\n### 需要修改的核心文件:\n1. src/types/index.ts - 包含旧的LEGACY_STAGE_MAP和CourseCardTemplate枚举\n2. src/utils/stageMap.ts - 包含mapOldStageToNew等迁移逻辑\n3. src/utils/slug.ts - 支持旧slug别名\n4. src/store/courseStore.ts - mock数据使用旧枚举(free/advanced/project)\n5. components/CampSection.vue - 引用stageData.free\n6. components/personCenter/PersonalDashboard.vue - 使用free和project\n\n### 图片命名示例 (已更新):\n- photoshop-basic-cover-480.webp\n- python-intermediate-cover-1280.webp\n- logo-design-membership-intermediate-cover-1920.webp\n\n## 技术方案\n- 使用 zod 进行运行时类型校验\n- StageMeta 常量替代动态映射\n- 入口强校验: assertStageKey() - 非法值直接抛错\n- 删除所有迁移逻辑和LEGACY_STAGE_MAP\n\n## 下一步计划\n1. 重写types/index.ts添加zod schema\n2. 重构stageMap.ts使用StageMeta常量\n3. 更新所有组件移除旧stage引用\n4. 更新mock数据使用新枚举\n5. 创建自动化扫描脚本检测遗留",
+        "【1208路由动态化项目进度】2025-12-08\n\n## 已完成任务\n\n### ✅ 05-2 PRD完成（P0+P1）\n1. ProgramAView.vue和ProgramBView.vue已注入buildProgramJsonLd()\n2. courseStore.getCoursesByStage已收紧入参，使用assertStageKey\n3. CI配置.github/workflows/pure-stage.yml的e2e Job已启用\n4. 全部CI验证通过：type-check ✓、build ✓、e2e(6 passed) ✓\n\n### ✅ 路由动态化Phase 2 (AI-04到AI-07)\n1. **AI-04+05**: types/index.ts添加Program类型系统\n   - Program接口、ProgramBenefit接口\n   - PROGRAM_SLUGS常量: ['aigc-intermediate', 'ai-designer-advanced']\n   - assertProgramSlug()校验函数\n   \n2. **AI-06**: courseStore.ts添加mockPrograms数组\n   - aigc-intermediate (会员进阶路线, stage: intermediate)\n   - ai-designer-advanced (高阶技能路径, stage: advanced)\n   \n3. **AI-07**: Store扩展getProgramBySlug/programExists/getProgramCourses\n\n## 下一步任务（剩余AI-08到AI-19）\n- **AI-08**: 创建views/program/[slug].vue动态组件（⚠️ 立即执行）\n- **AI-11**: 配置router/index.ts动态路由/program/:slug\n- **AI-12**: 测试两个Program路由\n- **AI-16**: 删除ProgramAView.vue和ProgramBView.vue\n- **AI-18**: 运行完整CI验证\n- **AI-19**: 更新CLAUDE.md文档\n\n## 关键决策\n- 用户选择先完成05-2 PRD，再做路由动态化（避免文件冲突）\n- 使用SPA架构+beforeEnter，不涉及SSG迁移\n- Advanced阶段课程为空是正常状态，显示\"即将推出\"\n\n## 当前分支\ncodex/eval-update",
         "--tags",
-        "doviai frontend refactor course-system stage-enum"
+        "路由动态化 Program 05-2完成 进度记录"
       ]
     },
     {
       "from": "memory_saved",
       "command": "remember",
-      "timestamp": "2025-11-26T13:53:04.435Z",
+      "timestamp": "2025-12-08T14:01:29.567Z",
       "args": [
         "assistant",
-        "Doviai前端课程体系重构 - 技术实施细节\n\n## 新三级体系映射规则\n\n### Stage枚举定义\n```typescript\n// 唯一合法的三个枚举值\nbasic       // 入门 - URL slug: beginner\nintermediate // 进阶 - URL slug: intermediate  \nadvanced    // 高阶 - URL slug: advanced\n```\n\n### 旧体系到新体系的映射\n```\n旧枚举 → 新枚举 映射:\n- free (免费体验) → basic\n- beginner (入门) → basic\n- advanced (旧-精进) → intermediate\n- hands-on (实战) → intermediate\n- project (项目落地) → intermediate\n- landing (落地) → advanced\n- high (高级) → advanced\n- vip (会员专享) → 特殊处理，加membership标识，阶段用intermediate/advanced\n```\n\n## Zod Schema定义\n```typescript\nimport { z } from 'zod'\n\nexport const StageKeySchema = z.enum(['basic', 'intermediate', 'advanced'])\nexport type StageKey = z.infer<typeof StageKeySchema>\n\nexport const isStageKey = (v: string): v is StageKey => \n  StageKeySchema.safeParse(v).success\n\nexport const assertStageKey = (v: string): asserts v is StageKey => \n  StageKeySchema.parse(v)\n```\n\n## StageMeta常量结构\n```typescript\nexport const StageMeta = {\n  basic: { \n    label: '入门', \n    style: 'badge-basic', \n    slug: 'beginner' \n  },\n  intermediate: { \n    label: '进阶', \n    style: 'badge-mid', \n    slug: 'intermediate' \n  },\n  advanced: { \n    label: '高阶', \n    style: 'badge-adv', \n    slug: 'advanced' \n  }\n} as const\n```\n\n## 关键修改点\n\n### types/index.ts需要删除的内容\n1. LEGACY_STAGE_MAP 常量\n2. CourseCardTemplate枚举(free/beginner/advanced/hands-on/project/vip)\n3. COURSE_CARD_TEMPLATES 配置对象\n4. getTemplateFromImagePath 函数\n5. generateCourseData 函数\n\n### stageMap.ts需要删除的内容\n1. LEGACY_STAGE_MAP 导入\n2. mapOldStageToNew() 函数\n3. migrateCourseStages() 函数\n\n### courseStore.ts需要修改\n1. 删除 mapOldStageToNew 导入\n2. 删除 migrateMockCourses() 调用\n3. 添加 assertStageKey 入口校验\n4. 更新所有mock数据的stage字段为新枚举\n5. 更新图片导入路径使用新文件名\n\n## 图片文件重命名记录\n\n### 成功重命名的映射\n- advanced-* → {courseName}-intermediate-*\n- beginner-* → {courseName}-basic-*\n- project-ps2-* → photoshop-advanced-intermediate-*\n- vip-logo-* → logo-design-membership-intermediate-*\n- vip-logo2-* → logo-design-advanced-membership-intermediate-*\n\n### 已删除的重复文件\n- free-* (18个文件)\n- hands-on-* (18个文件)  \n- project-ps-* (6个文件)\n\n## 工具脚本位置\n- tools/rename-course-images.cjs - 图片重命名脚本\n- tools/cleanup-old-images.cjs - 清理重复文件脚本",
+        "【关键文件修改记录】2025-12-08\n\n## 已修改文件\n\n### 1. frontend/src/types/index.ts\n**新增内容**（L40-90）:\n- Program Slug枚举和类型守卫\n- assertProgramSlug断言函数\n- ProgramBenefit接口\n- Program接口（包含id/slug/name/subtitle/description/stage/heroBackground/outcomes/benefits等）\n\n### 2. frontend/src/store/courseStore.ts\n**新增内容**:\n- import Program类型（L2）\n- mockPrograms数组（L198-252）：两个Program配置\n- state.programs（L257）\n- getProgramBySlug getter（L276-278）\n- programExists getter（L281-283）\n- getProgramCourses getter（L286-294）\n\n### 3. 已存在（无需修改）\n- ProgramAView.vue：已有JSON-LD注入\n- ProgramBView.vue：已有JSON-LD注入\n- .github/workflows/pure-stage.yml：e2e Job已启用\n\n## 待创建文件\n- views/program/[slug].vue（动态组件，AI-08）\n\n## 待修改文件\n- router/index.ts（添加动态路由，AI-11）\n- CLAUDE.md（文档对齐，AI-19）",
         "--tags",
-        "doviai technical-details zod-schema stage-mapping image-renaming"
+        "文件修改 代码位置 引用"
       ]
     }
   ],
-  "lastUpdated": "2025-11-26T13:53:04.436Z"
+  "lastUpdated": "2025-12-08T14:01:29.569Z"
 }

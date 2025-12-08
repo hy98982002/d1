@@ -37,6 +37,58 @@ export const STAGE_STYLES = {
   advanced: { textClass: 'text-danger', bgClass: 'bg-danger-subtle', label: '高阶' }
 } as const
 
+// ============================================
+// Program（学习路径）体系 - 路由动态化支持
+// ============================================
+
+// Program Slug 枚举
+export const PROGRAM_SLUGS = ['aigc-intermediate', 'ai-designer-advanced'] as const
+export type ProgramSlug = (typeof PROGRAM_SLUGS)[number]
+
+// 类型守卫函数 - 安全检查
+export const isProgramSlug = (value: string): value is ProgramSlug => {
+  return PROGRAM_SLUGS.includes(value as ProgramSlug)
+}
+
+// 断言函数 - 运行时强制校验（Fail-Fast）
+export const assertProgramSlug = (value: string): asserts value is ProgramSlug => {
+  if (!PROGRAM_SLUGS.includes(value as ProgramSlug)) {
+    throw new Error(
+      `Invalid program slug: "${value}". Expected one of: ${PROGRAM_SLUGS.join(', ')}`
+    )
+  }
+}
+
+// Program权益接口
+export interface ProgramBenefit {
+  icon: string // Font Awesome类名（如: 'fas fa-crown text-warning'）
+  text: string // 权益描述
+}
+
+// Program配置接口
+export interface Program {
+  id: number // 唯一标识
+  slug: ProgramSlug // URL标识（如: 'aigc-intermediate'）
+  name: string // Program名称（如: '会员进阶路线'）
+  subtitle: string // 副标题
+  description: string // 详细描述
+  stage: StageKey // 对应的课程阶段（basic/intermediate/advanced）
+  heroBackground: string // Hero区域背景渐变色
+  outcomes: string[] // 学习收获列表
+  benefitsTitle: string // 权益卡片标题
+  benefits: ProgramBenefit[] // 权益列表
+  buttonText: string // CTA按钮文字
+  buttonClass: string // CTA按钮样式类名
+  courseDescription: string // 课程列表区域描述
+
+  // 可选：SEO相关字段
+  meta?: {
+    title: string
+    description: string
+    keywords?: string[]
+  }
+}
+
 // 课程接口
 export interface Course {
   id: number

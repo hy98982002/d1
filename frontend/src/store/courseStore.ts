@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Course, StageKey } from '../types'
+import type { Course, StageKey, Program } from '../types'
 import { assertStageKey } from '../types'
 import { generateCourseSlug } from '@/utils/slug'
 
@@ -195,9 +195,66 @@ const mockCourses: Course[] = [
   }
 ]
 
+// Mock Program数据（学习路径配置）
+const mockPrograms: Program[] = [
+  {
+    id: 1,
+    slug: 'aigc-intermediate',
+    name: '会员进阶路线',
+    subtitle: 'AIGC技能提升的系统化学习路径',
+    description:
+      '会员进阶路线专为已掌握基础技能、希望系统提升AIGC实战能力的学员设计。通过精心编排的课程体系，你将深入学习AI设计工具的高级应用，掌握从设计构思到作品落地的完整流程。',
+    stage: 'intermediate',
+    heroBackground: 'linear-gradient(135deg, rgba(30, 127, 152, 0.05) 0%, rgba(42, 155, 184, 0.08) 100%)',
+    outcomes: [
+      '掌握Photoshop、Illustrator等工具的高级AI功能',
+      '具备独立完成商业级设计项目的能力',
+      '理解AIGC在不同设计场景的应用策略',
+      '建立系统化的AI设计工作流程'
+    ],
+    benefitsTitle: '会员专享权益',
+    benefits: [
+      { icon: 'fas fa-crown text-warning', text: '访问所有进阶课程' },
+      { icon: 'fas fa-download text-primary', text: '下载课程配套素材' },
+      { icon: 'fas fa-users text-info', text: '加入专属学习社群' },
+      { icon: 'fas fa-headset text-success', text: '享受优先技术支持' }
+    ],
+    buttonText: '立即加入会员',
+    buttonClass: 'btn-tech-blue',
+    courseDescription: '精心挑选的进阶课程，助你快速提升'
+  },
+  {
+    id: 2,
+    slug: 'ai-designer-advanced',
+    name: '高阶技能路径',
+    subtitle: '专业级AI设计师的实战与项目落地之路',
+    description:
+      '高阶技能路径面向希望达到专业级AI设计师水平、能够独立承接大型商业项目的学员。通过深度实战训练和真实项目演练，你将掌握从需求分析到作品交付的完整项目流程，具备进入设计行业工作或接单创业的能力。',
+    stage: 'advanced',
+    heroBackground: 'linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, rgba(184, 134, 11, 0.08) 100%)',
+    outcomes: [
+      '掌握多款专业AI设计工具的综合应用',
+      '具备承接大型商业项目的能力和经验',
+      '建立完整的项目管理和交付流程',
+      '获得真实商业项目作品集'
+    ],
+    benefitsTitle: '高阶会员权益',
+    benefits: [
+      { icon: 'fas fa-crown text-warning', text: '访问所有高阶课程' },
+      { icon: 'fas fa-project-diagram text-primary', text: '参与真实项目实战' },
+      { icon: 'fas fa-briefcase text-info', text: '获得就业指导服务' },
+      { icon: 'fas fa-certificate text-success', text: '颁发专业技能证书' }
+    ],
+    buttonText: '立即升级高阶会员',
+    buttonClass: 'btn-premium-brown',
+    courseDescription: '高阶实战课程，助你成为专业AI设计师'
+  }
+]
+
 export const useCourseStore = defineStore('course', {
   state: () => ({
     courses: mockCourses, // 直接使用新三级体系的课程数据
+    programs: mockPrograms, // Program学习路径配置
     currentStage: 'basic' as StageKey, // 默认阶段：basic（入门基础）
     selectedTags: [] as string[],
     showVipOnly: false,
@@ -210,6 +267,31 @@ export const useCourseStore = defineStore('course', {
       return state.courses.filter((c) => c.stage === stage)
     },
     getCourseBySlug: state => (slug: string) => state.courses.find(c => c.slug === slug),
+
+    // ============================================
+    // Program 相关 Getters
+    // ============================================
+
+    // 根据slug获取Program配置
+    getProgramBySlug: state => (slug: string) => {
+      return state.programs.find(p => p.slug === slug)
+    },
+
+    // 验证Program slug是否存在
+    programExists: state => (slug: string) => {
+      return state.programs.some(p => p.slug === slug)
+    },
+
+    // 获取Program对应的课程列表
+    getProgramCourses: (state) => (programSlug: string) => {
+      const program = state.programs.find(p => p.slug === programSlug)
+      if (!program) return []
+
+      // 使用assertStageKey确保stage合法
+      assertStageKey(program.stage)
+      return state.courses.filter(c => c.stage === program.stage)
+      // 注意：advanced阶段当前返回[]，将来添加数据后自动显示
+    },
     filteredCourses: state => {
       let result = state.courses
       if (state.showVipOnly) {

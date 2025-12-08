@@ -166,4 +166,82 @@
     </content>
     <tags>#最佳实践 #工具使用</tags>
   </item>
+  <item id="mem_1765202489503_m3687sifk" time="2025/12/08 06:01">
+    <content>
+      【1208路由动态化项目进度】2025-12-08
+    
+      ## 已完成任务
+    
+      ### ✅ 05-2 PRD完成（P0+P1）
+      1. ProgramAView.vue和ProgramBView.vue已注入buildProgramJsonLd()
+      2. courseStore.getCoursesByStage已收紧入参，使用assertStageKey
+      3. CI配置.github/workflows/pure-stage.yml的e2e Job已启用
+      4. 全部CI验证通过：type-check ✓、build ✓、e2e(6 passed) ✓
+    
+      ### ✅ 路由动态化Phase 2 (AI-04到AI-07)
+      1. **AI-04+05**: types/index.ts添加Program类型系统
+      - Program接口、ProgramBenefit接口
+      - PROGRAM_SLUGS常量: [&#x27;aigc-intermediate&#x27;, &#x27;ai-designer-advanced&#x27;]
+      - assertProgramSlug()校验函数
+    
+      2. **AI-06**: courseStore.ts添加mockPrograms数组
+      - aigc-intermediate (会员进阶路线, stage: intermediate)
+      - ai-designer-advanced (高阶技能路径, stage: advanced)
+    
+      3. **AI-07**: Store扩展getProgramBySlug/programExists/getProgramCourses
+    
+      ## 下一步任务（剩余AI-08到AI-19）
+      - **AI-08**: 创建views/program/[slug].vue动态组件（⚠️ 立即执行）
+      - **AI-11**: 配置router/index.ts动态路由/program/:slug
+      - **AI-12**: 测试两个Program路由
+      - **AI-16**: 删除ProgramAView.vue和ProgramBView.vue
+      - **AI-18**: 运行完整CI验证
+      - **AI-19**: 更新CLAUDE.md文档
+    
+      ## 关键决策
+      - 用户选择先完成05-2 PRD，再做路由动态化（避免文件冲突）
+      - 使用SPA架构+beforeEnter，不涉及SSG迁移
+      - Advanced阶段课程为空是正常状态，显示&quot;即将推出&quot;
+    
+      ## 当前分支
+      codex/eval-update
+    </content>
+    <tags>#其他</tags>
+  </item>
+  <item id="mem_1765202489568_9oxx4t4k6" time="2025/12/08 06:01">
+    <content>
+      【关键文件修改记录】2025-12-08
+    
+      ## 已修改文件
+    
+      ### 1. frontend/src/types/index.ts
+      **新增内容**（L40-90）:
+      - Program Slug枚举和类型守卫
+      - assertProgramSlug断言函数
+      - ProgramBenefit接口
+      - Program接口（包含id/slug/name/subtitle/description/stage/heroBackground/outcomes/benefits等）
+    
+      ### 2. frontend/src/store/courseStore.ts
+      **新增内容**:
+      - import Program类型（L2）
+      - mockPrograms数组（L198-252）：两个Program配置
+      - state.programs（L257）
+      - getProgramBySlug getter（L276-278）
+      - programExists getter（L281-283）
+      - getProgramCourses getter（L286-294）
+    
+      ### 3. 已存在（无需修改）
+      - ProgramAView.vue：已有JSON-LD注入
+      - ProgramBView.vue：已有JSON-LD注入
+      - .github/workflows/pure-stage.yml：e2e Job已启用
+    
+      ## 待创建文件
+      - views/program/[slug].vue（动态组件，AI-08）
+    
+      ## 待修改文件
+      - router/index.ts（添加动态路由，AI-11）
+      - CLAUDE.md（文档对齐，AI-19）
+    </content>
+    <tags>#其他</tags>
+  </item>
 </memory>
