@@ -16,6 +16,7 @@
 - Pinia 状态管理
 - Vue Router 客户端路由
 - Axios API 请求
+- iconfont 图标库 (禁止使用其他图标库，如 Iconify)
 
 **开发工具：**
 
