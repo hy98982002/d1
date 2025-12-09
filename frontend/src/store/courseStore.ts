@@ -144,7 +144,9 @@ const mockCourses: Course[] = [
     enrolled: 800,
     duration: '40小时',
     level: '中级',
-    instructor: '张老师'
+    instructor: '张老师',
+    isVip: true,
+    status: 'active'
   },
   {
     id: 9,
@@ -159,7 +161,9 @@ const mockCourses: Course[] = [
     enrolled: 600,
     duration: '35小时',
     level: '中级',
-    instructor: '张老师'
+    instructor: '张老师',
+    isVip: true,
+    status: 'active'
   },
   {
     id: 10,
@@ -174,7 +178,9 @@ const mockCourses: Course[] = [
     enrolled: 500,
     duration: '45小时',
     level: '中级',
-    instructor: '李老师'
+    instructor: '李老师',
+    isVip: true,
+    status: 'active'
   },
   {
     id: 11,
@@ -189,7 +195,9 @@ const mockCourses: Course[] = [
     enrolled: 700,
     duration: '30小时',
     level: '中级',
-    instructor: '王老师'
+    instructor: '王老师',
+    isVip: true,
+    status: 'active'
   },
   {
     id: 12,
@@ -204,7 +212,9 @@ const mockCourses: Course[] = [
     enrolled: 400,
     duration: '50小时',
     level: '中级',
-    instructor: '张老师'
+    instructor: '张老师',
+    isVip: true,
+    status: 'active'
   },
   // Advanced阶段课程（高阶专区）
   {
@@ -251,6 +261,179 @@ const mockCourses: Course[] = [
     duration: '65小时',
     level: '高级',
     instructor: '王老师'
+  },
+  // ============================================
+  // 会员专享课程（即将上线）- 10门占位课程
+  // ============================================
+  {
+    id: 16,
+    title: 'AI品牌视觉设计系统',
+    slug: 'ai-brand-visual-system-membership-intermediate',
+    description: '运用AI工具构建完整的品牌视觉识别系统，掌握从Logo到VI应用的全流程设计',
+    price: 899,
+    stage: 'intermediate',
+    cover: photoshopIntermediateCover,
+    tags: ['品牌设计', 'AIGC', 'VI系统', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '45小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 17,
+    title: 'AI动态海报创作实战',
+    slug: 'ai-dynamic-poster-membership-intermediate',
+    description: '学习使用AI工具创作动态海报和视觉特效，提升设计作品的视觉冲击力',
+    price: 799,
+    stage: 'intermediate',
+    cover: pythonIntermediateCover,
+    tags: ['海报设计', 'AIGC', '动态特效', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '35小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 18,
+    title: 'AI插画风格探索',
+    slug: 'ai-illustration-style-membership-intermediate',
+    description: '深入研究AI插画的多种风格表现，掌握从扁平化到写实风格的创作技巧',
+    price: 699,
+    stage: 'intermediate',
+    cover: unrealIntermediateCover,
+    tags: ['插画设计', 'AIGC', '风格探索', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '40小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 19,
+    title: 'AI游戏场景设计',
+    slug: 'ai-game-scene-membership-intermediate',
+    description: '利用AI技术快速设计游戏场景和角色，掌握游戏美术创作的高效工作流',
+    price: 999,
+    stage: 'intermediate',
+    cover: photoshopIntermediateCover,
+    tags: ['游戏设计', 'AIGC', '场景设计', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '50小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 20,
+    title: 'AI电商视觉营销',
+    slug: 'ai-ecommerce-visual-membership-intermediate',
+    description: '专注电商场景的AI视觉设计，提升产品主图、详情页和营销海报的转化率',
+    price: 799,
+    stage: 'intermediate',
+    cover: pythonIntermediateCover,
+    tags: ['电商设计', 'AIGC', '视觉营销', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '38小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 21,
+    title: 'AI包装设计创新',
+    slug: 'ai-package-design-membership-intermediate',
+    description: '运用AI技术进行包装设计创新，掌握从概念到落地的包装视觉方案',
+    price: 899,
+    stage: 'intermediate',
+    cover: unrealIntermediateCover,
+    tags: ['包装设计', 'AIGC', '创新设计', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '42小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 22,
+    title: 'AI建筑可视化表现',
+    slug: 'ai-architecture-visualization-membership-intermediate',
+    description: '使用AI工具快速生成建筑效果图和室内设计方案，提升设计表现效率',
+    price: 999,
+    stage: 'intermediate',
+    cover: photoshopIntermediateCover,
+    tags: ['建筑设计', 'AIGC', '可视化', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '48小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 23,
+    title: 'AI服装设计创作',
+    slug: 'ai-fashion-design-membership-intermediate',
+    description: '探索AI在服装设计领域的应用，从款式设计到面料搭配的全流程创作',
+    price: 799,
+    stage: 'intermediate',
+    cover: pythonIntermediateCover,
+    tags: ['服装设计', 'AIGC', '时尚创作', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '36小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 24,
+    title: 'AI社交媒体内容创作',
+    slug: 'ai-social-media-membership-intermediate',
+    description: '掌握AI工具高效制作社交媒体内容，提升品牌传播和用户互动效果',
+    price: 699,
+    stage: 'intermediate',
+    cover: unrealIntermediateCover,
+    tags: ['新媒体', 'AIGC', '内容创作', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '32小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
+  },
+  {
+    id: 25,
+    title: 'AI数字艺术品创作',
+    slug: 'ai-digital-art-membership-intermediate',
+    description: '深入探索AI在数字艺术创作中的无限可能，打造独特的艺术作品集',
+    price: 899,
+    stage: 'intermediate',
+    cover: photoshopIntermediateCover,
+    tags: ['数字艺术', 'AIGC', 'NFT', '会员专享'],
+    rating: 0,
+    enrolled: 0,
+    duration: '40小时',
+    level: '中级',
+    instructor: '待定',
+    isVip: true,
+    status: 'coming_soon'
   }
 ]
 

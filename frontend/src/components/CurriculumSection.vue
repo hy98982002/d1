@@ -1,38 +1,74 @@
 <template>
-  <section class="practical-training-section py-5">
+  <section class="membership-section py-5">
     <div class="container">
-      <!-- 标题 -->
+      <!-- 标题区域 -->
       <div class="row mb-4">
-        <div class="col-12">
-          <h2 class="practical-training-title mb-0">
-            <span class="title-main">会员专享</span>
-            <span class="title-sub ms-3">实战训练课</span>
-          </h2>
+        <div class="col-12 d-flex justify-content-between align-items-center">
+          <div>
+            <h2 class="membership-title mb-0">
+              <span class="title-main">会员专享</span>
+              <span class="title-sub ms-3">进阶实战课程</span>
+            </h2>
+            <p class="membership-subtitle mt-2">
+              会员可访问所有进阶课程，加速技能提升
+            </p>
+          </div>
+          <router-link
+            to="/program/aigc-intermediate"
+            class="btn btn-outline-primary d-none d-md-block"
+          >
+            查看全部 <i class="fas fa-arrow-right ms-2"></i>
+          </router-link>
         </div>
       </div>
 
-      <!-- 就业课程卡片 -->
-      <div class="row g-4">
-        <!-- AI+logo设计 -->
-        <div class="col-lg-6 col-md-6">
-          <div class="practical-training-card">
-            <div class="card-image-container">
+      <!-- 课程卡片区域 -->
+      <div class="row">
+        <!-- 显示已上线的会员课程（最多8门） -->
+        <CourseCard
+          v-for="(course, index) in displayCourses"
+          :key="course.id"
+          :course="course"
+          :index="index"
+        />
+
+        <!-- 即将上线的课程占位卡片（最多显示2门） -->
+        <div
+          v-for="(course, index) in comingSoonCourses.slice(0, 2)"
+          :key="`coming-soon-${course.id}`"
+          class="col-sm-6 col-md-3 mb-4"
+        >
+          <div class="card h-100 coming-soon-card">
+            <div class="card-img-top ratio ratio-16x9">
               <img
-                :src="employmentLogoCover"
-                alt="AI+logo设计课程"
-                class="img-fluid practical-training-image"
+                :src="course.cover"
+                :alt="`${course.title} - 即将上线`"
+                class="w-100 h-100 object-fit-cover coming-soon-img"
+                loading="lazy"
               />
-              <!-- 课程信息覆盖层 -->
-              <div class="course-overlay">
-                <h3 class="course-title">AI+logo设计</h3>
-                <p class="course-description">上手最快的职业技能，业余时间也赚钱</p>
-                <a href="#" class="course-detail-link">课程详情 ></a>
-                <button class="btn practical-training-btn" @click="startLearning('logo')">
-                  开始学习
-                </button>
+              <div class="coming-soon-overlay">
+                <i class="fas fa-clock fa-3x mb-3"></i>
+                <h5>即将上线</h5>
               </div>
             </div>
+            <div class="card-body">
+              <p class="card-text">{{ course.title }}</p>
+              <p class="text-muted small">{{ course.description }}</p>
+            </div>
+            <div class="card-footer">
+              <span class="badge bg-info">会员专享</span>
+              <span class="text-muted ms-2">敬请期待</span>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <!-- 移动端查看全部按钮 -->
+      <div class="row mt-3 d-md-none">
+        <div class="col-12 text-center">
+          <router-link to="/program/aigc-intermediate" class="btn btn-outline-primary">
+            查看全部会员课程 <i class="fas fa-arrow-right ms-2"></i>
+          </router-link>
         </div>
       </div>
     </div>
@@ -40,26 +76,43 @@
 </template>
 
 <script setup lang="ts">
-// 导入图片资源
-import employmentLogoCover from '@/assets/images/employment-logo-cover.png'
-import employmentUiCover from '@/assets/images/employment-ui-cover.png'
+import { computed } from 'vue'
+import { useCourseStore } from '@/store/courseStore'
+import CourseCard from './CourseCard.vue'
 
-// 处理开始学习点击事件
-const startLearning = (courseType: string) => {
-  console.log(`开始学习 ${courseType} 课程`)
-  // 这里可以添加导航到具体课程页面的逻辑
-  // 例如: router.push(`/course/employment-${courseType}`)
-}
+const courseStore = useCourseStore()
+
+// 获取所有会员课程（isVip: true）
+const membershipCourses = computed(() => {
+  return courseStore.courses.filter(course => course.isVip === true)
+})
+
+// 已上线的会员课程（status: 'active' 或 undefined）
+const activeCourses = computed(() => {
+  return membershipCourses.value.filter(
+    course => course.status === 'active' || !course.status
+  )
+})
+
+// 即将上线的会员课程（status: 'coming_soon'）
+const comingSoonCourses = computed(() => {
+  return membershipCourses.value.filter(course => course.status === 'coming_soon')
+})
+
+// 首页展示的课程（最多6门已上线课程）
+const displayCourses = computed(() => {
+  return activeCourses.value.slice(0, 6)
+})
 </script>
 
 <style scoped>
-/* 实战训练课模块样式 */
-.practical-training-section {
-  background-color: #ffffff;
+/* 会员专享模块样式 */
+.membership-section {
+  background: linear-gradient(135deg, rgba(30, 127, 152, 0.02) 0%, rgba(42, 155, 184, 0.05) 100%);
 }
 
 /* 标题样式 */
-.practical-training-title {
+.membership-title {
   text-align: left;
   font-weight: 600;
   font-size: 2rem;
@@ -67,158 +120,109 @@ const startLearning = (courseType: string) => {
 }
 
 .title-main {
-  color: #000000;
+  color: #1e7f98;
+  position: relative;
+}
+
+.title-main::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #1e7f98, #2a9bb8);
+  border-radius: 2px;
 }
 
 .title-sub {
   color: #5c5b5b;
+  font-weight: 500;
 }
 
-/* 实战训练课卡片样式 */
-.practical-training-card {
+.membership-subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+/* 即将上线卡片样式 */
+.coming-soon-card {
   position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px dashed #dee2e6;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
 }
 
-.practical-training-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.coming-soon-card:hover {
+  border-color: #1e7f98;
+  box-shadow: 0 4px 12px rgba(30, 127, 152, 0.1);
 }
 
-.card-image-container {
-  position: relative;
-  width: 100%;
-  height: auto;
+.coming-soon-img {
+  filter: grayscale(100%) brightness(1.1);
 }
 
-.practical-training-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-/* 课程信息覆盖层样式 */
-.course-overlay {
+.coming-soon-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 380px;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 127, 152, 0.85);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 2rem;
+  justify-content: center;
   color: white;
+  backdrop-filter: blur(4px);
 }
 
-/* 课程标题样式 */
-.course-title {
-  font-size: 1.75rem;
+.coming-soon-overlay i {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+/* 查看全部按钮样式 */
+.btn-outline-primary {
+  border: 2px solid #1e7f98;
+  color: #1e7f98;
+  background: white;
+  border-radius: 50px;
+  padding: 10px 28px;
   font-weight: 600;
-  margin-bottom: 1rem;
-  color: #000000;
-}
-
-/* 课程描述样式 */
-.course-description {
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-  color: #5c5b5b;
-  line-height: 1.4;
-}
-
-/* 课程详情链接样式 */
-.course-detail-link {
-  color: #4a9eff;
-  text-decoration: none;
-  font-size: 0.95rem;
-  margin-bottom: 2rem;
-  transition: color 0.3s ease;
-}
-
-.course-detail-link:hover {
-  color: #6bb6ff;
-}
-
-/* 实战训练课按钮样式 */
-.practical-training-btn {
-  background-color: #2b7fd3;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 12px 40px;
-  font-size: 1.1rem;
-  font-weight: 500;
   transition: all 0.3s ease;
-  position: absolute;
-  --button-bottom-offset: -330px; /* 按钮底部偏移量变量，可手动调整 */
-  bottom: var(--button-bottom-offset);
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 270px;
 }
 
-.practical-training-btn:hover {
-  background-color: #1a6bb8;
+.btn-outline-primary:hover {
+  background: #1e7f98;
+  border-color: #1e7f98;
   color: white;
-  transform: translateX(-50%) translateY(-2px);
-  box-shadow: 0 5px 15px rgba(43, 127, 211, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 127, 152, 0.3);
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .employment-title {
-    font-size: 1.5rem;
+  .membership-title {
+    font-size: 1.6rem;
   }
 
   .title-sub {
     display: block;
-    margin-left: 0 !important;
     margin-top: 0.5rem;
-  }
-
-  .practical-training-card {
-    margin-bottom: 1rem;
-  }
-
-  .course-title {
-    font-size: 1.5rem;
-  }
-
-  .course-description {
-    font-size: 0.9rem;
-  }
-
-  .practical-training-btn {
-    bottom: 40px;
-    padding: 10px 32px;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .practical-training-title {
-    font-size: 1.25rem;
-  }
-
-  .course-overlay {
-    padding: 1.5rem;
-  }
-
-  .course-title {
-    font-size: 1.3rem;
-  }
-
-  .practical-training-btn {
-    bottom: 32px;
-    padding: 8px 24px;
-    font-size: 0.95rem;
-    min-width: 120px;
+    margin-left: 0 !important;
   }
 }
 </style>

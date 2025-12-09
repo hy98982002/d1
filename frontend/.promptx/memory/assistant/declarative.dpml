@@ -244,4 +244,77 @@
     </content>
     <tags>#其他</tags>
   </item>
+  <item id="mem_1765287644121_tcw5b6ni3" time="2025/12/09 05:40">
+    <content>
+      ## 会员专区模拟课程功能实现完成（2025-12-09）
+    
+      ### 任务背景
+      - 评审了两份PRD文档：《在会员专区加入新课的建议》和《会员专区模拟课程PRD》
+      - 审核结论：**方案合理且必要**，采用 **Option B 简化方案**执行
+      - 核心目标：在 SSG 迁移前为会员专区填充模拟课程数据
+    
+      ### 技术决策
+      **简化方案（Option B）优势**：
+      - 无需单独开发会员专区页面，工作量减少 50%
+      - 复用现有 isVip 字段标记会员课程，避免新增 audienceType 字段
+      - 会员专区 = 首页 CurriculumSection 展示区块 + /program/aigc-intermediate 详情页
+      - 新增 status 字段（&#x27;active&#x27; | &#x27;coming_soon&#x27;）用于标记课程状态
+    
+      ### 已完成的核心修改
+    
+      1. **TypeScript 类型定义更新** (types/index.ts)
+      ```typescript
+      export interface Course {
+      isVip?: boolean  // 是否会员专享（会员可访问）
+      status?: &#x27;active&#x27; | &#x27;coming_soon&#x27;  // 新增：课程状态
+      }
+      ```
+    
+      2. **courseStore 数据更新** (store/courseStore.ts)
+      - 为所有 5 门 Intermediate 课程添加 `isVip: true, status: &#x27;active&#x27;`
+      - 新增 10 门会员专享课占位数据（id: 16-25），标记 `status: &#x27;coming_soon&#x27;`
+      - 课程涵盖：品牌设计、动态海报、插画风格、游戏场景、电商营销、包装设计、建筑可视化、服装设计、社交媒体、数字艺术
+    
+      3. **CurriculumSection 组件重构** (components/CurriculumSection.vue)
+      - 从静态硬编码改为动态数据驱动
+      - 显示最多 6 门已上线会员课程（使用 CourseCard 组件）
+      - 显示最多 2 门&quot;即将上线&quot;占位卡片（带动画效果）
+      - 添加&quot;查看全部&quot;按钮链接到 `/program/aigc-intermediate`
+      - 响应式设计：桌面端和移动端适配
+    
+      ### 验收状态
+      - ✅ TypeScript 类型检查通过（无错误）
+      - ✅ 数据结构符合三级阶段体系（basic/intermediate/advanced）
+      - ✅ 会员权益规则：Intermediate 全部课程为会员可访问
+      - ✅ 架构一致性：与现有 Program 路由体系完全兼容
+      - 🔄 开发服务器已启动，等待功能验证
+    
+      ### 架构设计要点
+      **会员专区展示逻辑**：
+      ```typescript
+      // 筛选逻辑
+      const membershipCourses = courses.filter(c =&gt; c.isVip === true)
+      const activeCourses = membershipCourses.filter(c =&gt; c.status === &#x27;active&#x27;)
+      const comingSoonCourses = membershipCourses.filter(c =&gt; c.status === &#x27;coming_soon&#x27;)
+      ```
+    
+      **未来扩展预留**：
+      - RBAC 权限系统：通过 membershipStore.canAccessCourse() 验证访问权限
+      - 真实课程数据：占位数据可直接替换为后端 API 数据
+      - SEO/JSON-LD：Program 页面已支持五维结构化数据生成
+    
+      ### 关键文件路径
+      - `/frontend/src/types/index.ts` - Course 接口定义
+      - `/frontend/src/store/courseStore.ts` - 课程数据和 Program 配置
+      - `/frontend/src/components/CurriculumSection.vue` - 会员专区展示组件
+      - `/frontend/src/views/program/[slug].vue` - Program 详情页（动态路由）
+    
+      ### 技术栈保持一致
+      - Vue 3 Composition API + TypeScript
+      - Pinia 状态管理
+      - Bootstrap 5.3.6 UI 框架
+      - 三级课程体系：basic/intermediate/advanced
+    </content>
+    <tags>#最佳实践</tags>
+  </item>
 </memory>

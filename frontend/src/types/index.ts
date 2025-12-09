@@ -110,7 +110,8 @@ export interface Course {
   instructor?: string
   isHot?: boolean
   isFree?: boolean
-  isVip?: boolean // 是否会员专享
+  isVip?: boolean // 是否会员专享（会员可访问）
+  status?: 'active' | 'coming_soon' // 课程状态：active=正常上线，coming_soon=即将上线
   enrolled?: number // 兼容旧字段，等同于 learnerCount
 }
 
