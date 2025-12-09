@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:check": "vue-tsc -b && vite build",
+    "build": "npm run sitemap && vite build",
+    "build:check": "npm run sitemap && vue-tsc -b && vite build",
     "build:codex": "node build-codex.js",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview",
     "scan:legacy": "node tools/scan-legacy.js",
+    "sitemap": "node scripts/generate-sitemap.js",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report"

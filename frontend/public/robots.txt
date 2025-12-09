@@ -1,0 +1,34 @@
+# robots.txt - 多维AI课堂
+# 更新日期: 2025-12-09
+
+# 允许所有搜索引擎爬虫抓取
+User-agent: *
+Allow: /
+
+# 禁止抓取开发和测试环境路径
+Disallow: /api/
+Disallow: /_dev/
+Disallow: /test/
+
+# 禁止抓取用户私密页面
+Disallow: /personal-center
+Disallow: /order
+Disallow: /shopping-cart
+
+# 百度爬虫特殊配置
+User-agent: Baiduspider
+Allow: /
+Allow: /course/
+Allow: /program/
+
+# Google爬虫特殊配置
+User-agent: Googlebot
+Allow: /
+Allow: /course/
+Allow: /program/
+
+# 站点地图位置
+Sitemap: https://www.doviai.com/sitemap.xml
+
+# 抓取延迟(可选,降低服务器负载)
+# Crawl-delay: 1

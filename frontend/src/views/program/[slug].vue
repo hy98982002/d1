@@ -190,10 +190,13 @@ const handleWatchNow = (course: Course) => {
   }
 }
 
-// 手动插入JSON-LD到DOM（避免Vue模板中的<script>标签限制）
+// 手动插入JSON-LD和Meta标签到DOM
 let jsonLdScript: HTMLScriptElement | null = null
+let metaTags: HTMLMetaElement[] = []
 
 onMounted(() => {
+  if (!program.value) return
+
   // 创建script标签并插入JSON-LD
   if (programJsonLd.value) {
     jsonLdScript = document.createElement('script')
@@ -201,6 +204,39 @@ onMounted(() => {
     jsonLdScript.textContent = programJsonLd.value
     document.head.appendChild(jsonLdScript)
   }
+
+  // 构建SEO友好的meta标签
+  const pageTitle = `${program.value.name} - 多维AI课堂`
+  const pageDescription = program.value.description || program.value.subtitle
+  const pageUrl = `https://www.doviai.com/program/${props.slug}`
+
+  // 更新页面标题
+  document.title = pageTitle
+
+  // 添加meta标签
+  const metaConfigs = [
+    { name: 'description', content: pageDescription },
+    { property: 'og:title', content: pageTitle },
+    { property: 'og:description', content: pageDescription },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: pageUrl },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: pageTitle },
+    { name: 'twitter:description', content: pageDescription }
+  ]
+
+  metaConfigs.forEach(config => {
+    const meta = document.createElement('meta')
+    if (config.name) {
+      meta.setAttribute('name', config.name)
+    }
+    if (config.property) {
+      meta.setAttribute('property', config.property)
+    }
+    meta.setAttribute('content', config.content)
+    document.head.appendChild(meta)
+    metaTags.push(meta)
+  })
 })
 
 onUnmounted(() => {
@@ -208,6 +244,17 @@ onUnmounted(() => {
   if (jsonLdScript && jsonLdScript.parentNode) {
     jsonLdScript.parentNode.removeChild(jsonLdScript)
   }
+
+  // 清理：移除所有meta标签
+  metaTags.forEach(tag => {
+    if (tag.parentNode) {
+      tag.parentNode.removeChild(tag)
+    }
+  })
+  metaTags = []
+
+  // 恢复默认标题
+  document.title = '多维AI课堂'
 })
 </script>
 
