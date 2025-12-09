@@ -623,14 +623,11 @@ src/assets/
 │   ├── logo.png
 │   └── logo.svg
 └── images/                   # 业务图片
-    ├── free-*-cover.jpg     # 免费体验课程
-    ├── beginner-*-cover.jpg     # 基础课程
-    ├── advanced-*-cover.jpg   # 进阶课程
-    ├── hands-on-*-cover.jpg   # 实战课程
-    └── project-*-cover.png # 项目落地课程
-    |__ vip-*-cover.png # 会员课程
-    └── employment-logo-cover.png # 就业logo设计课程
-
+    └── courses/              # 课程图片
+        ├── photoshop-basic-cover-480.png     # 基础课程
+        ├── python-intermediate-cover-1280.webp   # 进阶课程
+        ├── ai-designer-advanced-cover-1920.png   # 高阶课程
+        └── photoshop-membership-basic-cover-480.png # 会员专属课程
 ```
 
 ### 图片导入标准
@@ -641,13 +638,13 @@ src/assets/
 <script setup lang="ts">
 // ✅ 正确 - 将图片作为模块导入
 import logoImg from '@/assets/icons/logo.png'
-import courseCover from '@/assets/images/beginner-python-cover.jpg'
+import pythonCover from '@/assets/images/courses/python-intermediate-cover-1280.webp'
 </script>
 
 <template>
   <!-- ✅ 使用导入的变量 -->
   <img :src="logoImg" alt="doviai Logo" />
-  <img :src="courseCover" alt="Python Course" />
+  <img :src="pythonCover" alt="Python 进阶课程" />
 
   <!-- ❌ 避免字符串路径 -->
   <!-- <img src="@/assets/icons/logo.png" alt="Logo" /> -->
@@ -936,8 +933,11 @@ export const useMembershipStore = defineStore('membership', () => {
 
   const isMember = computed(() => membershipStatus.value !== 'none')
   const canAccessCourse = computed(() => (courseStage: string) => {
-    if (courseStage === 'tiyan') return true // 体验区免费
-    return isMember.value // 其他区域需要会员
+    // 基于三级阶段体系的访问控制
+    if (courseStage === 'basic') return true // 基础课程免费
+    if (courseStage === 'intermediate') return isMember.value // 进阶课程需要会员
+    if (courseStage === 'advanced') return true // 高阶课程可单独购买，会员享9折
+    return false
   })
 
   return { membershipStatus, isMember, canAccessCourse }
@@ -954,9 +954,11 @@ export const useRBAC = () => {
   const hasRole = (role: string) => rbacStore.userRoles.includes(role)
   const hasPermission = (permission: string) => rbacStore.permissions.includes(permission)
   const canAccessCourse = (courseStage: string) => {
-    // 基于6角色体系的课程访问控制
-    if (courseStage === 'tiyan') return true
-    if (hasRole('Premium Member')) return courseStage !== 'employment'
+    // 基于三级阶段体系的课程访问控制
+    if (courseStage === 'basic') return true // 基础课程免费
+    if (courseStage === 'intermediate')
+      return hasRole('Premium Member') || hasRole('Staff Admin') || hasRole('Super Admin')
+    if (courseStage === 'advanced') return true // 高阶课程可单独购买
     return hasRole('Staff Admin') || hasRole('Super Admin')
   }
 
