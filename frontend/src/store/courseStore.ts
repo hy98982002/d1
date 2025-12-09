@@ -11,6 +11,19 @@ import photoshopIntermediateCover from '@/assets/images/courses/photoshop-interm
 import pythonIntermediateCover from '@/assets/images/courses/python-intermediate-cover-480.webp'
 import unrealIntermediateCover from '@/assets/images/courses/unreal-intermediate-cover-480.webp'
 
+// 高级课程图片资源（Advanced阶段）- 多分辨率支持
+import thePowerOfLineAdvancedCover480 from '@/assets/images/courses/ThePowerOfLine-Advanced-cover-480.webp'
+import thePowerOfLineAdvancedCover1280 from '@/assets/images/courses/ThePowerOfLine-Advanced-cover-1280.webp'
+import thePowerOfLineAdvancedCover1920 from '@/assets/images/courses/ThePowerOfLine-Advanced-cover-1920.webp'
+
+import psychologicalExpressionAdvancedCover480 from '@/assets/images/courses/PsychologicalExpression-Advanced-cover-480.webp'
+import psychologicalExpressionAdvancedCover1280 from '@/assets/images/courses/PsychologicalExpression-Advanced-cover-1280.webp'
+import psychologicalExpressionAdvancedCover1920 from '@/assets/images/courses/PsychologicalExpression-Advanced-cover-1920.webp'
+
+import creativeFramingAdvancedCover480 from '@/assets/images/courses/CreativeFraming-Advanced-cover-480.webp'
+import creativeFramingAdvancedCover1280 from '@/assets/images/courses/CreativeFraming-Advanced-cover-1280.webp'
+import creativeFramingAdvancedCover1920 from '@/assets/images/courses/CreativeFraming-Advanced-cover-1920.webp'
+
 // Mock课程数据（新三级体系：basic / intermediate / advanced）
 const mockCourses: Course[] = [
   {
@@ -192,6 +205,52 @@ const mockCourses: Course[] = [
     duration: '50小时',
     level: '中级',
     instructor: '张老师'
+  },
+  // Advanced阶段课程（高阶专区）
+  {
+    id: 13,
+    title: '线的魔力',
+    slug: 'the-power-of-line-advanced',
+    description: '深入探索线条在插画设计中的表现力和魅力，掌握线条的节奏、韵律和情感表达',
+    price: 1299,
+    stage: 'advanced',
+    cover: thePowerOfLineAdvancedCover480,
+    tags: ['插画', '设计', '线条艺术', 'AIGC'],
+    rating: 4.9,
+    enrolled: 320,
+    duration: '60小时',
+    level: '高级',
+    instructor: '陈老师'
+  },
+  {
+    id: 14,
+    title: '插画的设计心理表达',
+    slug: 'psychological-expression-advanced',
+    description: '运用心理学原理创作具有情感共鸣的插画作品，掌握色彩心理学和视觉叙事技巧',
+    price: 1399,
+    stage: 'advanced',
+    cover: psychologicalExpressionAdvancedCover480,
+    tags: ['插画', '设计心理学', '视觉叙事', 'AIGC'],
+    rating: 4.8,
+    enrolled: 280,
+    duration: '55小时',
+    level: '高级',
+    instructor: '李老师'
+  },
+  {
+    id: 15,
+    title: '画面构图创作',
+    slug: 'creative-framing-advanced',
+    description: '深入学习构图原理和视觉平衡，创作专业级商业插画作品，掌握空间布局和视觉引导',
+    price: 1499,
+    stage: 'advanced',
+    cover: creativeFramingAdvancedCover480,
+    tags: ['插画', '构图设计', '商业插画', 'AIGC'],
+    rating: 4.9,
+    enrolled: 350,
+    duration: '65小时',
+    level: '高级',
+    instructor: '王老师'
   }
 ]
 
