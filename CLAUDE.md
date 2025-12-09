@@ -81,12 +81,26 @@ pip install whitenoise       # 静态文件服务
 ### 前端结构 (`/frontend/src/`)
 
 - `views/` - 页面级组件 (PascalCase 命名)
+  - `program/[slug].vue` - ✅ 动态Program路由组件 (2025-12-08更新)
+    - 支持 `/program/aigc-intermediate` (会员进阶路线)
+    - 支持 `/program/ai-designer-advanced` (高阶技能路径)
+    - Advanced阶段课程当前为空，显示"即将推出"提示
 - `components/` - 可复用组件 (PascalCase 命名)
   - `i18n/` - 国际化组件 (语言切换等,海外版才设置)
 - `store/` - Pinia 状态管理存储
+  - `courseStore.ts` - ✅ 新增Program相关方法 (2025-12-08更新)
+    - `getProgramBySlug(slug)` - 根据slug获取Program配置
+    - `programExists(slug)` - 验证Program是否存在
+    - `getProgramCourses(slug)` - 获取Program对应的课程列表
 - `api/` - Axios 请求封装 (每模块一个文件)
 - `router/` - Vue Router 路由配置
+  - ✅ 动态路由 `/program/:slug` (2025-12-08更新)
 - `types/` - TypeScript 类型定义
+  - `index.ts` - ✅ 新增Program相关类型 (2025-12-08更新)
+    - `Program` - Program配置接口
+    - `ProgramBenefit` - Program权益接口
+    - `PROGRAM_SLUGS` - Program slug常量
+    - `assertProgramSlug()` - 运行时校验函数
 - `utils/` - 工具函数
   - `i18n.ts` - OpenCC 转换工具 (实现时)
   - `tracking.ts` - 分析和事件跟踪工具
@@ -95,6 +109,18 @@ pip install whitenoise       # 静态文件服务
   - `images/` - 业务图片 (课程封面、头像等)
 - `config/` - 配置文件
   - `tracking.json` - 分析跟踪配置
+
+### 路由设计模式 (2025-12-08更新)
+
+**统一的动态路由规范**:
+- Course: `/course/:slug` (已实现)
+- Program: `/program/:slug` (✅ 2025-12-08实现)
+
+**路由守卫**: 使用`beforeEnter`验证资源存在性，不存在则重定向到404
+
+**Program路由支持**:
+- `aigc-intermediate` - 会员进阶路线 (Intermediate阶段，5门课程)
+- `ai-designer-advanced` - 高阶技能路径 (Advanced阶段，当前课程为空)
 
 ### 后端结构 (`/backend/`)
 

@@ -262,7 +262,7 @@ export const useCourseStore = defineStore('course', {
   }),
   getters: {
     // 运行时校验：确保 stage 参数合法，fail-fast 策略
-    getCoursesByStage: (state) => (stage: StageKey) => {
+    getCoursesByStage: (state) => (stage: string): Course[] => {
       assertStageKey(stage)
       return state.courses.filter((c) => c.stage === stage)
     },
@@ -283,13 +283,14 @@ export const useCourseStore = defineStore('course', {
     },
 
     // 获取Program对应的课程列表
-    getProgramCourses: (state) => (programSlug: string) => {
+    getProgramCourses: (state) => (programSlug: string): Course[] => {
       const program = state.programs.find(p => p.slug === programSlug)
       if (!program) return []
 
       // 使用assertStageKey确保stage合法
-      assertStageKey(program.stage)
-      return state.courses.filter(c => c.stage === program.stage)
+      const stage: string = program.stage
+      assertStageKey(stage)
+      return state.courses.filter(c => c.stage === stage)
       // 注意：advanced阶段当前返回[]，将来添加数据后自动显示
     },
     filteredCourses: state => {
