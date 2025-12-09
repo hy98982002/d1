@@ -67,6 +67,106 @@ npm install @types/gtag       # 分析的TypeScript定义
 - Sitemap 自动生成脚本已集成到构建流程，生成包含 16 个 URL 的 sitemap.xml。【F:scripts/generate-sitemap.js】
 - robots.txt 已配置，允许搜索引擎抓取，禁止私密页面。【F:public/robots.txt】
 
+### 三级课程层级与 LRMI 教学类型
+
+**层级概览**：
+
+| 层级 | 代码标识 | 显示名称 | 商业模式 | LRMI 教学类型 |
+| ---- | -------- | -------- | -------- | ------------- |
+| **Beginner** | `basic` | 免费入门 | 全部免费 | Lecture, Demonstration, Exercise, Introduction |
+| **Intermediate** | `intermediate` | 进阶实战 | 单买 或 会员可看 | Lesson, Practice, Exercise |
+| **Advanced** | `advanced` | 高阶训练 | 单买 + 会员9折 | Project, CaseStudy, Simulation |
+
+**LRMI 教学类型说明**：
+
+- **Beginner (免费引流层)**：
+  - `Lecture`: 教师讲授类内容
+  - `Demonstration`: 操作演示
+  - `Exercise`: 基础练习
+  - `Introduction`: 课程导入
+  - SEO 作用：匹配"教程/讲解"类搜索
+
+- **Intermediate (付费转化层)**：
+  - `Lesson`: 课时单元
+  - `Practice`: 技能练习
+  - `Exercise`: 实操任务
+  - SEO 作用：识别为"技能提升/分阶段训练"，利于学习路径推荐
+
+- **Advanced (高价值变现层)**：
+  - `Project`: 综合项目
+  - `CaseStudy`: 商业案例
+  - `Simulation`: 模拟真实工作场景
+  - SEO 作用：标识为"职业训练"，利于职业路径推荐
+
+### Program 体系课类型
+
+**Program A: 会员实战训练体系** (由 Intermediate 组成)
+- 商业模式: 单买 或 会员可看
+- LRMI 类型: `Curriculum` (课程路径), `Unit` (子模块)
+- 示例: `/program/aigc-intermediate` (5 门进阶课程)
+
+**Program B: 职业技能训练体系** (由 Advanced 组成)
+- 商业模式: 单买 + 会员9折 (不含在会员权益内)
+- LRMI 类型: `ProfessionalDevelopment`, `Curriculum`
+- 示例: `/program/ai-designer-advanced` (高阶技能路径)
+
+### 收费模型详细规则
+
+| 课程类型 | 收费方式 | 会员权益 | 实现位置 |
+| -------- | -------- | -------- | -------- |
+| **Beginner** | 免费 | - | 全部课程免费开放 |
+| **Intermediate** | 单买 或 会员 | 会员含全部 | 会员可看全部进阶课程 |
+| **Advanced** | 单买 + 会员9折 | 会员不含 | 需单独购买，会员享9折优惠 |
+| **Program A** | 单买 或 会员 | 会员含全部 | 与 Intermediate 权益一致 |
+| **Program B** | 单买 + 会员9折 | 会员不含 | 与 Advanced 权益一致 |
+
+### 会员专区新规则 (2025-12 更新)
+
+**会员权益**:
+- 会员期限: 一年期订阅制
+- 课程期限: 单独购买的课程可永久拥有
+- 访问权限:
+  - ✅ 含全部 Intermediate 课程
+  - ✅ 10 个会员专享课（不属于 Intermediate/Advanced，可单买但价格更高）
+  - ✅ Advanced 课程享受 9 折购买优惠
+- 访问控制: 会员到期后，单独购买的课程仍可访问，会员专享课程无法访问
+
+**前端实现要点**:
+- 使用 `canAccessCourse(courseStage)` 方法验证访问权限【F:src/store/membershipStore.ts】
+- 会员状态管理通过 Pinia 的 `useMembershipStore` 实现
+- 会员专享课程需添加 `-membership` 标识
+
+### 五维结构化策略详解 (Level / Type / Access / Outcome / Pathway)
+
+所有课程和 Program 页面必须实现以下五个维度的 JSON-LD 结构化数据：
+
+1. **Level (教育层级)**:
+   - 字段: `educationalLevel`
+   - 格式: DefinedTerm 形式
+   - 示例: `{ "@type": "DefinedTerm", "name": "Level 2: Intermediate" }`
+
+2. **Type (课程类型)**:
+   - 字段: `@type`, `about`, `educationalUse`
+   - 示例: `{ "@type": "Course", "about": "AI Logo Design", "educationalUse": ["Lesson", "Exercise"] }`
+
+3. **Access (访问属性)**:
+   - 字段: `offers`, `audience`, `courseMode`
+   - 示例: 区分"会员专区"/"单独购买"/"免费"
+
+4. **Outcome (学习结果)**:
+   - 字段: `learningOutcome`
+   - 示例: `["掌握 AI 智能构图", "能独立完成 Logo 设计"]`
+   - SEO 作用: 触发"您将学到的内容"摘要卡片
+
+5. **Pathway (学习路径)**:
+   - 字段: `isPartOf` (Course 页), `hasCourse` (Program 页)
+   - 示例: 形成"课程体系结构"的知识图谱关联
+   - SEO 作用: 触发"系列推荐链接 sitelink"
+
+**实现工具函数**:
+- `buildCourseJsonLd()`: 课程页面 JSON-LD 生成【F:src/utils/jsonld/buildCourseJsonLd.ts】
+- `buildProgramJsonLd()`: Program 页面 JSON-LD 生成【F:src/utils/jsonld/buildProgramJsonLd.ts】
+
 ## 前端架构
 
 ### 目录结构 (`/frontend/src/`)
