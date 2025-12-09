@@ -122,6 +122,22 @@ pip install whitenoise       # 静态文件服务
 - `aigc-intermediate` - 会员进阶路线 (Intermediate阶段，5门课程)
 - `ai-designer-advanced` - 高阶技能路径 (Advanced阶段，当前课程为空)
 
+### SEO优化状态 (2025-12-08更新)
+
+**已完成的SEO准备工作** (为SSG迁移打好基础):
+- ✅ **动态Meta标签**: Program页面支持动态title、description、og:*、twitter:*标签
+- ✅ **Sitemap自动生成**: `scripts/generate-sitemap.js` 集成到构建流程
+  - 生成16个URL (1首页 + 1About + 2Program + 12Course)
+  - 自动扫描courseStore.ts提取课程slugs
+- ✅ **robots.txt配置**: 允许搜索引擎抓取，禁止私密页面
+- ✅ **JSON-LD结构化数据**: 使用`buildProgramJsonLd`工具函数构建Schema.org标准数据
+- 📝 **Search Console准备**: 上线后执行步骤已记录在`frontend/docs/Search-Console准备指南.md`
+
+**SPA架构特点** (vite-plugin-ssr迁移前):
+- 使用`beforeEnter`路由守卫验证资源存在性
+- 使用原生DOM操作实现动态Meta标签（onMounted/onUnmounted）
+- 未来迁移SSG时可轻松替换为`useHead`和`onBeforeRender`
+
 ### 后端结构 (`/backend/`)
 
 - `apps/` - Django 应用模块：
