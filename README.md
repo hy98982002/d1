@@ -214,6 +214,100 @@ pip install whitenoise       # 静态文件服务
   - 同时提供多种分辨率和格式，以适应不同设备和网络环境
 - 阶段：basic/intermediate/advanced（已统一收敛为三级体系）
 
+## 课程体系架构 (2025-12 更新)
+
+**核心说明**: 项目已完成从旧的 7 层递进式学习体系向新的 3 级课程体系的重构，新体系基于 LRMI + Schema.org 标准设计。
+
+### 三级课程层级
+
+| 层级 | 英文标识 | 中文名称 | 商业模式 | LRMI 教学类型 |
+| ---- | -------- | -------- | -------- | ------------- |
+| **Beginner** | basic | 免费入门 | 全部免费 | Lecture, Demonstration, Exercise, Introduction |
+| **Intermediate** | intermediate | 进阶实战 | 单买 或 会员可看 | Lesson, Practice, Exercise |
+| **Advanced** | advanced | 高阶训练 | 单买 + 会员9折 | Project, CaseStudy, Simulation |
+
+**术语统一说明**:
+- 代码层面: 使用小写 `basic`/`intermediate`/`advanced` 作为标识符
+- 业务层面: 使用首字母大写 `Beginner`/`Intermediate`/`Advanced` 用于显示和文档
+- 中文表述: 使用"免费入门"/"进阶实战"/"高阶训练"
+
+### LRMI 教学类型详解
+
+**Beginner 层级** (免费引流):
+- `Lecture`: 教师讲授类内容
+- `Demonstration`: 操作演示
+- `Exercise`: 基础练习
+- `Introduction`: 课程导入
+- **SEO 作用**: 告诉搜索引擎这是"教程/讲解"类内容，容易匹配入门搜索
+
+**Intermediate 层级** (付费转化):
+- `Lesson`: 课时单元
+- `Practice`: 技能练习
+- `Exercise`: 实操任务
+- **SEO 作用**: 识别为"技能提升/分阶段训练"课程，利于学习路径推荐
+
+**Advanced 层级** (高价值变现):
+- `Project`: 综合项目
+- `CaseStudy`: 商业案例
+- `Simulation`: 模拟真实工作场景
+- **SEO 作用**: 标识为"职业训练"内容，利于职业路径推荐
+
+### Program 体系课
+
+**Program A: 会员实战训练体系**
+- 组成: 由 Intermediate 阶段课程组合
+- 商业模式: 单买 或 会员可看
+- LRMI 类型: `Curriculum` (课程路径), `Unit` (子模块)
+- 示例: `/program/aigc-intermediate` (5 门进阶课程)
+
+**Program B: 职业技能训练体系**
+- 组成: 由 Advanced 阶段课程组合
+- 商业模式: 单买 + 会员9折 (不含在会员权益内)
+- LRMI 类型: `ProfessionalDevelopment`, `Curriculum`
+- 示例: `/program/ai-designer-advanced` (高阶技能路径)
+
+### 收费模型详细规则
+
+| 课程类型 | 收费方式 | 会员权益 | 备注 |
+| -------- | -------- | -------- | ---- |
+| **Beginner** | 免费 | - | 全部课程免费开放 |
+| **Intermediate** | 单买 或 会员 | 会员含全部 | 会员可看全部进阶课程 |
+| **Advanced** | 单买 + 会员9折 | 会员不含 | 需单独购买，会员享9折优惠 |
+| **Program A** | 单买 或 会员 | 会员含全部 | 与 Intermediate 权益一致 |
+| **Program B** | 单买 + 会员9折 | 会员不含 | 与 Advanced 权益一致 |
+
+### 会员专区新规则
+
+- **会员期限**: 一年期订阅制
+- **课程期限**: 单独购买的课程可永久拥有
+- **会员权益**:
+  - 含全部 Intermediate 课程访问权
+  - 新增 10 个会员专享课（不属于 Intermediate/Advanced，可单买但价格更高）
+  - Advanced 课程享受 9 折购买优惠
+- **访问控制**: 会员到期后，单独购买的课程仍可访问，会员专享课程无法访问
+
+### 五维结构化策略 (AEO/SEO)
+
+所有课程和 Program 页面必须实现以下五个维度的结构化数据：
+
+1. **Level (教育层级)**: 使用 `educationalLevel` 字段，采用 DefinedTerm 形式
+2. **Type (课程类型)**: 使用 `@type`, `about`, `educationalUse` 描述课程类别
+3. **Access (访问属性)**: 使用 `offers`, `audience`, `courseMode` 区分访问模式
+4. **Outcome (学习结果)**: 使用 `learningOutcome` 描述"学习成果"和"能掌握的技能"
+5. **Pathway (学习路径)**: 使用 `isPartOf` + `hasCourse` 描述课程体系关系
+
+**实现工具**:
+- Course 页面: `buildCourseJsonLd()` 工具函数
+- Program 页面: `buildProgramJsonLd()` 工具函数
+- 位置: `frontend/src/utils/jsonld/`
+
+### 体系收敛原则
+
+- **禁止使用旧阶段标识**: 不允许出现"体验"、"入门"、"精进"、"实战"、"项目落地"、"会员专区"、"就业班"等旧体系术语
+- **强制运行时校验**: 使用 `assertStageKey()` 和 `assertProgramSlug()` 进行运行时校验
+- **Fail-fast 策略**: 阶段数据进入 store、路由或组件前必须校验，不符合规范立即报错
+- **禁止旧→新映射**: 不允许添加旧阶段到新阶段的映射逻辑，必须直接使用新体系
+
 ## 重要文件和配置
 
 ### 关键配置文件
