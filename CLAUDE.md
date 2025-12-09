@@ -81,25 +81,25 @@ pip install whitenoise       # 静态文件服务
 ### 前端结构 (`/frontend/src/`)
 
 - `views/` - 页面级组件 (PascalCase 命名)
-  - `program/[slug].vue` - ✅ 动态Program路由组件 (2025-12-08更新)
+  - `program/[slug].vue` - ✅ 动态 Program 路由组件 (2025-12-08 更新)
     - 支持 `/program/aigc-intermediate` (会员进阶路线)
     - 支持 `/program/ai-designer-advanced` (高阶技能路径)
-    - Advanced阶段课程当前为空，显示"即将推出"提示
+    - Advanced 阶段课程当前为空，显示"即将推出"提示
 - `components/` - 可复用组件 (PascalCase 命名)
   - `i18n/` - 国际化组件 (语言切换等,海外版才设置)
 - `store/` - Pinia 状态管理存储
-  - `courseStore.ts` - ✅ 新增Program相关方法 (2025-12-08更新)
-    - `getProgramBySlug(slug)` - 根据slug获取Program配置
-    - `programExists(slug)` - 验证Program是否存在
-    - `getProgramCourses(slug)` - 获取Program对应的课程列表
+  - `courseStore.ts` - ✅ 新增 Program 相关方法 (2025-12-08 更新)
+    - `getProgramBySlug(slug)` - 根据 slug 获取 Program 配置
+    - `programExists(slug)` - 验证 Program 是否存在
+    - `getProgramCourses(slug)` - 获取 Program 对应的课程列表
 - `api/` - Axios 请求封装 (每模块一个文件)
 - `router/` - Vue Router 路由配置
-  - ✅ 动态路由 `/program/:slug` (2025-12-08更新)
+  - ✅ 动态路由 `/program/:slug` (2025-12-08 更新)
 - `types/` - TypeScript 类型定义
-  - `index.ts` - ✅ 新增Program相关类型 (2025-12-08更新)
-    - `Program` - Program配置接口
-    - `ProgramBenefit` - Program权益接口
-    - `PROGRAM_SLUGS` - Program slug常量
+  - `index.ts` - ✅ 新增 Program 相关类型 (2025-12-08 更新)
+    - `Program` - Program 配置接口
+    - `ProgramBenefit` - Program 权益接口
+    - `PROGRAM_SLUGS` - Program slug 常量
     - `assertProgramSlug()` - 运行时校验函数
 - `utils/` - 工具函数
   - `i18n.ts` - OpenCC 转换工具 (实现时)
@@ -110,33 +110,37 @@ pip install whitenoise       # 静态文件服务
 - `config/` - 配置文件
   - `tracking.json` - 分析跟踪配置
 
-### 路由设计模式 (2025-12-08更新)
+### 路由设计模式 (2025-12-08 更新)
 
 **统一的动态路由规范**:
+
 - Course: `/course/:slug` (已实现)
-- Program: `/program/:slug` (✅ 2025-12-08实现)
+- Program: `/program/:slug` (✅ 2025-12-08 实现)
 
-**路由守卫**: 使用`beforeEnter`验证资源存在性，不存在则重定向到404
+**路由守卫**: 使用`beforeEnter`验证资源存在性，不存在则重定向到 404
 
-**Program路由支持**:
-- `aigc-intermediate` - 会员进阶路线 (Intermediate阶段，5门课程)
-- `ai-designer-advanced` - 高阶技能路径 (Advanced阶段，当前课程为空)
+**Program 路由支持**:
 
-### SEO优化状态 (2025-12-08更新)
+- `aigc-intermediate` - 会员进阶路线 (Intermediate 阶段，5 门课程)
+- `ai-designer-advanced` - 高阶技能路径 (Advanced 阶段，当前课程为空)
 
-**已完成的SEO准备工作** (为SSG迁移打好基础):
-- ✅ **动态Meta标签**: Program页面支持动态title、description、og:*、twitter:*标签
-- ✅ **Sitemap自动生成**: `scripts/generate-sitemap.js` 集成到构建流程
-  - 生成16个URL (1首页 + 1About + 2Program + 12Course)
-  - 自动扫描courseStore.ts提取课程slugs
-- ✅ **robots.txt配置**: 允许搜索引擎抓取，禁止私密页面
-- ✅ **JSON-LD结构化数据**: 使用`buildProgramJsonLd`工具函数构建Schema.org标准数据
-- 📝 **Search Console准备**: 上线后执行步骤已记录在`frontend/docs/Search-Console准备指南.md`
+### SEO 优化状态 (2025-12-08 更新)
 
-**SPA架构特点** (vite-plugin-ssr迁移前):
+**已完成的 SEO 准备工作** (为 SSG 迁移打好基础):
+
+- ✅ **动态 Meta 标签**: Program 页面支持动态 title、description、og:*、twitter:*标签
+- ✅ **Sitemap 自动生成**: `scripts/generate-sitemap.js` 集成到构建流程
+  - 生成 16 个 URL (1 首页 + 1About + 2Program + 12Course)
+  - 自动扫描 courseStore.ts 提取课程 slugs
+- ✅ **robots.txt 配置**: 允许搜索引擎抓取，禁止私密页面
+- ✅ **JSON-LD 结构化数据**: 使用`buildProgramJsonLd`工具函数构建 Schema.org 标准数据
+- 📝 **Search Console 准备**: 上线后执行步骤已记录在`frontend/docs/Search-Console准备指南.md`
+
+**SPA 架构特点** (vite-plugin-ssr 迁移前):
+
 - 使用`beforeEnter`路由守卫验证资源存在性
-- 使用原生DOM操作实现动态Meta标签（onMounted/onUnmounted）
-- 未来迁移SSG时可轻松替换为`useHead`和`onBeforeRender`
+- 使用原生 DOM 操作实现动态 Meta 标签（onMounted/onUnmounted）
+- 未来迁移 SSG 时可轻松替换为`useHead`和`onBeforeRender`
 
 ### 后端结构 (`/backend/`)
 
@@ -204,8 +208,11 @@ pip install whitenoise       # 静态文件服务
 
 - 图片必须作为模块导入：`import logoImg from '@/assets/icons/logo.png'`
 - 所有图片必须有有意义的 `alt` 属性
-- 课程图片命名规则：`{stage}-{course}-cover.{ext}`
-- 阶段：tiyan/rumen/jingjin/shizhan/xiangmuluodi
+- 课程图片命名规则：`{课程名称}(-membership)-{难度阶段}-cover-{尺寸}.{格式}`，例如 `photoshop-basic-cover-480.png`
+  - 课程阶段已统一收敛为 `basic`/`intermediate`/`advanced` 三级体系
+  - 会员课程在课程名称和难度阶段之间添加 `-membership` 标识
+  - 同时提供多种分辨率和格式，以适应不同设备和网络环境
+- 阶段：basic/intermediate/advanced（已统一收敛为三级体系）
 
 ## 重要文件和配置
 
