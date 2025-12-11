@@ -565,7 +565,8 @@ export const useCourseStore = defineStore('course', {
       if (state.showVipOnly) {
         result = result.filter(c => c.isVipOnly === true)
       } else if (state.currentStage) {
-        result = result.filter(c => c.stage === state.currentStage)
+        // 非VIP模式下，显示对应阶段的课程，但排除会员专属课程
+        result = result.filter(c => c.stage === state.currentStage && !c.isVipOnly)
       }
       if (state.selectedTags.length) {
         result = result.filter(c => c.tags && c.tags.some(t => state.selectedTags.includes(t)))
