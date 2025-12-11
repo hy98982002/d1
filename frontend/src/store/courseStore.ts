@@ -11,9 +11,9 @@ import photoshopIntermediateCover from '@/assets/images/courses/photoshop-interm
 import pythonIntermediateCover from '@/assets/images/courses/python-intermediate-cover-480.webp'
 import unrealIntermediateCover from '@/assets/images/courses/unreal-intermediate-cover-480.webp'
 // 高级课程图片
-import photoshopAdvancedCover from '@/assets/images/courses/photoshop-advanced-intermediate-cover-480.webp'
-import logoDesignAdvancedCover from '@/assets/images/courses/logo-design-advanced-membership-intermediate-cover-480.webp'
-import aiEngineAdvancedCover from '@/assets/images/courses/AiCreativeEngine-membership-intermediate-cover-480.webp'
+import photoshopAdvancedCover from '@/assets/images/courses/CreativeFraming-Advanced-cover-480.webp'
+import logoDesignAdvancedCover from '@/assets/images/courses/PsychologicalExpression-Advanced-cover-480.webp'
+import aiEngineAdvancedCover from '@/assets/images/courses/ThePowerOfLine-Advanced-cover-480.webp'
 
 // Mock课程数据（新三级体系：basic / intermediate / advanced）
 const mockCourses: Course[] = [
