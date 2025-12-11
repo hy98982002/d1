@@ -563,7 +563,7 @@ export const useCourseStore = defineStore('course', {
     filteredCourses: state => {
       let result = state.courses
       if (state.showVipOnly) {
-        result = result.filter(c => c.isVip)
+        result = result.filter(c => c.isVipOnly === true)
       } else if (state.currentStage) {
         result = result.filter(c => c.stage === state.currentStage)
       }

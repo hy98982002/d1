@@ -105,8 +105,22 @@
         </div>
       </div>
 
-      <!-- 换一换按钮 -->
-      <div class="row mt-4" v-if="!showAllCourses && filteredCourses.length > displayCount">
+      <!-- 会员模式：显示更多/收起按钮 -->
+      <div class="row mt-4" v-if="showVipOnly && filteredCourses.length > displayCount">
+        <div class="col-12 text-center">
+          <button
+            class="btn btn-vip-toggle btn-lg"
+            @click="toggleVipCoursesDisplay"
+            :disabled="loading"
+          >
+            <i class="fas" :class="showAllCourses ? 'fa-chevron-up' : 'fa-chevron-down'" style="margin-right: 8px"></i>
+            {{ showAllCourses ? '收起课程' : '查看更多课程' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- 非会员模式：换一换按钮 -->
+      <div class="row mt-4" v-if="!showVipOnly && !showAllCourses && filteredCourses.length > displayCount">
         <div class="col-12 text-start">
           <button
             class="btn btn-outline-tech-blue btn-lg"
@@ -119,8 +133,8 @@
         </div>
       </div>
 
-      <!-- 查看更多课程 -->
-      <div class="row mt-5" v-if="!showAllCourses">
+      <!-- 非会员模式：查看更多课程 -->
+      <div class="row mt-5" v-if="!showVipOnly && !showAllCourses">
         <div class="col-12 text-start">
           <a
             href="#courses"
@@ -267,10 +281,20 @@ const handleVipToggle = (vipOnly: boolean) => {
   courseStore.setShowVipOnly(vipOnly)
 }
 
+const toggleVipCoursesDisplay = () => {
+  showAllCourses.value = !showAllCourses.value
+}
+
 // 监听阶段变化
 watch(currentStage, newStage => {
   // 使用setCurrentStageOnly避免清空标签
   courseStore.setCurrentStageOnly(newStage)
+  displayCount.value = props.initialDisplayCount
+  showAllCourses.value = false
+})
+
+// 监听会员模式切换,重置显示状态
+watch(showVipOnly, () => {
   displayCount.value = props.initialDisplayCount
   showAllCourses.value = false
 })
@@ -525,6 +549,32 @@ watch(currentStage, newStage => {
   border-color: #1e7f98;
   color: white;
   transform: translateY(-3px);
+}
+
+/* 会员专区切换按钮样式 - 金色主题 */
+.btn-vip-toggle {
+  background: linear-gradient(135deg, #d4af37, #f4e4b3);
+  border: 2px solid #d4af37;
+  color: #000;
+  border-radius: 50px;
+  padding: 12px 40px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.btn-vip-toggle:hover {
+  background: linear-gradient(135deg, #c4a030, #e4d4a3);
+  border-color: #c4a030;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+.btn-vip-toggle:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* 响应式设计 */
