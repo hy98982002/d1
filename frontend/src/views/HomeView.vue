@@ -12,6 +12,9 @@
       <CampSection :show-popular-tags="true" :initial-display-count="8" />
     </div>
 
+    <!-- 会员专区 - 深度进阶课程 -->
+    <VipSection :initial-display-count="8" />
+
     <!-- 就业模块 -->
     <CurriculumSection />
 
@@ -111,6 +114,7 @@
 import { onMounted } from 'vue'
 import HeroCarousel from '../components/HeroCarousel.vue'
 import CampSection from '../components/CampSection.vue'
+import VipSection from '../components/VipSection.vue'
 import CurriculumSection from '../components/CurriculumSection.vue'
 import ProfessionalDevelopmentSection from '../components/ProfessionalDevelopmentSection.vue'
 import WorksShowSection from '../components/WorksShowSection.vue'

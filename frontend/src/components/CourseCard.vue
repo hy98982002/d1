@@ -8,9 +8,21 @@
       @keydown.space.prevent="handleCardClick"
       tabindex="0"
     >
-      <div class="card h-100 card-glass">
+      <div class="card h-100 card-glass" :class="{ 'coming-soon-card': course.comingSoon }">
+        <!-- VIP标识徽章 -->
+        <div v-if="course.isVipOnly && !course.comingSoon" class="vip-badge">
+          <span class="vip-icon">👑</span>
+          <span class="vip-text">VIP</span>
+        </div>
+
+        <!-- 即将上线标识 -->
+        <div v-if="course.comingSoon" class="coming-soon-badge">
+          <span>⏳</span>
+          <span>即将上线</span>
+        </div>
+
         <!-- 修改：从背景图改为使用picture标签和img标签 -->
-        <div class="card-img-top ratio ratio-16x9">
+        <div class="card-img-top ratio ratio-16x9" :class="{ 'coming-soon-img': course.comingSoon }">
           <picture>
             <!-- WebP 格式优先 -->
             <source :srcset="srcsetWebp" type="image/webp" sizes="(max-width: 768px) 100vw, 33vw" />
@@ -53,7 +65,12 @@
           </span>
 
           <!-- 价格显示 -->
-          <span v-if="isFreeDisplay" class="text-success ms-2"> 免费 </span>
+          <span v-if="course.comingSoon" class="text-muted ms-2"> 敬请期待 </span>
+          <span v-else-if="course.isVipOnly" class="vip-price ms-2">
+            <span class="vip-free-badge">会员免费</span>
+            <span class="original-price">¥{{ displayPrice }}.00</span>
+          </span>
+          <span v-else-if="isFreeDisplay" class="text-success ms-2"> 免费 </span>
           <span v-else class="text-danger ms-2"> ¥{{ displayPrice }}.00 </span>
         </div>
 
@@ -169,6 +186,10 @@ const displayLearnerCount = computed(() => {
 
 // 获取显示的等级（使用stageMap根据stage字段获取标准标签）
 const displayLevel = computed(() => {
+  // 如果是深度进阶课程，显示"深度进阶"
+  if (course.value.deepIntermediate) {
+    return '深度进阶'
+  }
   // 优先使用stageMap根据stage字段获取标准标签
   if (course.value.stage) {
     return getStageLabel(course.value.stage as StageKey)
@@ -190,6 +211,10 @@ const isFreeDisplay = computed(() => {
 
 // 获取等级样式类（根据stage映射颜色）
 const levelStyleClass = computed(() => {
+  // 如果是深度进阶课程，使用金色样式
+  if (course.value.deepIntermediate) {
+    return 'deep-intermediate-badge'
+  }
   const stageColors: Record<StageKey, string> = {
     basic: 'success',
     intermediate: 'primary',
@@ -648,5 +673,108 @@ const handleWatchNow = () => {
   color: #fff !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(30, 127, 152, 0.3);
+}
+
+/* ============================================ */
+/* 会员专属课程样式 */
+/* ============================================ */
+
+/* VIP 徽章 - 右上角 */
+.vip-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  animation: vip-pulse 2s ease-in-out infinite;
+}
+
+@keyframes vip-pulse {
+  0%,
+  100% {
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.5);
+  }
+}
+
+.vip-icon {
+  font-size: 14px;
+}
+
+.vip-text {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* 即将上线徽章 - 右上角 */
+.coming-soon-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(108, 117, 125, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 即将上线卡片样式 */
+.coming-soon-card {
+  opacity: 0.75;
+}
+
+.coming-soon-img {
+  filter: grayscale(50%) blur(1px);
+  opacity: 0.8;
+}
+
+/* 深度进阶标签样式 */
+.deep-intermediate-badge {
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* 会员价格样式 */
+.vip-price {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vip-free-badge {
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.original-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 13px;
 }
 </style>

@@ -15,6 +15,15 @@ import photoshopAdvancedCover from '@/assets/images/courses/CreativeFraming-Adva
 import logoDesignAdvancedCover from '@/assets/images/courses/PsychologicalExpression-Advanced-cover-480.webp'
 import aiEngineAdvancedCover from '@/assets/images/courses/ThePowerOfLine-Advanced-cover-480.webp'
 
+// 会员专属课程图片（深度进阶课程）
+import aiaMembershipCover from '@/assets/images/courses/Aia-membership-intermediate-cover-480.png'
+import aiCreativeEngineMembershipCover from '@/assets/images/courses/AiCreativeEngine-membership-intermediate-cover-480.webp'
+import aiDrivenMembershipCover from '@/assets/images/courses/AiDriven-membership-intermediate-cover-480.webp'
+import bltMembershipCover from '@/assets/images/courses/blt-membership-intermediate-cover-480.webp'
+import eliteCourseMembershipCover from '@/assets/images/courses/EliteCourse-membership-intermediate-cover-480.png'
+import logoDesignMembershipCover from '@/assets/images/courses/logo-design-membership-intermediate-cover-480.png'
+import logoDesignAdvancedMembershipCover from '@/assets/images/courses/logo-design-advanced-membership-intermediate-cover-480.png'
+
 // Mock课程数据（新三级体系：basic / intermediate / advanced）
 const mockCourses: Course[] = [
   {
@@ -242,6 +251,183 @@ const mockCourses: Course[] = [
     duration: '50小时',
     level: '高级',
     instructor: '李老师'
+  },
+  // ============================================
+  // 会员专属课程（深度进阶课程）
+  // ============================================
+  {
+    id: 16,
+    title: 'AI智能设计引擎深度实战',
+    slug: 'ai-creative-engine-membership-intermediate',
+    description: '深入学习AI智能设计引擎的核心技术，掌握智能化设计流程和创意生成方法',
+    price: 899,
+    stage: 'intermediate',
+    cover: aiCreativeEngineMembershipCover,
+    tags: ['AI引擎', 'AIGC', '智能设计', '会员专属'],
+    rating: 4.9,
+    enrolled: 420,
+    duration: '35小时',
+    level: '深度进阶',
+    instructor: '张老师',
+    isVipOnly: true,
+    deepIntermediate: true
+  },
+  {
+    id: 17,
+    title: 'AI驱动的品牌视觉系统设计',
+    slug: 'ai-driven-brand-design-membership-intermediate',
+    description: '结合AI技术打造完整的品牌视觉识别系统，从Logo到VI应用全流程实战',
+    price: 999,
+    stage: 'intermediate',
+    cover: aiDrivenMembershipCover,
+    tags: ['品牌设计', 'AIGC', 'VI系统', '会员专属'],
+    rating: 4.8,
+    enrolled: 380,
+    duration: '40小时',
+    level: '深度进阶',
+    instructor: '李老师',
+    isVipOnly: true,
+    deepIntermediate: true
+  },
+  {
+    id: 18,
+    title: 'AIA智能插画创作进阶',
+    slug: 'aia-illustration-membership-intermediate',
+    description: '掌握AI辅助插画创作的高级技巧，提升商业插画的效率和质量',
+    price: 799,
+    stage: 'intermediate',
+    cover: aiaMembershipCover,
+    tags: ['插画设计', 'AIGC', 'AIA工具', '会员专属'],
+    rating: 4.7,
+    enrolled: 360,
+    duration: '30小时',
+    level: '深度进阶',
+    instructor: '王老师',
+    isVipOnly: true,
+    deepIntermediate: true
+  },
+  {
+    id: 19,
+    title: '商业落地实战训练营',
+    slug: 'business-landing-training-membership-intermediate',
+    description: '通过真实商业项目实战，掌握从需求分析到作品交付的完整流程',
+    price: 1099,
+    stage: 'intermediate',
+    cover: bltMembershipCover,
+    tags: ['商业实战', 'AIGC', '项目管理', '会员专属'],
+    rating: 4.9,
+    enrolled: 450,
+    duration: '45小时',
+    level: '深度进阶',
+    instructor: '张老师',
+    isVipOnly: true,
+    deepIntermediate: true
+  },
+  {
+    id: 20,
+    title: '精英设计师进阶课程',
+    slug: 'elite-designer-membership-intermediate',
+    description: '面向有志成为顶级设计师的学员，全面提升设计思维和实战能力',
+    price: 1299,
+    stage: 'intermediate',
+    cover: eliteCourseMembershipCover,
+    tags: ['设计思维', 'AIGC', '综合能力', '会员专属'],
+    rating: 4.9,
+    enrolled: 500,
+    duration: '50小时',
+    level: '深度进阶',
+    instructor: '李老师',
+    isVipOnly: true,
+    deepIntermediate: true
+  },
+  {
+    id: 21,
+    title: 'Logo设计心理学应用',
+    slug: 'logo-psychology-membership-intermediate',
+    description: '深入理解Logo设计背后的心理学原理，打造更具影响力的品牌标识',
+    price: 899,
+    stage: 'intermediate',
+    cover: logoDesignMembershipCover,
+    tags: ['Logo设计', 'AIGC', '设计心理学', '会员专属'],
+    rating: 4.8,
+    enrolled: 400,
+    duration: '35小时',
+    level: '深度进阶',
+    instructor: '王老师',
+    isVipOnly: true,
+    deepIntermediate: true
+  },
+  {
+    id: 22,
+    title: '高级Logo系统设计实战',
+    slug: 'advanced-logo-system-membership-intermediate',
+    description: '掌握复杂品牌Logo系统的设计方法，包括动态Logo和应用规范',
+    price: 999,
+    stage: 'intermediate',
+    cover: logoDesignAdvancedMembershipCover,
+    tags: ['Logo设计', 'AIGC+logo', '系统设计', '会员专属'],
+    rating: 4.9,
+    enrolled: 420,
+    duration: '40小时',
+    level: '深度进阶',
+    instructor: '李老师',
+    isVipOnly: true,
+    deepIntermediate: true
+  },
+  // 占位课程 - 即将上线
+  {
+    id: 23,
+    title: 'AI视频创作全流程',
+    slug: 'ai-video-creation-membership-intermediate-coming-soon',
+    description: '掌握AI辅助视频创作的完整流程，从脚本到成片的高效制作方法',
+    price: 1199,
+    stage: 'intermediate',
+    cover: aiCreativeEngineMembershipCover,
+    tags: ['视频创作', 'AIGC', '即将上线', '会员专属'],
+    rating: 0,
+    enrolled: 0,
+    duration: '待定',
+    level: '深度进阶',
+    instructor: '即将公布',
+    isVipOnly: true,
+    deepIntermediate: true,
+    comingSoon: true
+  },
+  {
+    id: 24,
+    title: 'AI交互设计进阶',
+    slug: 'ai-interaction-design-membership-intermediate-coming-soon',
+    description: '学习AI在交互设计中的应用，打造更智能的用户体验',
+    price: 1099,
+    stage: 'intermediate',
+    cover: aiDrivenMembershipCover,
+    tags: ['交互设计', 'AIGC', '即将上线', '会员专属'],
+    rating: 0,
+    enrolled: 0,
+    duration: '待定',
+    level: '深度进阶',
+    instructor: '即将公布',
+    isVipOnly: true,
+    deepIntermediate: true,
+    comingSoon: true
+  },
+  {
+    id: 25,
+    title: '3D场景设计与AI渲染',
+    slug: '3d-scene-ai-rendering-membership-intermediate-coming-soon',
+    description: '结合AI技术快速创建专业级3D场景，掌握智能渲染技巧',
+    price: 1299,
+    stage: 'intermediate',
+    cover: eliteCourseMembershipCover,
+    tags: ['3D设计', 'AIGC', '即将上线', '会员专属'],
+    rating: 0,
+    enrolled: 0,
+    duration: '待定',
+    level: '深度进阶',
+    instructor: '即将公布',
+    isVipOnly: true,
+    deepIntermediate: true,
+    comingSoon: true
   }
 ]
 
@@ -349,6 +535,31 @@ export const useCourseStore = defineStore('course', {
         return state.courses.filter(c => c.stage === stage)
         // 注意：advanced阶段当前返回[]，将来添加数据后自动显示
       },
+
+    // ============================================
+    // 会员课程相关 Getters
+    // ============================================
+
+    // 获取所有会员专属课程
+    vipCourses: state => {
+      return state.courses.filter(c => c.isVipOnly === true)
+    },
+
+    // 获取深度进阶课程
+    deepIntermediateCourses: state => {
+      return state.courses.filter(c => c.deepIntermediate === true)
+    },
+
+    // 获取即将上线的课程
+    comingSoonCourses: state => {
+      return state.courses.filter(c => c.comingSoon === true)
+    },
+
+    // 获取可用的会员专属课程（排除即将上线）
+    availableVipCourses: state => {
+      return state.courses.filter(c => c.isVipOnly === true && c.comingSoon !== true)
+    },
+
     filteredCourses: state => {
       let result = state.courses
       if (state.showVipOnly) {
