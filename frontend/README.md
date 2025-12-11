@@ -16,6 +16,7 @@
 - Pinia 状态管理
 - Vue Router 客户端路由
 - Axios API 请求
+- iconfont 图标库 (禁止使用其他图标库，如 Iconify)
 
 **开发工具：**
 
@@ -31,7 +32,7 @@
 # 开发工作流
 npm install                    # 安装所有依赖
 npm run dev                   # 启动开发服务器 (localhost:5173)
-npm run build                 # 生产构建
+npm run build                 # 生产构建（自动生成sitemap）
 npm run build:check           # 带TypeScript检查的构建
 npm run type-check            # 仅TypeScript类型检查
 npm run preview               # 预览生产构建
@@ -42,11 +43,29 @@ npm install vue-gtag          # 分析集成 (条件加载)
 npm install @types/gtag       # 分析的TypeScript定义
 ```
 
-## 1126 课程重构状态与协作提示
+## 1126 课程重构状态与协作提示 (2025-12-08 更新)
 
-- 体系已彻底收敛为 basic/intermediate/advanced，`StageMeta`/`StageKeySchema` 提供唯一数据源与运行时校验，禁止新增旧阶段或引入旧→新映射逻辑。【F:src/types/index.ts†L4-L20】【F:src/utils/stageMap.ts†L4-L63】
-- 阶段数据进入 store、路由或组件前应调用 `assertStageKey`，保持 fail-fast；新增工具/接口需沿用该策略，避免 silent fallback。【F:src/types/index.ts†L4-L20】
-- Program A/B 路由骨架已存在，后续接入课程数据或 JSON-LD 时应按 PRD 将构建函数抽到 `src/utils/jsonld/` 复用，覆盖 Level/Type/Access/Outcome/Pathway 五维字段。【F:src/router/index.ts†L52-L89】【F:docs/前端课程重构资料/03 课程体系重构PRD.md†L131-L190】
+### 阶段体系
+
+- 体系已彻底收敛为 basic/intermediate/advanced，`StageMeta`/`StageKeySchema` 提供唯一数据源与运行时校验，禁止新增旧阶段或引入旧 → 新映射逻辑。【F:src/types/index.ts】【F:src/utils/stageMap.ts】
+- 阶段数据进入 store、路由或组件前应调用 `assertStageKey`，保持 fail-fast；新增工具/接口需沿用该策略，避免 silent fallback。【F:src/types/index.ts】
+
+### Program 路由动态化
+
+- Program 路由已实现 `program/:slug` 动态路由，支持 `/program/aigc-intermediate` 和 `/program/ai-designer-advanced` 等路径。【F:src/router/index.ts】
+- Program 配置集中管理在 `courseStore` 中，通过 `getProgramBySlug` 方法获取。【F:src/store/courseStore.ts】
+- 动态组件 `[slug].vue` 支持所有 Program 类型，实现了动态 Meta 标签和 JSON-LD 生成。【F:src/views/program/[slug].vue】
+
+### JSON-LD 结构化数据
+
+- 已实现 `buildProgramJsonLd` 工具函数，支持 Schema.org EducationalOccupationalProgram 类型。【F:src/utils/jsonld/buildProgramJsonLd.ts】
+- JSON-LD 已集成到 Program 页面，覆盖 Level/Type/Access/Outcome/Pathway 五维字段。【F:src/utils/jsonld/index.ts】
+
+### SEO 优化
+
+- 动态 Meta 标签支持 title、description、og:_、twitter:_ 等所有主流社交平台。【F:src/views/program/[slug].vue】
+- Sitemap 自动生成脚本已集成到构建流程，生成包含 16 个 URL 的 sitemap.xml。【F:scripts/generate-sitemap.js】
+- robots.txt 已配置，允许搜索引擎抓取，禁止私密页面。【F:public/robots.txt】
 
 ## 前端架构
 
@@ -61,7 +80,16 @@ src/
 │   ├── NotFound.vue              # 404 Not Found page
 │   ├── Order.vue                 # Order processing page
 │   ├── PersonalCenter.vue        # User dashboard
-│   └── ShoppingCart.vue          # Shopping cart page
+│   ├── ShoppingCart.vue          # Shopping cart page
+│   └── program/                  # Program pages
+│       └── [slug].vue            # Dynamic Program component (supports program/:slug)
+├── utils/                        # Utility functions
+│   ├── slug.ts                  # SEO friendly URL slug generation
+│   ├── stageMap.ts              # Course stage mapping
+│   ├── toast.ts                 # Toast notifications
+│   └── jsonld/                  # JSON-LD structured data generation
+│       ├── index.ts             # JSON-LD utilities export
+│       └── buildProgramJsonLd.ts # Program JSON-LD builder
 ├── components/                    # Reusable components (PascalCase)
 │   ├── AuthNavbar.vue                   # Authenticated navigation bar
 │   ├── BreadcrumbNav.vue                # Breadcrumb navigation component
@@ -294,6 +322,72 @@ body {
 }
 ```
 
+### 动画效果规范
+
+**核心原则**: 使用流畅、一致的动画效果提升用户体验，避免过度动画导致的视觉疲劳。
+
+**Motion & Animation Rule**
+
+- 动画仅用于结构引导，而非吸引注意
+- 采用逐元素淡入 / 轻微滑入 / 轻度模糊
+- 禁止使用 `opacity: 0` 隐藏内容
+- 动画使用 `animation-fill-mode: both`
+- 位移不超过 12px（Y 轴）/ 16px（X 轴）
+- blur 强度不超过 6px
+- 动画仅作为状态变化，不应创建或隐藏内容
+- 统一使用 `ease-out` 缓动函数，保持动画风格一致性
+- 动画时长控制在 0.3s-0.8s 之间，确保流畅不卡顿
+
+**示例代码**:
+
+```css
+/* 推荐的动画实现 */
+.fade-in {
+  animation: fadeIn 0.6s ease-out both;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out both;
+}
+
+.blur-in {
+  animation: blurIn 0.8s ease-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(12px); /* 不超过12px */
+    filter: blur(4px); /* 不超过6px */
+  }
+  to {
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(16px); /* 不超过16px */
+    filter: blur(3px); /* 不超过6px */
+  }
+  to {
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes blurIn {
+  from {
+    filter: blur(6px); /* 不超过6px */
+    transform: scale(0.98);
+  }
+  to {
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+```
+
 ### 无障碍设计（A11y）规范
 
 **核心原则**: 确保所有用户（包括使用辅助技术的用户）都能访问和使用应用。
@@ -383,48 +477,141 @@ const closeModal = () => {
 
 ### SEO/AEO 增强规范
 
-#### 结构化数据
+#### 结构化数据 (JSON-LD)
 
 ```vue
-<!-- 在页面组件中添加结构化数据 -->
+<!-- Program 页面 JSON-LD 实现 -->
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useCourseStore } from '@/store/courseStore'
+import { buildProgramJsonLd } from '@/utils/jsonld'
+
+const props = defineProps<{
+  slug: string
+}>()
 
 const courseStore = useCourseStore()
-const course = computed(() => courseStore.currentCourse)
+const program = computed(() => courseStore.getProgramBySlug(props.slug))
+const programCourses = computed(() => courseStore.getProgramCourses(props.slug))
 
-const structuredData = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'Course',
-  name: course.value?.title,
-  description: course.value?.description,
-  provider: {
-    '@type': 'Organization',
-    name: '多维AI课堂',
-    url: 'https://www.doviai.com'
-  },
-  inLanguage: 'zh-CN',
-  keywords: course.value?.tags.join(', ')
-}))
+// 动态生成 Program JSON-LD
+const programJsonLd = computed(() =>
+  buildProgramJsonLd({
+    stage: program.value.stage,
+    name: program.value.name,
+    description: program.value.description,
+    courses: programCourses.value,
+    timeToComplete: `${programCourses.value.length * 30}小时`
+  })
+)
+
+// 动态注入 JSON-LD 到 DOM
+let jsonLdScript: HTMLScriptElement | null = null
+
+onMounted(() => {
+  // 创建 script 标签并插入 JSON-LD
+  jsonLdScript = document.createElement('script')
+  jsonLdScript.type = 'application/ld+json'
+  jsonLdScript.textContent = JSON.stringify(programJsonLd.value)
+  document.head.appendChild(jsonLdScript)
+})
+
+onUnmounted(() => {
+  // 清理：移除 JSON-LD script 标签
+  if (jsonLdScript && jsonLdScript.parentNode) {
+    jsonLdScript.parentNode.removeChild(jsonLdScript)
+  }
+})
 </script>
-
-<template>
-  <div>
-    <h1>{{ course.title }}</h1>
-    <!-- 添加结构化数据 -->
-    <script type="application/ld+json">
-      {{ structuredData }}
-    </script>
-  </div>
-</template>
 ```
+
+#### 动态 Meta 标签
+
+```vue
+<!-- 动态 Meta 标签实现 -->
+<script setup lang="ts">
+import { computed, onMounted, onUnmounted } from 'vue'
+
+const program = computed(() => courseStore.getProgramBySlug(props.slug))
+
+// 动态生成 Meta 标签
+const metaTags = computed(() => ({
+  title: `${program.value.name} - 多维AI课堂`,
+  description: program.value.description,
+  ogTitle: `${program.value.name} - 多维AI课堂`,
+  ogDescription: program.value.description,
+  ogType: 'website',
+  twitterTitle: `${program.value.name} - 多维AI课堂`,
+  twitterDescription: program.value.description
+}))
+
+// 动态管理 Meta 标签
+let addedMetaTags: HTMLMetaElement[] = []
+
+onMounted(() => {
+  // 设置页面标题
+  document.title = metaTags.value.title
+
+  // 添加或更新 meta 标签
+  const metaConfig = [
+    { name: 'description', content: metaTags.value.description },
+    { property: 'og:title', content: metaTags.value.ogTitle },
+    { property: 'og:description', content: metaTags.value.ogDescription },
+    { property: 'og:type', content: metaTags.value.ogType },
+    { name: 'twitter:title', content: metaTags.value.twitterTitle },
+    { name: 'twitter:description', content: metaTags.value.twitterDescription }
+  ]
+
+  metaConfig.forEach(config => {
+    let tag = document.querySelector(
+      `meta[${Object.keys(config)[0]}="${Object.values(config)[0]}"]`
+    )
+    if (!tag) {
+      tag = document.createElement('meta')
+      Object.entries(config).forEach(([key, value]) => {
+        tag!.setAttribute(key, value as string)
+      })
+      document.head.appendChild(tag)
+      addedMetaTags.push(tag)
+    }
+  })
+})
+
+onUnmounted(() => {
+  // 清理：恢复默认标题和移除动态添加的 meta 标签
+  document.title = '多维AI课堂'
+  addedMetaTags.forEach(tag => {
+    if (tag.parentNode) {
+      tag.parentNode.removeChild(tag)
+    }
+  })
+  addedMetaTags = []
+})
+</script>
+```
+
+#### Sitemap 生成
+
+```bash
+# Sitemap 自动生成已集成到构建流程
+npm run build
+# 构建完成后自动生成 public/sitemap.xml
+```
+
+Sitemap 生成特点：
+
+- 自动扫描 `courseStore.ts` 中的课程数据
+- 生成包含首页、About 页、Program 页和所有课程页的完整 sitemap
+- 支持 16 个 URL 的自动生成
+- 集成到构建流程，无需手动维护
 
 #### 页面加载优化
 
 - **懒加载图像**: 使用 `loading="lazy"` 属性延迟加载非关键图像
 - **代码分割**: 使用动态导入减少初始加载时间
 - **预加载关键资源**: 使用 `<link rel="preload">` 预加载关键 CSS 和 JavaScript
+- **优化 JSON-LD 注入**: 使用 `onMounted` 和 `onUnmounted` 生命周期钩子管理 JSON-LD，避免内存泄漏
+- **优化 Meta 标签管理**: 动态添加和移除 Meta 标签，确保页面状态正确恢复
 
 ## 图片资源管理
 
@@ -436,14 +623,11 @@ src/assets/
 │   ├── logo.png
 │   └── logo.svg
 └── images/                   # 业务图片
-    ├── free-*-cover.jpg     # 免费体验课程
-    ├── beginner-*-cover.jpg     # 基础课程
-    ├── advanced-*-cover.jpg   # 进阶课程
-    ├── hands-on-*-cover.jpg   # 实战课程
-    └── project-*-cover.png # 项目落地课程
-    |__ vip-*-cover.png # 会员课程
-    └── employment-logo-cover.png # 就业logo设计课程
-
+    └── courses/              # 课程图片
+        ├── photoshop-basic-cover-480.png     # 基础课程
+        ├── python-intermediate-cover-1280.webp   # 进阶课程
+        ├── ai-designer-advanced-cover-1920.png   # 高阶课程
+        └── photoshop-membership-basic-cover-480.png # 会员专属课程
 ```
 
 ### 图片导入标准
@@ -454,13 +638,13 @@ src/assets/
 <script setup lang="ts">
 // ✅ 正确 - 将图片作为模块导入
 import logoImg from '@/assets/icons/logo.png'
-import courseCover from '@/assets/images/beginner-python-cover.jpg'
+import pythonCover from '@/assets/images/courses/python-intermediate-cover-1280.webp'
 </script>
 
 <template>
   <!-- ✅ 使用导入的变量 -->
   <img :src="logoImg" alt="doviai Logo" />
-  <img :src="courseCover" alt="Python Course" />
+  <img :src="pythonCover" alt="Python 进阶课程" />
 
   <!-- ❌ 避免字符串路径 -->
   <!-- <img src="@/assets/icons/logo.png" alt="Logo" /> -->
@@ -469,13 +653,26 @@ import courseCover from '@/assets/images/beginner-python-cover.jpg'
 
 ### 课程图片命名约定
 
-- **文件前缀必须与课程阶段匹配**:
-  - `free-` → `template: 'free'` (免费体验)
-  - `beginner-` → `template: 'beginner'` (入门级别)
-  - `advanced-` → `template: 'advanced'` (进阶级别)
-  - `hands-on-` → `template: 'hands-on'` (实战级别)
-  - `project-` → `template: 'project'` (项目落地)
-  - `vip-` → `template: 'vip'` (会员专享)
+**当前命名模式**: `{课程名称}(-membership)-{难度阶段}-cover-{尺寸}.{格式}`
+
+- **课程名称**: 如 `photoshop`, `python`, `unreal`, `logo-design` 等
+- **会员标识** (可选): `-membership` 表示会员专属课程
+- **难度阶段**: 必须为 `basic`、`intermediate` 或 `advanced` 之一
+- **尺寸**: 如 `480`, `1280`, `1920` 等，对应不同分辨率
+- **格式**: `png` 或 `webp`
+
+**示例**:
+
+- `photoshop-basic-cover-480.png` (Photoshop 基础课程，480px 分辨率，PNG 格式)
+- `python-intermediate-cover-1280.webp` (Python 进阶课程，1280px 分辨率，WebP 格式)
+- `logo-design-advanced-membership-intermediate-cover-1920.png` (Logo 设计高阶会员课程，1920px 分辨率，PNG 格式)
+
+**说明**:
+
+- 课程阶段已统一收敛为 `basic`/`intermediate`/`advanced` 三级体系
+- 会员课程在课程名称和难度阶段之间添加 `-membership` 标识
+- 同时提供多种分辨率和格式，以适应不同设备和网络环境
+- 统一使用 `cover` 作为标识，明确图片用途
 
 ### SEO/AEO 优化：语义化 URL 规范
 
@@ -736,8 +933,11 @@ export const useMembershipStore = defineStore('membership', () => {
 
   const isMember = computed(() => membershipStatus.value !== 'none')
   const canAccessCourse = computed(() => (courseStage: string) => {
-    if (courseStage === 'tiyan') return true // 体验区免费
-    return isMember.value // 其他区域需要会员
+    // 基于三级阶段体系的访问控制
+    if (courseStage === 'basic') return true // 基础课程免费
+    if (courseStage === 'intermediate') return isMember.value // 进阶课程需要会员
+    if (courseStage === 'advanced') return true // 高阶课程可单独购买，会员享9折
+    return false
   })
 
   return { membershipStatus, isMember, canAccessCourse }
@@ -754,9 +954,11 @@ export const useRBAC = () => {
   const hasRole = (role: string) => rbacStore.userRoles.includes(role)
   const hasPermission = (permission: string) => rbacStore.permissions.includes(permission)
   const canAccessCourse = (courseStage: string) => {
-    // 基于6角色体系的课程访问控制
-    if (courseStage === 'tiyan') return true
-    if (hasRole('Premium Member')) return courseStage !== 'employment'
+    // 基于三级阶段体系的课程访问控制
+    if (courseStage === 'basic') return true // 基础课程免费
+    if (courseStage === 'intermediate')
+      return hasRole('Premium Member') || hasRole('Staff Admin') || hasRole('Super Admin')
+    if (courseStage === 'advanced') return true // 高阶课程可单独购买
     return hasRole('Staff Admin') || hasRole('Super Admin')
   }
 
@@ -859,9 +1061,58 @@ const routes = [
     component: () => import('@/views/HomeView.vue')
   },
   {
-    path: '/courses/:id',
+    path: '/about',
+    name: 'About',
+    component: () => import('@/views/AboutView.vue')
+  },
+  {
+    // 旧链接兼容路由：/course/:id (数字ID) → 重定向到 /course/:slug
+    path: '/course/:id(d+)',
+    redirect: to => {
+      const courseStore = useCourseStore()
+      const courseId = parseInt(to.params.id as string)
+      const course = courseStore.courses.find(c => c.id === courseId)
+
+      if (course && course.slug) {
+        return { name: 'CourseDetails', params: { slug: course.slug } }
+      } else {
+        return '/404'
+      }
+    }
+  },
+  {
+    path: '/course/:slug',
     name: 'CourseDetails',
-    component: () => import('@/views/CourseDetails.vue')
+    component: () => import('@/views/CourseDetails.vue'),
+    props: true
+  },
+  {
+    // Program 动态路由：支持 /program/aigc-intermediate、/program/ai-designer-advanced 等
+    path: '/program/:slug',
+    name: 'Program',
+    component: () => import('@/views/program/[slug].vue'),
+    props: true,
+    beforeEnter: (to, from, next) => {
+      const courseStore = useCourseStore()
+      const slug = to.params.slug as string
+      const program = courseStore.getProgramBySlug(slug)
+
+      if (program) {
+        next()
+      } else {
+        next('/404')
+      }
+    }
+  },
+  {
+    path: '/404',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound.vue')
+  },
+  {
+    // 捕获所有未匹配的路由
+    path: '/:pathMatch(.*)*',
+    redirect: '/404'
   }
 ]
 ```
