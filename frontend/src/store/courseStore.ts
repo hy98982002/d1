@@ -210,7 +210,7 @@ const mockCourses: Course[] = [
   {
     id: 13,
     title: 'Photoshop高级创意合成',
-    slug: 'photoshop-advanced-composition',
+    slug: 'photoshop-composition-advanced',
     description: '专业级Photoshop创意合成技术，掌握光影、色彩和空间感的高级应用',
     price: 1299,
     stage: 'advanced',
