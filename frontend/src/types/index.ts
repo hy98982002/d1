@@ -111,6 +111,9 @@ export interface Course {
   isHot?: boolean
   isFree?: boolean
   isVip?: boolean // 是否会员专享
+  isVipOnly?: boolean // 会员专属（深度进阶课程）
+  deepIntermediate?: boolean // 深度进阶标识（UI显示用）
+  comingSoon?: boolean // 即将上线（占位卡）
   enrolled?: number // 兼容旧字段，等同于 learnerCount
 }
 
