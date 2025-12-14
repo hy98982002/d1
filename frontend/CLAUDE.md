@@ -6,6 +6,29 @@
 
 多维 AI 课堂前端 - Vue 3 + TypeScript + Vite 构建的在线教育服务应用。仅前端开发上下文，专注于响应式设计、组件架构和现代 JavaScript 实践。
 
+## 新体系对齐说明 (00*)
+
+**已完成重构**：课程体系已从原来的7层结构重构为三级体系（LRMI + Schema.org + AEO 最佳实践）：
+
+| Level                        | 描述               | 商业方式         |
+| ---------------------------- | ------------------ | ---------------- |
+| **Beginner（免费入门）**     | 软件基础、快速理解 | 全部免费         |
+| **Intermediate（进阶实战）** | 技能训练、任务练习 | 单买 或 会员可看 |
+| **Advanced（高阶训练）**     | 企业项目、商业案例 | 单买 + 会员 9 折 |
+
+**核心架构特点**：
+- 三级体系对应：Beginner/Intermediate/Advanced
+- LRMI 教学类型：Lecture/Demonstration/Exercise → Lesson/Practice → Project/CaseStudy
+- Program 体系课：Program A（会员实战训练体系）和 Program B（职业技能训练体系）
+- 完整 AEO/Rich Result 结构：Level/Type/Access/Outcome/Pathway 五维结构化策略
+- 阶段数据进入 store、路由或组件前应调用 `assertStageKey`，保持 fail-fast
+
+**前端实现要点**：
+- 阶段体系已彻底收敛为 basic/intermediate/advanced
+- `StageMeta`/`StageKeySchema` 提供唯一数据源与运行时校验
+- 禁止新增旧阶段或引入旧 → 新映射逻辑
+- 新增工具/接口需沿用 `assertStageKey` 策略，避免 silent fallback
+
 ## 前端技术栈
 
 **核心框架：**
