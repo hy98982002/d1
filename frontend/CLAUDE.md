@@ -1,4 +1,4 @@
-# CLAUDE.md - 前端开发指南
+claude# CLAUDE.md - 前端开发指南
 
 本文件为 Claude Code 在多维 AI 课堂的 `/frontend` 目录中工作时提供前端特定指导。
 
