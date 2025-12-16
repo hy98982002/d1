@@ -43,11 +43,11 @@ const router = createRouter({
         const slug = to.params.slug as string
         const course = courseStore.getCourseBySlug(slug)
 
-        if (course) {
-          return true // 课程存在，允许访问
-        } else {
+        if (!course) {
           return '/404' // 课程不存在，重定向到404页面
         }
+        
+        return true // 课程存在，允许访问
       }
     },
     {
@@ -80,11 +80,11 @@ const router = createRouter({
         const slug = to.params.slug as string
         const program = courseStore.getProgramBySlug(slug)
 
-        if (program) {
-          return true // Program存在，允许访问
-        } else {
+        if (!program) {
           return '/404' // Program不存在，重定向到404
         }
+        
+        return true // Program存在，允许访问
       }
     },
     {
@@ -110,10 +110,9 @@ router.beforeEach((to, from) => {
     // 在实际项目中，这里应该重定向到登录页，并携带回调地址
     // 但由于我们要支持F12虚拟登录，所以这里直接放行
     console.log('需要登录才能访问此页面，但由于支持F12虚拟登录，所以放行')
-    return true
-  } else {
-    return true
   }
+  
+  return true
 })
 
 export default router
