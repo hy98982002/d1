@@ -11,6 +11,11 @@
 
 多维 AI 课堂 - 基于 Vue 3 + Django 构建的在线教育服务全栈 Web 应用。项目采用前后端分离架构，使用 JWT 身份验证。
 
+## Slug Rules-cn
+
+slug.ts 是 URL 的唯一权威来源（single source of truth），
+即使在 mock 数据阶段，路由层也必须调用它。
+
 ## 新体系对齐说明 (00*)
 
 **已完成重构**：课程体系已从原来的7层结构重构为三级体系（LRMI + Schema.org + AEO 最佳实践）：
