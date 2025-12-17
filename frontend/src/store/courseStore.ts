@@ -29,7 +29,7 @@ const mockCourses: Course[] = [
   {
     id: 1,
     title: 'Photoshop AI设计技能体验课：从小白到高手',
-    slug: 'photoshop-ai-design-basic',
+    slug: 'photoshop-ai-design-beginner',
     description: '零基础入门Photoshop编程',
     price: 0,
     stage: 'basic',
@@ -44,7 +44,7 @@ const mockCourses: Course[] = [
   {
     id: 2,
     title: 'Illustrator设计技能体验课：从小白到高手',
-    slug: 'illustrator-design-basic',
+    slug: 'illustrator-design-beginner',
     description: '零基础入门Illustrator设计',
     price: 0,
     stage: 'basic',
@@ -59,7 +59,7 @@ const mockCourses: Course[] = [
   {
     id: 3,
     title: 'Photoshop体验课',
-    slug: 'photoshop-basic',
+    slug: 'photoshop-beginner',
     description: 'PS图像处理基础入门',
     price: 0,
     stage: 'basic',
@@ -74,7 +74,7 @@ const mockCourses: Course[] = [
   {
     id: 4,
     title: 'Python入门课程',
-    slug: 'python-basic',
+    slug: 'python-beginner',
     description: 'Python编程基础知识',
     price: 199,
     stage: 'basic',
@@ -89,7 +89,7 @@ const mockCourses: Course[] = [
   {
     id: 5,
     title: 'illustrator基础课程',
-    slug: 'illustrator-basic',
+    slug: 'illustrator-beginner',
     description: 'illustrator核心概念',
     price: 299,
     stage: 'basic',
@@ -104,7 +104,7 @@ const mockCourses: Course[] = [
   {
     id: 6,
     title: '虚幻引擎入门课程',
-    slug: 'unreal-engine-basic',
+    slug: 'unreal-engine-beginner',
     description: '虚幻引擎基础开发',
     price: 299,
     stage: 'basic',
@@ -119,7 +119,7 @@ const mockCourses: Course[] = [
   {
     id: 7,
     title: 'Photoshop入门课程',
-    slug: 'photoshop-intro-basic',
+    slug: 'photoshop-intro-beginner',
     description: 'PS图像处理基础技巧',
     price: 199,
     stage: 'basic',
