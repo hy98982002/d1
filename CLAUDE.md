@@ -32,6 +32,11 @@ slug.ts 是 URL 的唯一权威来源（single source of truth），
 - Program 体系课：Program A（会员实战训练体系）和 Program B（职业技能训练体系）
 - 完整 AEO/Rich Result 结构：Level/Type/Access/Outcome/Pathway 五维结构化策略
 
+## 大型任务完成后的文件变更硬性汇报规则（Ultra-Short）
+- 完成任何跨文件 / 架构 / 重构 / SEO / AEO 任务后，必须在结尾列出所有涉及的文件路径，并明确说明是否有新增文件、是否有文件被完全删除，最后给出是否存在文件删除的明确安全结论（是 / 否）。
+- 一句话：大型任务结束后必须交代改了哪些文件 + 有没有新增 + 有没有删文件 + 明确结论。
+
+
 ## 项目宪法
 
 # Project Constitution (CLAUDE.md)
