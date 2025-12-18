@@ -13,6 +13,17 @@
 
 ## 技术栈
 
+## Package manager
+
+This project uses **pnpm**.
+
+After first install, run:
+
+pnpm approve-builds
+
+to allow required native dependencies (e.g. esbuild).
+
+
 **前端：**
 
 - Vue 3 配合 Composition API + TypeScript

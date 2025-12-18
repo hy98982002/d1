@@ -11,7 +11,352 @@
 
 多维 AI 课堂 - 基于 Vue 3 + Django 构建的在线教育服务全栈 Web 应用。项目采用前后端分离架构，使用 JWT 身份验证。
 
+## Slug Rules-cn
+
+slug.ts 是 URL 的唯一权威来源（single source of truth），
+即使在 mock 数据阶段，路由层也必须调用它。
+
+## 新体系对齐说明 (00*)
+
+**已完成重构**：课程体系已从原来的7层结构重构为三级体系（LRMI + Schema.org + AEO 最佳实践）：
+
+| Level                        | 描述               | 商业方式         |
+| ---------------------------- | ------------------ | ---------------- |
+| **Beginner（免费入门）**     | 软件基础、快速理解 | 全部免费         |
+| **Intermediate（进阶实战）** | 技能训练、任务练习 | 单买 或 会员可看 |
+| **Advanced（高阶训练）**     | 企业项目、商业案例 | 单买 + 会员 9 折 |
+
+**核心架构特点**：
+- 三级体系对应：Beginner/Intermediate/Advanced
+- LRMI 教学类型：Lecture/Demonstration/Exercise → Lesson/Practice → Project/CaseStudy
+- Program 体系课：Program A（会员实战训练体系）和 Program B（职业技能训练体系）
+- 完整 AEO/Rich Result 结构：Level/Type/Access/Outcome/Pathway 五维结构化策略
+
+## 大型任务完成后的文件变更硬性汇报规则（Ultra-Short）
+- 完成任何跨文件 / 架构 / 重构 / SEO / AEO 任务后，必须在结尾列出所有涉及的文件路径，并明确说明是否有新增文件、是否有文件被完全删除，最后给出是否存在文件删除的明确安全结论（是 / 否）。
+- 一句话：大型任务结束后必须交代改了哪些文件 + 有没有新增 + 有没有删文件 + 明确结论。
+
+
+## 项目宪法
+
+# Project Constitution (CLAUDE.md)
+
+This document defines the non-negotiable rules of the project.
+All AI agents, contributors, and future refactors MUST comply.
+
+## 1️⃣ 项目目标与长期定位
+
+## Project Vision & Long-Term Direction
+
+- **平台定位**: 基于 Vue 3 + Django 构建的在线教育服务全栈 Web 应用，专注于 AI 课程的 AEO / LRMI 语义优化
+- **核心技术**: Vue 3, Django, Pinia, Vue Router 4, TypeScript
+- **AEO / SEO 优先级**: 遵循 Schema.org + LRMI + AEO 最佳实践，构建高质量的教育内容知识图谱
+- **用户体验**: 提供清晰的学习路径，优化语义结构，提升搜索引擎理解和用户导航体验
+
+---
+
+## 2️⃣ 内容与语义宪法
+
+## Content Semantic Responsibility & AEO Page Roles
+
+> This section defines constitutional-level semantic boundaries.
+> Violations are considered architecture-level errors.
+
+### Page Role Definitions (Must Follow)
+
+To ensure correct AEO / LRMI semantic alignment, each page type MUST follow a single, non-overlapping responsibility.
+
+#### 1. Course Pages
+**Purpose**: Explain *what this specific course teaches*.
+
+- Focus on: course content, skills taught, outcomes, syllabus, lessons
+- MUST NOT explain global learning stages or learning order
+- JSON-LD focus: Course, CourseInstance, educationalLevel (reference only)
+
+> A Course page answers:
+> "What will I learn in THIS course?"
+
+---
+
+#### 2. Level Pages (`/levels/`)
+**Purpose**: Define *what a learning level means*.
+
+- Focus on: Beginner / Intermediate / Advanced definitions
+- Explain learner prerequisites, expected skills, learning difficulty
+- Aggregate courses that belong to this level
+- JSON-LD focus: DefinedTerm (educationalLevel entity)
+
+> A Level page answers:
+> "What does Beginner / Intermediate / Advanced mean?"
+
+---
+
+#### 3. Program / Path Pages
+**Purpose**: Describe *learning sequence and progression*.
+
+- Focus on: learning order, prerequisites, progression logic
+- Connect multiple courses and/or levels into a structured path
+- MUST NOT redefine level meanings
+- JSON-LD focus: EducationalOccupationalProgram, hasPart, programPrerequisites
+
+> A Program / Path page answers:
+> "What should I learn first, then next, and why?"
+
+---
+
+### Forbidden Semantic Overlaps
+
+- ❌ **Course pages**: Must NOT explain global learning stages or define what "Beginner" means
+- ❌ **Level pages**: Must NOT teach specific course content or define learning order
+- ❌ **Program pages**: Must NOT repeat course content or redefine level meanings
+- ⚠️ **Rule**: A page MUST NOT take over responsibilities from another page type. Semantic responsibility overlap is considered a structural error.
+
+---
+
+## 3️⃣ URL / Slug 宪法
+
+## URL & Slug Canonical Rules
+
+### Slug 的语义原则
+
+- **slug ≠ 展示用**: Slugs are not for display purposes but for semantic anchoring
+- **slug = 长期稳定语义锚点**: Slugs should remain stable over time to maintain SEO value
+- **SEO / AEO 优先**: Slugs must follow AEO / LRMI best practices for optimal semantic understanding
+
+---
+
+### Course Slug Rules
+
+- **Format**: `{topic}-{tool}-{level}`
+- **Level part**: Must use system-defined level terms (`beginner` / `intermediate` / `advanced`)
+- **Example**: `photoshop-ai-design-beginner`
+- **禁止**: Using descriptive terms like `basic` or `pro` instead of system-level terms
+- **Migration rule**: Existing slugs may be preserved for backward compatibility unless a dedicated migration plan exists
+
+---
+
+### Level & Program Slug Rules
+
+- **Level pages**: `/levels/beginner`, `/levels/intermediate`, `/levels/advanced`
+- **Program pages**: `/programs/ai-design-path`, `/programs/machine-learning-bootcamp`
+- **Semantic clarity**: Slugs must clearly indicate the page type and purpose
+
+---
+
+## 4️⃣ AEO / Schema / LRMI 宪法
+
+## AEO, Schema.org & LRMI Principles
+
+### Schema 的“真实表达原则”
+
+- ❌ **No false claims**: JSON-LD must accurately reflect the actual course content
+- ✅ **Verifiable content**: All Schema.org claims must be verifiable from the page content
+- ✅ **Semantic consistency**: JSON-LD terms must match page semantics and URL structure
+
+---
+
+### educationalLevel 使用规则
+
+- **Must use DefinedTerm**: Avoid plain strings, use structured DefinedTerm format
+- **Must reference level entity**: Link to `/levels/` pages using `@id` or `inDefinedTermSet`
+- **Example**: 
+  ```json
+  "educationalLevel": {
+    "@type": "DefinedTerm",
+    "name": "Beginner",
+    "@id": "https://www.doviai.com/levels/beginner"
+  }
+  ```
+
+---
+
+### Program / Course / Skill 的关系规则
+
+- **isPartOf / hasPart**: Use these properties to define hierarchical relationships
+- **programPrerequisites**: Clearly define prerequisites for Program pages
+- **educationalUse**: Use LRMI educationalUse values to categorize content types
+- **禁止**: Using unrelated or misleading properties to inflate SEO value
+
+---
+
+## 5️⃣ 数据模型与页面关系宪法
+
+## Data Model & Page Relationship Rules
+
+### Course / Level / Program 的数据职责
+
+- **Course**: Contains specific course content, lessons, outcomes, and metadata
+- **Level**: Defines learning stage characteristics, prerequisites, and aggregates courses
+- **Program**: Defines learning pathways, connects multiple courses, and explains progression logic
+
+### Single Source of Truth Rule
+
+- **Level definitions**: Must only be defined in `/levels/` pages, referenced elsewhere
+- **Course data**: Must be centralized in the course store, with consistent identifiers
+- **Program structure**: Must be defined in the program store, referencing existing courses and levels
+
+---
+
+## 6️⃣ 前后端边界宪法
+
+## Frontend / Backend Responsibility Boundary
+
+### Backend负责什么
+
+- **Data source**: Provides the single source of truth for all content data
+- **Semantic consistency**: Ensures data follows semantic rules and AEO best practices
+- **API design**: Exposes RESTful endpoints that align with page roles and semantic responsibilities
+- **Authentication**: JWT-based authentication for secure access
+
+### Frontend负责什么
+
+- **Content display**: Renders content according to semantic rules
+- **User experience**: Implements navigation, interactive elements, and responsive design
+- **JSON-LD generation**: Generates and injects structured data based on backend data
+- **Route management**: Implements client-side routing with proper guards and semantic validation
+- **State management**: Manages client-side state using Pinia, following single source of truth principles
+
+---
+
+## 7️⃣ AI / Agent 行为约束
+
+## AI & Agent Behavioral Constraints
+
+### Claude / Codex 的生成红线
+
+- ❌ **Do not invent new concepts**: Only use defined terms and concepts
+- ❌ **Do not modify slug rules**: Follow established slug conventions
+- ❌ **Do not create new level names**: Only use `beginner`, `intermediate`, `advanced`
+- ✅ **Follow semantic boundaries**: Respect page role definitions and forbidden overlaps
+- ✅ **Use existing patterns**: Follow established code patterns and architectures
+
+### How to Change the Constitution
+
+- **Must update CLAUDE.md**: All rule changes must be documented in this file
+- **Must record change reasons**: Explain why the change is necessary and its impact
+- **Must maintain backward compatibility**: Whenever possible, avoid breaking changes
+- **Review process**: Major changes should be reviewed and approved before implementation
+
+---
+
+## 8️⃣ CHANGELOG 与宪法同步规则
+
+## Constitution & CHANGELOG Synchronization
+
+- **CHANGELOG.md**: Records "what happened" - implementation details, features, bug fixes
+- **CLAUDE.md**: Records "what rules changed" - semantic principles, page roles, AEO guidelines
+- **Sync requirement**: Any changes to semantic rules or page roles must be reflected in both documents
+
+---
+
+## 9️⃣ 附录
+
+## Appendix
+
+### Example JSON-LD Structures
+
+#### Course Page JSON-LD Example
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "AI Photoshop Design Beginner",
+  "description": "Learn the basics of AI-powered Photoshop design.",
+  "educationalLevel": {
+    "@type": "DefinedTerm",
+    "name": "Beginner",
+    "@id": "https://www.doviai.com/levels/beginner"
+  },
+  "educationalUse": ["Lecture", "Demonstration", "Exercise"],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CNY",
+    "availability": "https://schema.org/InStock"
+  }
+}
+```
+
+#### Level Page JSON-LD Example
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Learning Levels",
+  "hasDefinedTerm": [
+    {
+      "@type": "DefinedTerm",
+      "name": "Beginner",
+      "description": "适合零基础学员，提供软件基础和快速理解的免费课程。",
+      "url": "https://www.doviai.com/levels/beginner"
+    }
+  ]
+}
+```
+
+### Common Mistakes to Avoid
+
+1. **Mixing page responsibilities**: For example, explaining what "Beginner" means on a Course page
+2. **Using incorrect level terms**: Using `basic` instead of `beginner` in slugs or structured data
+3. **False Schema.org claims**: Claiming to teach skills not actually covered in the course
+4. **Semantic overlap**: Having Program pages repeat course content instead of focusing on learning order
+5. **Ignoring single source of truth**: Defining level meanings in multiple places
+
+---
+
+# 🎯 使用建议
+
+## Implementation Roadmap
+
+### Immediate Actions (Now)
+
+1. ✅ **Implement semantic page roles**: Ensure Course, Level, and Program pages follow their defined responsibilities
+2. ✅ **Update course slugs**: Replace `-basic` with `-beginner` in all course slugs
+3. ✅ **Enhance structured data**: Implement DefinedTerm format for educationalLevel with level page references
+4. ✅ **Add level pages**: Create `/levels/` pages with clear level definitions
+
+### Short-Term Actions (Next 2 Weeks)
+
+1. **Implement Program pages**: Create structured learning pathways connecting courses
+2. **Enhance JSON-LD**: Add more comprehensive Schema.org markup following LRMI best practices
+3. **Optimize URL structure**: Ensure all URLs follow semantic rules and AEO best practices
+4. **Add sitemap generation**: Include all level and program pages in the sitemap
+
+### Long-Term Actions (Future)
+
+1. **Build knowledge graph**: Develop a more comprehensive knowledge graph connecting courses, skills, and learning outcomes
+2. **Implement advanced AEO features**: Add educationalOccupationalProgram, learningResourceType, and other advanced Schema.org properties
+3. **Enhance level progression**: Implement clear prerequisites and progression indicators between levels
+4. **Optimize for voice search**: Ensure semantic structure is optimized for voice assistants and conversational search
+
+---
+
+## Final Principles
+
+> **`CLAUDE.md（根目录） = 项目的语义宪法`**
+> **`frontend/CLAUDE.md = 前端执行细则`**
+
+This document defines the core semantic principles that guide all development decisions.
+All AI agents, contributors, and future refactors must comply with these rules to maintain
+consistent AEO / LRMI semantic alignment and optimal search engine understanding.
+
+---
+
+*Last updated: 2025-12-17*
+*Version: 1.0.0*
+
 ## 技术栈
+
+## Package manager
+
+This project uses **pnpm**.
+
+After first install, run:
+
+pnpm approve-builds
+
+to allow required native dependencies (e.g. esbuild).
+
 
 **前端：**
 

@@ -72,11 +72,11 @@ import { buildCourseJsonLd } from '../utils/jsonld'
 // 使用 store 和路由
 const authStore = useAuthStore()
 const courseStore = useCourseStore()
-const route = useRoute()
 const router = useRouter()
 
-// 从路由参数获取 slug
-const slug = route.params.slug as string
+// 通过 props 接收 slug
+const props = defineProps<{ slug: string }>()
+const slug = props.slug
 
 // 加载状态
 const loading = ref(true)

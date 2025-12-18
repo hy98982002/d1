@@ -37,17 +37,17 @@ const router = createRouter({
       name: 'CourseDetails',
       component: () => import('../views/CourseDetails.vue'),
       props: true, // 将slug作为prop传递给组件
-      beforeEnter: (to, from, next) => {
+      beforeEnter: (to, from) => {
         // 路由守卫：验证课程slug是否存在
         const courseStore = useCourseStore()
         const slug = to.params.slug as string
         const course = courseStore.getCourseBySlug(slug)
 
-        if (course) {
-          next() // 课程存在，允许访问
-        } else {
-          next('/404') // 课程不存在，重定向到404页面
+        if (!course) {
+          return '/404' // 课程不存在，重定向到404页面
         }
+        
+        return true // 课程存在，允许访问
       }
     },
     {
@@ -74,17 +74,17 @@ const router = createRouter({
       name: 'Program',
       component: () => import('../views/program/[slug].vue'),
       props: true, // 将slug作为prop传递给组件
-      beforeEnter: (to, from, next) => {
+      beforeEnter: (to, from) => {
         // 路由守卫：验证Program slug是否存在
         const courseStore = useCourseStore()
         const slug = to.params.slug as string
         const program = courseStore.getProgramBySlug(slug)
 
-        if (program) {
-          next() // Program存在，允许访问
-        } else {
-          next('/404') // Program不存在，重定向到404
+        if (!program) {
+          return '/404' // Program不存在，重定向到404
         }
+        
+        return true // Program存在，允许访问
       }
     },
     {
@@ -102,7 +102,7 @@ const router = createRouter({
 })
 
 // 全局前置守卫，处理需要登录的路由
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
   const authStore = useAuthStore()
 
   // 如果需要登录且用户未登录，重定向到登录页
@@ -110,10 +110,9 @@ router.beforeEach((to, from, next) => {
     // 在实际项目中，这里应该重定向到登录页，并携带回调地址
     // 但由于我们要支持F12虚拟登录，所以这里直接放行
     console.log('需要登录才能访问此页面，但由于支持F12虚拟登录，所以放行')
-    next()
-  } else {
-    next()
   }
+  
+  return true
 })
 
 export default router
