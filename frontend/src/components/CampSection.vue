@@ -153,12 +153,14 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import StageTabs from './StageTabs.vue'
 import CourseGrid from './CourseGrid.vue'
 import StarRating from './StarRating.vue'
 import { useCourseStore } from '../store/courseStore'
 import { useUIStore } from '../store/uiStore'
 import type { Course, StageKey } from '../types'
+import { StageKeySchema } from '../types'
 // Props
 interface Props {
   showPopularTags?: boolean
@@ -173,6 +175,9 @@ const props = withDefaults(defineProps<Props>(), {
 // Stores
 const courseStore = useCourseStore()
 const uiStore = useUIStore()
+
+// Router
+const route = useRoute()
 
 // 响应式状态
 const currentStage = ref<StageKey>(courseStore.currentStage)
@@ -307,6 +312,23 @@ watch(showVipOnly, () => {
   displayCount.value = props.initialDisplayCount
   showAllCourses.value = false
 })
+
+// 监听URL query参数变化（处理浏览器前进/后退）
+watch(
+  () => route.query.stage,
+  (newStage) => {
+    if (newStage && StageKeySchema.safeParse(newStage).success) {
+      // URL有有效的stage参数，更新store
+      courseStore.setCurrentStageOnly(newStage as StageKey)
+      console.log(`[CampSection] URL参数变化，更新阶段: ${newStage}`)
+    } else {
+      // URL没有stage参数，恢复默认值
+      courseStore.setCurrentStageOnly('beginner')
+      console.log('[CampSection] URL无stage参数，恢复默认阶段: beginner')
+    }
+  },
+  { immediate: false } // 不立即执行，避免初始化时重复
+)
 </script>
 
 <style scoped>
