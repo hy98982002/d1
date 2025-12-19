@@ -9,7 +9,36 @@
     },
     "filesystem": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-filesystem", "/Users/dongqingzhai/Desktop/UAI_project"]
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/dongqingzhai/Desktop/Projects/UAI_project--frontend-4"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "puppeteer-mcp-server"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "magic": {
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@latest"],
+      "env": {
+        "API_KEY": "0b35e4a3017ba88626994c68dbad994d65fe82484a59295a3baaf229e4845a6d"
+      }
+    },
+    "playwright": {
+      "command": "/Users/dongqingzhai/.nvm/versions/node/v20.19.3/bin/playwright-mcp"
+    },
+    "promptx": {
+      "command": "dpml-prompt",
+      "args": ["mcp-server"]
     }
   }
 }

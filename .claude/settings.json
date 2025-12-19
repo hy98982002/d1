@@ -29,18 +29,7 @@
       "Glob(\"__pycache__/**/*\")",
       "Glob(\"venv/**/*\")",
       "Glob(\".vscode/**/*\")",
-      "Glob(\".idea/**/*\")",
-      "mcp__filesystem__directory_tree(\"node_modules\")",
-      "mcp__filesystem__directory_tree(\".git\")",
-      "mcp__filesystem__directory_tree(\"logs\")",
-      "mcp__filesystem__directory_tree(\".bmad-core\")",
-      "mcp__filesystem__directory_tree(\".promptx\")",
-      "mcp__filesystem__directory_tree(\".specstory\")",
-      "mcp__filesystem__directory_tree(\"uaiPrePrd\")",
-      "mcp__filesystem__directory_tree(\"Pre-PRD\")",
-      "mcp__filesystem__directory_tree(\"venv\")",
-      "mcp__filesystem__directory_tree(\".vscode\")",
-      "mcp__filesystem__directory_tree(\".idea\")"
+      "Glob(\".idea/**/*\")"
     ]
   }
 }
