@@ -105,11 +105,12 @@ import CourseCard from '../../components/CourseCard.vue'
 import type { Course } from '../../types'
 import pythonBasicCover from '../../assets/images/courses/python-basic-cover-480.png'
 
-// 推荐课程数据（新三级体系：basic / intermediate / advanced）
+// 推荐课程数据（新三级体系：beginner / intermediate / advanced）
 const recommendedCourses = ref<Course[]>([
   {
     id: 1,
     title: 'RizomUV 2024 新功能官方教学（2025-05-29 更新）',
+    slug: 'rizomuv-beginner',
     instructor: 'ABOUTCG',
     duration: '2小时',
     learnerCount: 1727,
@@ -117,7 +118,7 @@ const recommendedCourses = ref<Course[]>([
     originalPrice: undefined,
     badge: '新功能',
     cover: '/img/u01.jpg',
-    stage: 'basic', // 免费入门课程
+    stage: 'beginner', // 免费入门课程
     tags: ['UV展开', '3D建模'],
     isFree: true,
     rating: 4.8,
@@ -127,6 +128,7 @@ const recommendedCourses = ref<Course[]>([
   {
     id: 2,
     title: '高精度写实枪械SCR建模与贴图制作实战（Plasticity）',
+    slug: 'plasticity-3d-modeling-advanced',
     instructor: 'HX',
     duration: '22小时',
     learnerCount: 10565,
@@ -143,6 +145,7 @@ const recommendedCourses = ref<Course[]>([
   {
     id: 3,
     title: '流体水特效实义—Unreal Engine +Houdini特效实战案例教学',
+    slug: 'unreal-houdini-vfx-intermediate',
     instructor: 'Collen',
     duration: '7小时',
     learnerCount: 3737,
@@ -158,6 +161,7 @@ const recommendedCourses = ref<Course[]>([
   {
     id: 4,
     title: '【Blender+Unity】二次元原创角色完整金属质感美型教学',
+    slug: 'blender-unity-character-beginner',
     instructor: '阿Bolero',
     duration: '21小时',
     learnerCount: 4904,
@@ -165,7 +169,7 @@ const recommendedCourses = ref<Course[]>([
     originalPrice: 278,
     badge: 'Blender+Unity',
     cover: '/img/u04.jpg',
-    stage: 'basic', // 入门基础课程
+    stage: 'beginner', // 入门基础课程
     tags: ['角色建模', 'Blender', 'Unity'],
     rating: 4.9,
     reviewCount: 103,

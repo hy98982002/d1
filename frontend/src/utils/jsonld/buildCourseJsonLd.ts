@@ -52,7 +52,7 @@ export function buildCourseJsonLd(
 
   // 2️⃣ Type（课程类型）- 教学用途
   const educationalUse: EducationalUse[] = ['Lesson', 'Practice']
-  if (course.stage === 'basic') {
+  if (course.stage === 'beginner') {
     educationalUse.push('Introduction')
   } else if (course.stage === 'intermediate') {
     educationalUse.push('Exercise')

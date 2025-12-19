@@ -49,7 +49,7 @@ export function buildProgramJsonLd(options: {
 
   // 2️⃣ Type（体系类型）
   const educationalUse: EducationalUse[] = ['Curriculum', 'ProfessionalDevelopment']
-  if (options.stage === 'basic') {
+  if (options.stage === 'beginner') {
     educationalUse.push('Introduction')
   } else if (options.stage === 'intermediate') {
     educationalUse.push('Practice')

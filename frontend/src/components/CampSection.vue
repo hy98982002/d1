@@ -175,7 +175,7 @@ const courseStore = useCourseStore()
 const uiStore = useUIStore()
 
 // 响应式状态
-const currentStage = ref<StageKey>('basic')
+const currentStage = ref<StageKey>(courseStore.currentStage)
 const displayCount = ref(props.initialDisplayCount)
 const showAllCourses = ref(false)
 const loading = ref(false)
@@ -285,13 +285,22 @@ const toggleVipCoursesDisplay = () => {
   showAllCourses.value = !showAllCourses.value
 }
 
-// 监听阶段变化
+// 监听阶段变化（组件内部 → store）
 watch(currentStage, newStage => {
   // 使用setCurrentStageOnly避免清空标签
   courseStore.setCurrentStageOnly(newStage)
   displayCount.value = props.initialDisplayCount
   showAllCourses.value = false
 })
+
+// 监听 store 阶段变化（store → 组件内部）
+// 用于处理外部修改 store（如路由守卫、其他组件）时同步组件状态
+watch(
+  () => courseStore.currentStage,
+  newStage => {
+    currentStage.value = newStage
+  }
+)
 
 // 监听会员模式切换,重置显示状态
 watch(showVipOnly, () => {

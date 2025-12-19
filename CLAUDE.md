@@ -381,8 +381,8 @@ to allow required native dependencies (e.g. esbuild).
 ### 前端 (从 `/frontend` 目录执行)
 
 ```bash
-npm install                    # 安装依赖
-npm run dev                   # 启动开发服务器 (localhost:5173)
+pnpm install                   # 安装依赖
+pnpm dev                      # 启动开发服务器 (localhost:5173)
 npm run build                 # 生产构建
 npm run build:check           # 带TypeScript检查的构建
 npm run type-check            # 仅TypeScript类型检查
