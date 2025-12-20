@@ -57,6 +57,21 @@ All AI agents, contributors, and future refactors MUST comply.
 
 ## 2️⃣ 内容与语义宪法
 
+### Topic / Program 页面职责与边界（AEO 强制规则）
+
+/t/{topic} pages aggregate courses by subject without learning order.
+They do not define progression.
+
+/programs/{program} pages define structured learning paths.
+Courses are reused but ordered intentionally.
+
+Program ↔ Course relationships MUST be expressed via hasPart / isPartOf.
+
+> 解释说明：
+> Topic 页面用于“按主题聚合内容”，不表达学习顺序；
+> Program 页面用于“定义学习路径”，同一批课程可被重复使用，但必须有明确先后关系。
+
+
 ## Content Semantic Responsibility & AEO Page Roles
 
 > This section defines constitutional-level semantic boundaries.
