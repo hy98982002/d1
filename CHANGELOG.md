@@ -1,39 +1,41 @@
 # CHANGELOG
 
-## [1.0.0] - 2025-12-17
+All notable changes to this project are documented in this file.
+
+This file records WHAT changed, not WHY or HOW.
+
+---
+
+## [2025-12-08]
 
 ### Added
-- 实现三级课程体系：Beginner/Intermediate/Advanced
-- 新增Program路由支持：/program/:slug动态路由
-- 实现Program相关store方法：getProgramBySlug、programExists、getProgramCourses
-- 新增Program相关类型定义
-- 实现动态Meta标签和JSON-LD结构化数据
-- 集成sitemap自动生成脚本
-- 配置robots.txt允许搜索引擎抓取
+- Introduced `/levels/` entity defining Beginner / Intermediate / Advanced.
+- Added Topic aggregation pages under `/t/`.
 
 ### Changed
-- 课程slug规则统一使用三级体系术语：beginner/intermediate/advanced
-- 路由设计模式统一为动态路由规范
-- SEO优化准备工作完成，为SSG迁移打好基础
+- Unified learning stage naming from `basic` to `beginner`.
+- Clarified semantic separation between Topic aggregation and Program learning paths.
+- Standardized Program ↔ Course relationships using hasPart / isPartOf.
 
-### Fixed
-- 修复课程体系命名不一致问题
-- 统一页面语义职责边界
+---
 
-## [0.1.0] - 2025-12-08
+## [2025-12-01]
+
+### Changed
+- Refactored homepage course grouping logic to align with StageKey system.
+- Improved route stability for course detail pages.
+
+---
+
+## [2025-11-20]
 
 ### Added
-- 实现动态Program路由组件：/program/[slug].vue
-- 支持Program页面动态title、description、og:*、twitter:*标签
-- 实现Program JSON-LD结构化数据生成
-- 配置路由守卫验证资源存在性
-- 生成包含16个URL的sitemap.xml
+- Initial Program pages under `/programs/` with ordered course sequences.
 
-### Changed
-- 更新courseStore，添加Program相关方法
-- 扩展types/index.ts，添加Program相关类型定义
-- 优化路由设计，支持统一的动态路由规范
+---
+
+## [2025-11-05]
 
 ### Fixed
-- 修复页面语义重叠问题
-- 统一slug命名规范
+- Corrected semantic misuse of Program as unordered container.
+

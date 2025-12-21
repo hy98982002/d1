@@ -1,143 +1,209 @@
 # CLAUDE.md
 
-**🔥 强制要求：**
+This document defines the immutable rules, semantic contracts, and AI-execution constraints of this project.
 
-- **语言：所有交流必须使用中文，包括 bmad 代理、CCPlugins 命令和任何工具调用的对话**
-- **文件读取：项目内文件必须使用 Claude 内置 Read 工具，禁用 mcp filesystem 工具**
+This is a constitution, not a changelog, not a notebook, and not a discussion log.
 
-本文件为 Claude Code (claude.ai/code) 在此代码仓库中工作时提供指导，定义项目的长期规则和强制约束。
-
-## 文档职责说明
-
-### 项目文档体系
-
-| 文档 | 职责 |
-|------|------|
-| **CLAUDE.md** | 项目的语义宪法，定义长期规则和强制约束 |
-| **CHANGELOG.md** | 记录系统/架构/AEO/路由/实体的可观测变化 |
-| **frontend/docs/** | 记录 PRD、讨论、执行过程、测试与验证 |
-
-### 职责边界
-
-- **CLAUDE.md**: 定义"应该遵循什么规则"，不包含时间线、一次性事件或已完成事项
-- **CHANGELOG.md**: 记录"发生了什么变化"，使用标准的 Added/Changed/Fixed/Removed 格式
-- **frontend/docs/**: 存储"过程记录"，包括 PRD 文档、多轮讨论、执行过程和测试验证
-
-## 项目概述
-
-多维 AI 课堂 - 基于 Vue 3 + Django 构建的在线教育服务全栈 Web 应用。项目采用前后端分离架构，使用 JWT 身份验证。
-
-## 项目目标与长期定位
-
-### Project Vision & Long-Term Direction
-
-- **平台定位**: 基于 Vue 3 + Django 构建的在线教育服务全栈 Web 应用，专注于 AI 课程的 AEO / LRMI 语义优化
-- **核心技术**: Vue 3, Django, Pinia, Vue Router 4, TypeScript
-- **AEO / SEO 优先级**: 遵循 Schema.org + LRMI + AEO 最佳实践，构建高质量的教育内容知识图谱
-- **用户体验**: 提供清晰的学习路径，优化语义结构，提升搜索引擎理解和用户导航体验
-
-## 内容与语义宪法
-
-### Content Semantic Responsibility & AEO Page Roles
-
-> This section defines constitutional-level semantic boundaries.
-> Violations are considered architecture-level errors.
-
-### Page Role Definitions (Must Follow)
-
-To ensure correct AEO / LRMI semantic alignment, each page type MUST follow a single, non-overlapping responsibility.
-
-#### 1. Course Pages
-**Purpose**: Explain *what this specific course teaches*.
-
-- Focus on: course content, skills taught, outcomes, syllabus, lessons
-- MUST NOT explain global learning stages or learning order
-- JSON-LD focus: Course, CourseInstance, educationalLevel (reference only)
-
-> A Course page answers:
-> "What will I learn in THIS course?"
+All human and AI changes MUST comply with this document.
 
 ---
 
-#### 2. Level Pages (`/levels/`)
-**Purpose**: Define *what a learning level means*.
+## 1. Scope & Authority（适用范围与权威）
 
-- Focus on: Beginner / Intermediate / Advanced definitions
-- Explain learner prerequisites, expected skills, learning difficulty
-- Aggregate courses that belong to this level
-- JSON-LD focus: DefinedTerm (educationalLevel entity)
+本宪法适用于：
 
-> A Level page answers:
-> "What does Beginner / Intermediate / Advanced mean?"
+- frontend/
+- backend/（如存在）
+- 项目整体的语义结构、AEO 设计与文档治理体系
 
----
+所有人类开发者与 AI Agent（Claude / Codex / Cursor / Trae）  
+**必须遵守本文件中的规则。**
 
-#### 3. Program / Path Pages
-**Purpose**: Describe *learning sequence and progression*.
-
-- Focus on: learning order, prerequisites, progression logic
-- Connect multiple courses and/or levels into a structured path
-- MUST NOT redefine level meanings
-- JSON-LD focus: EducationalOccupationalProgram, hasPart, programPrerequisites
-
-> A Program / Path page answers:
-> "What should I learn first, then next, and why?"
+如本文件与其他说明发生冲突，**以 CLAUDE.md 为最高优先级**。
 
 ---
 
-### Forbidden Semantic Overlaps
+## 2. Content & Semantic Constitution（内容与语义宪法）
 
-- ❌ **Course pages**: Must NOT explain global learning stages or define what "Beginner" means
-- ❌ **Level pages**: Must NOT teach specific course content or define learning order
-- ❌ **Program pages**: Must NOT repeat course content or redefine level meanings
-- ⚠️ **Rule**: A page MUST NOT take over responsibilities from another page type. Semantic responsibility overlap is considered a structural error.
+### 2.1 Page Responsibility Definitions（页面职责定义）
 
-## URL / Slug 宪法
+#### Course（/course/）
+课程页面表示**一门独立的教学单元**。
 
-### URL & Slug Canonical Rules
+- 说明：课程教什么、学什么、产出什么
+- 包含：课程内容、技能目标、学习成果、章节结构
+- MUST NOT：定义学习顺序或学习路径
 
-### Slug 的语义原则
+---
 
-- **slug ≠ 展示用**: Slugs are not for display purposes but for semantic anchoring
-- **slug = 长期稳定语义锚点**: Slugs should remain stable over time to maintain SEO value
-- **SEO / AEO 优先**: Slugs must follow AEO / LRMI best practices for optimal semantic understanding
+#### Topic（/t/{topic}）
+主题页用于**按主题聚合课程**。
 
-### Course Slug Rules
+- 只负责“内容相关性”
+- 不表达先后顺序
+- MUST NOT：表现为 Program 或 Path
 
-- **Format**: `{topic}-{tool}-{level}`
-- **Level part**: Must use system-defined level terms (`beginner` / `intermediate` / `advanced`)
-- **Example**: `photoshop-ai-design-beginner`
-- **禁止**: Using descriptive terms like `basic` instead of system-level terms
+---
 
-### Level & Program Slug Rules
+#### Program（/programs/{program}）
+体系课页面，表示**有明确顺序的学习路径**。
 
-- **Level pages**: `/levels/beginner`, `/levels/intermediate`, `/levels/advanced`
-- **Program pages**: `/programs/ai-design-path`, `/programs/machine-learning-bootcamp`
-- **Semantic clarity**: Slugs must clearly indicate the page type and purpose
+- Courses are intentionally ordered
+- 用于表达“先学什么 → 再学什么”
+- 是结构化学习的核心单位
 
-## AEO / Schema / LRMI 宪法
+---
 
-### Schema 的“真实表达原则”
+#### Path（/paths/{path}）
+路径页用于**宏观学习路线聚合**。
 
-- ❌ **No false claims**: JSON-LD must accurately reflect the actual course content
-- ✅ **Verifiable content**: All Schema.org claims must be verifiable from the page content
-- ✅ **Semantic consistency**: JSON-LD terms must match page semantics and URL structure
+- MAY 聚合多个 Program
+- DOES NOT 取代 Program 的顺序定义
 
-### educationalLevel 使用规则
+---
 
-- **Must use DefinedTerm**: Avoid plain strings like `Literal[value='basic']`
-- **Use Beginner instead of basic**: All educationalLevel references must use `beginner` instead of `basic`
+#### Levels（/levels/）
+学习阶段定义页，仅用于解释阶段语义。
 
-### JSON-LD 生成函数中的映射
+- Levels 是枚举，不是课程
+- 不承载具体教学内容
 
-- **educationalLevel**: Must use DefinedTerm format with proper mapping
-- **Example**: `"educationalLevel": {"@type": "DefinedTerm", "name": "Beginner", "@id": "https://www.doviai.com/levels/beginner"}`
+---
 
-## 最终原则
+#### FAQ / HowTo
+用于问答与教程型搜索。
 
-> **`CLAUDE.md（根目录） = 项目的语义宪法`**
-> **`frontend/CLAUDE.md = 前端执行细则`**
+- MUST NOT：重新定义课程或体系课语义
 
-This document defines the core semantic principles that guide all development decisions.
-All AI agents, contributors, and future refactors must comply with these rules to maintain
-consistent AEO / LRMI semantic alignment and optimal search engine understanding.
+---
+
+### 2.2 Entity Relationship Rules（AEO 实体关系）
+
+#### Mandatory Relationships
+
+- Program → Course：hasPart  
+- Course → Program：isPartOf
+
+- Topic → Course：about / mentions
+
+#### Forbidden Relationships
+
+- Topic MUST NOT use hasPart
+- Course MUST NOT define position outside Program context
+- Program MUST NOT act as unordered aggregation
+
+---
+
+### 2.3 Naming & Enumeration Rules（唯一命名源）
+
+#### StageKey Enumeration（唯一合法枚举）
+
+# beginner | intermediate | advanced
+
+- `basic` is FORBIDDEN
+- 枚举值必须在以下位置完全一致：
+  - URL slug
+  - UI 文案
+  - JSON-LD
+  - 内部数据模型
+
+---
+
+#### Slug Rules
+
+- Slugs MUST be semantic and stable
+- Slugs MUST NOT encode transient UI state
+- Slug meaning MUST match page content meaning
+
+---
+
+## 3. Routing & URL Canonical Rules（路由与规范）
+
+- `/course/`：原子教学单元
+- `/t/`：主题聚合
+- `/programs/`：有序学习路径
+- `/paths/`：宏观学习路线
+
+Canonical rules:
+
+- 每个实体只有一个 canonical URL
+- Slug 变更必须提供 redirect
+- 影响索引的路由变化 MUST 记录在 CHANGELOG.md
+
+---
+
+## 4. Data & Schema Rules（Schema / LRMI）
+
+- 所有 Course / Program / Level 页面 MUST 提供 JSON-LD
+- Schema 必须与页面内容真实一致
+- 禁止夸大技能、成果或前置条件
+
+LRMI 仅用于教育语义字段（educationalLevel 等）。
+
+---
+
+## 5. Coding Philosophy & Architectural Constraints（编码哲学）
+
+以下原则为**长期约束**：
+
+- 显式优于隐式
+- 状态必须可追溯、可调试
+- 避免将业务语义编码进 UI 表现层
+- 禁止同一概念存在多个真源
+
+---
+
+## 6. AI & Agent Execution Rules（AI 行为红线）
+
+AI Agents MAY：
+
+- 重构代码（不破坏语义）
+- 提出 AEO / Schema 优化建议
+
+AI Agents MUST NOT：
+
+- 静默修改 URL / slug / 实体语义
+- 引入新的学习阶段或实体类型
+- 删除或弱化本宪法中的规则
+
+所有 AI 修改必须可 Review、可回滚。
+
+---
+
+## 7. Tooling & Plugin Governance（工具治理）
+
+- MCP / CCPlugins 需显式启用
+- 禁止自动安装、自动执行
+- 影响代码或数据的工具必须人工确认
+
+操作教程不属于本文件范围。
+
+---
+
+## 8. Documentation System & Synchronization Rules（文档分工）
+
+### 8.1 文档职责
+
+- **CLAUDE.md**：规则与红线（宪法）
+- **CHANGELOG.md**：发生了什么（历史）
+- **frontend/docs/**：PRD、讨论、执行过程、测试与验证
+
+### 8.2 同步原则
+
+- 规则变化 → 更新 CLAUDE.md
+- 可观测变化 → 更新 CHANGELOG.md
+- 过程细节 → 更新 docs/
+
+---
+
+## 9. Enforcement & Review Protocol（执行与审查）
+
+- 所有违反本宪法的修改必须被修正
+- 临时例外需显式记录
+- Review Checklist 必须引用本文件
+
+---
+
+## Appendix（非规范性附录）
+
+本节内容仅供说明与预案使用，不具备强制约束力。
