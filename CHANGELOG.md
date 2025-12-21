@@ -1,41 +1,41 @@
-# CHANGELOG
+# 更新日志
 
-All notable changes to this project are documented in this file.
+本文件记录了该项目的所有重要变更。
 
-This file records WHAT changed, not WHY or HOW.
+本文件仅记录**变更内容**，不记录变更原因或方式。
 
 ---
 
 ## [2025-12-08]
 
-### Added
-- Introduced `/levels/` entity defining Beginner / Intermediate / Advanced.
-- Added Topic aggregation pages under `/t/`.
+### 新增
+- 引入了 `/levels/` 实体，定义了初级 / 中级 / 高级。
+- 在 `/t/` 下添加了主题聚合页面。
 
-### Changed
-- Unified learning stage naming from `basic` to `beginner`.
-- Clarified semantic separation between Topic aggregation and Program learning paths.
-- Standardized Program ↔ Course relationships using hasPart / isPartOf.
+### 变更
+- 将学习阶段名称从 `basic` 统一改为 `beginner`。
+- 明确了主题聚合与学习路径之间的语义分离。
+- 使用 hasPart / isPartOf 标准化了学习路径与课程之间的关系。
 
 ---
 
 ## [2025-12-01]
 
-### Changed
-- Refactored homepage course grouping logic to align with StageKey system.
-- Improved route stability for course detail pages.
+### 变更
+- 重构了首页课程分组逻辑，以与 StageKey 系统保持一致。
+- 改进了课程详情页的路由稳定性。
 
 ---
 
 ## [2025-11-20]
 
-### Added
-- Initial Program pages under `/programs/` with ordered course sequences.
+### 新增
+- 在 `/programs/` 下添加了初始学习路径页面，包含有序的课程序列。
 
 ---
 
 ## [2025-11-05]
 
-### Fixed
-- Corrected semantic misuse of Program as unordered container.
+### 修复
+- 纠正了将学习路径用作无序容器的语义错误。
 
