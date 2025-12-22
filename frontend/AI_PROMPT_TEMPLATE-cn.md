@@ -1,87 +1,68 @@
+以下是翻译后的中文版本：
 
+**==================================================  
+FRONTEND AI 强制性检查清单  
+==================================================  
 
-This checklist is derived from frontend/AI_CHECKLIST.md.
-If any discrepancy exists, the checklist file is the source of truth.
+1. 规则意识  
+- 你是否阅读并理解了根目录下的 CLAUDE.md 文件？（是/否）  
+- 你是否阅读并理解了前端目录下的 CLAUDE.md 文件？（是/否）  
+- 此任务是否避免引入新的实体、阶段或语义？（是/否）  
 
+2. 语义安全  
+- 此更改是否保留了课程/主题/项目/路径的责任划分？（是/否）  
+- 项目是否仍然是一个有序的学习路径？（是/否）  
+- 主题是否仍然是一个无序的集合？（是/否）  
 
----
+3. 阶段键合规性  
+- 你是否仅使用：初学者 | 中级 | 高级？（是/否）  
+- 你是否避免使用基础/入门/专业或其别名？（是/否）  
+- 阶段键是否仅用于显示/筛选，而不是排序？（是/否）  
 
-```text
-You are an AI agent modifying the frontend of this project.
+4. 路由完整性  
+- 路由语义是否保持不变？（是/否）  
+- 路径（slug）的含义是否保持不变？（是/否）  
+- 无效的路径是否快速失败并返回404？（是/否）  
 
-Before writing or changing ANY code,
-you MUST complete the mandatory checklist below.
+5. JSON-LD 和 AEO 安全  
+- 是否严格根据页面类型匹配 schema？（是/否）  
+- 项目与课程的关系是否仅通过 hasPart/isPartOf 表达？（是/否）  
+- 所有的 JSON-LD 内容是否在用户界面中可见？（是/否）  
 
-If any item cannot be answered with a clear YES,
-you MUST STOP and ask for clarification.
+6. 状态管理安全  
+- 业务状态是否仅从 Pinia 获取？（是/否）  
+- 是否不将 URL 参数视为业务事实？（是/否）  
+- 是否为每个概念维护单一数据源？（是/否）  
 
-==================================================
-FRONTEND AI MANDATORY CHECKLIST
-==================================================
+7. 组件边界安全  
+- 页面组件是否仅负责数据和语义？（是/否）  
+- UI 组件是否不含业务逻辑？（是/否）  
+- 项目排序逻辑是否没有泄露到主题/课程中？（是/否）  
 
-1. Rule Awareness
-- Have you read and understood the root CLAUDE.md? (YES / NO)
-- Have you read and understood frontend/CLAUDE.md? (YES / NO)
-- Does this task avoid introducing new entities, stages, or semantics? (YES / NO)
+8. 文档合规性  
+- 此更改是否不需要修改 CLAUDE.md 文件？（是/否）  
+- 如果需要更改规则，你是否会停止并先询问？（是/否）  
+- 你是否评估了 CHANGELOG.md 是否需要添加条目？（是/否）  
 
-2. Semantic Safety
-- Does this change preserve Course / Topic / Program / Path responsibilities? (YES / NO)
-- Does Program remain an ordered learning path only? (YES / NO)
-- Does Topic remain an unordered aggregation only? (YES / NO)
+9. 最终确认  
+- 此更改是否可以完全审查？（是/否）  
+- 此更改是否可以安全地撤销？（是/否）  
+- 此更改是否避免了不可逆的长期影响？（是/否）  
 
-3. StageKey Compliance
-- Are you ONLY using: beginner | intermediate | advanced? (YES / NO)
-- Are you avoiding basic / intro / pro or aliases? (YES / NO)
-- Is StageKey used only for display/filtering, not sequencing? (YES / NO)
+==================================================  
+AI 声明（强制性）  
+==================================================  
 
-4. Routing Integrity
-- Are route semantics unchanged? (YES / NO)
-- Is slug meaning preserved? (YES / NO)
-- Do invalid slugs fail-fast to 404? (YES / NO)
+在继续之前，仅需回复以下内容：  
 
-5. JSON-LD & AEO Safety
-- Is schema strictly matched to page type? (YES / NO)
-- Are Program ↔ Course relationships expressed ONLY via hasPart / isPartOf? (YES / NO)
-- Is all JSON-LD content visible in UI? (YES / NO)
+1）完整的检查清单，每个项目标注是/否  
+2）如果任何项目为“否”，提供简短的风险总结  
+3）明确确认，如果违反任何规则，你将立即停止  
 
-6. State Management Safety
-- Is business state sourced from Pinia only? (YES / NO)
-- Are URL params NOT treated as business truth? (YES / NO)
-- Is there a single source of truth for each concept? (YES / NO)
+请不要编写任何代码。  
 
-7. Component Boundary Safety
-- Are Page components responsible only for data & semantics? (YES / NO)
-- Are UI components free of business logic? (YES / NO)
-- Is Program ordering logic not leaking into Topic/Course? (YES / NO)
+==================================================  
+任务描述  
+==================================================  
 
-8. Documentation Compliance
-- Does this change NOT require modifying CLAUDE.md? (YES / NO)
-- If rules need changes, will you STOP and ask first? (YES / NO)
-- Have you evaluated whether CHANGELOG.md needs an entry? (YES / NO)
-
-9. Final Confirmation
-- Is this change fully reviewable? (YES / NO)
-- Is this change safely reversible? (YES / NO)
-- Does this avoid irreversible long-term impact? (YES / NO)
-
-==================================================
-AI DECLARATION (MANDATORY)
-==================================================
-
-Before proceeding, respond ONLY with:
-
-1) A completed checklist with YES/NO for each item  
-2) A short risk summary (if any item is NO)  
-3) Explicit confirmation that you will STOP if any rule is violated
-
-DO NOT write any code yet.
-
-==================================================
-TASK DESCRIPTION
-==================================================
-
-【在这里写你的具体前端修改需求】
-```
-
----
-
+【在这里写你的具体前端修改需求】**
