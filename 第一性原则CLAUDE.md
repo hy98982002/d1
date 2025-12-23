@@ -165,7 +165,7 @@ Claude must ALWAYS follow these rules:
 - BreadcrumbList  
 
 Program 页面必须包含：
-- hasCourse  
+- hasPart 
 - programPrerequisites（如适用）  
 - isBasedOn（仅用于真正内容衍生关系）  
 
@@ -202,7 +202,9 @@ Stages 必须可扩展至：
 - beginner  
 - intermediate  
 - advanced  
-- pro / master（如未来新增）
+任何会员 / 权限 / 商业层级
+不得以 Stage / Level / Slug 形式表达
+
 
 Slug 模式推荐：
 `{topic}-{tool}-{stage}`  
