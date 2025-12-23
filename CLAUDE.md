@@ -73,6 +73,27 @@ AI Agents:
 - MUST 优先遵守 CLAUDE.md 与 frontend/CLAUDE.md
 除非当前任务明确涉及体系或语义重构。
 
+## 文件与目录命名规则（跨平台强制）
+
+本项目 **必须** 在 Windows / macOS / Linux 环境下
+可 `git clone`、可 `git checkout`、可协作。
+
+### 强制规则
+- **禁止** 在文件名或目录名中使用以下字符：
+  `* ? : < > | " / \`
+- 仅允许使用字符集：
+  - `a-z A-Z 0-9`
+  - `- _`
+  - 中文（需克制，不得过长）
+- 所有重命名操作 **必须使用 `git mv`**
+- AI / 自动生成文件 **同样适用本规则**
+
+### 权威文档
+- 详细规则请参见：
+  `docs/跨平台仓库命名铁律.md`
+
+> 违反本规则的提交一律视为 **无效提交**，必须修复后才能继续。
+
 
 
 ## 1. Scope & Authority（适用范围与权威）
@@ -283,6 +304,26 @@ beginner | intermediate | advanced
 - **isPartOf / hasPart**:Use these properties to define hierarchical relationships
 - **programPrerequisites**:Clearly define prerequisites for Program pages
 - **educationalUse**:Use LRMI educationalUse values to categorize content types
+
+- 一旦 Skill 拥有独立实体页（/skills/），
+所有 Program / Course 与 Skill 的关系
+必须使用实体级关系（hasPart / isPartOf / @id），
+不再使用字符串型 teaches 作为主干表达。
+
+- /programs/
+= 教学结构顺序的唯一主权实体
+= 唯一允许使用 hasPart / isPartOf
+  表达「课程之间的强教学依赖与顺序」
+
+- /paths/
+= 学习规划与推荐顺序（建议性、外生、可调整）
+= 不得使用 hasPart / isPartOf
+  表达教学结构，仅用于导航与决策辅助
+
+- /course/
+= 可使用 hasPart 表达课程内部结构（如 CourseSection）
+= 不得使用 hasPart 表达跨课程教学顺序
+
 
 LRMI 仅用于教育语义字段（educationalLevel 等）。
 
