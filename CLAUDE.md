@@ -313,7 +313,8 @@ beginner | intermediate | advanced
 - /programs/
 = 教学结构顺序的唯一主权实体
 = 唯一允许使用 hasPart / isPartOf
-  表达「课程之间的强教学依赖与顺序」
+= 唯一明确表达“学习顺序”的实体
+表达「课程之间的强教学依赖与顺序」
 
 - /paths/
 = 学习规划与推荐顺序（建议性、外生、可调整）
@@ -323,6 +324,37 @@ beginner | intermediate | advanced
 - /course/
 = 可使用 hasPart 表达课程内部结构（如 CourseSection）
 = 不得使用 hasPart 表达跨课程教学顺序
+
+
+
+/programs/
+= 教学结构与学习顺序定义页
+= 必须完整展开其 hasPart 的 Course
+= Course 作为 Program 的组成部分呈现，而非独立决策单元
+
+/skills/
+= 能力抽象与体系入口页
+= 仅允许链接 Program
+= 可抽象性描述 Program 内的学习阶段
+= 不得展开或链接任何 Course
+=  能力抽象层，不定义顺序
+
+Skill 页面用于表达“可获得的能力”，
+优先关联 Program（学习路径），
+而不是直接聚合 Course（教学单元）。
+
+❌ 不推荐
+
+- 在 skills 页直接列 course
+
+- 在 skills 页定义学习顺序
+
+- 在 skills 页解释 Beginner / Intermediate
+
+这些都会串权。
+
+
+
 
 
 LRMI 仅用于教育语义字段（educationalLevel 等）。
