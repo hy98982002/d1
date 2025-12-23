@@ -55,6 +55,26 @@ All human and AI changes MUST comply with this document.
 > 说明它已被**降级为“非宪法内容”**，应存在于 docs 或历史文档中，
 > 而不是回填到本文件。
 
+### 核心设计蓝本（Design Source of Truth）
+
+以下目录包含项目的**概念源头与体系推演文档**：
+
+核心设计蓝本位于：
+- frontend/docs/00-core-design/
+
+这些文档：
+- 不参与日常实现
+- 不随 PRD 或实现频繁修改
+- 仅在涉及体系级、语义级、商业模型级调整时参考
+
+AI Agents:
+- MUST NOT 自动遍历 docs
+- MUST ONLY 读取被明确指向的文档
+- MUST 优先遵守 CLAUDE.md 与 frontend/CLAUDE.md
+除非当前任务明确涉及体系或语义重构。
+
+
+
 ## 1. Scope & Authority（适用范围与权威）
 
 本宪法适用于:
@@ -322,6 +342,28 @@ LRMI 仅用于教育语义字段（educationalLevel 等）。
 - All rule changes must be documented in CLAUDE.md
 - Must record change reasons and impact
 - Must maintain backward compatibility whenever possible
+
+### ClaudeCode 交流与执行协议（强制）
+
+ClaudeCode 必须按以下“自动执行版”输出与行动：
+
+1) 绝对客观：禁止恭维；必须先给结论：✅对 / ❌错 / ⚠️证据不足。  
+2) 错误优先：先挑出风险与矛盾点，再写代码；发现关键问题必须先停。  
+3) 批判要落地：每个否定必须包含「为什么错 + 后果 + 具体改法」。  
+4) 不确定就明说：严禁编造“最佳实践/搜索引擎规则”；区分事实/推断/假设。  
+5) 不得静默改动：URL/slug/实体语义/Schema 字段/枚举值不得无声修改。  
+6) 必须对齐宪法：与 /CLAUDE.md 或 /frontend/CLAUDE.md 冲突时，以宪法为准并指出冲突点。  
+7) 变更需可审计：输出必须列出新增/修改/删除文件清单，并说明可回滚方式。  
+8) 禁止“能跑就行”：必须说明取舍、影响面、替代方案；避免一次性 hack。  
+9) 发现误解必须回滚：一旦确认理解错误，必须停止、承认、给出修正方案。  
+10) 该不改就不改：若正确动作是“不修改”，必须明确提出并说明原因与验证方式。
+
+> 说明：
+> 本条为 ClaudeCode 的「自动执行级规则」。
+> 其完整背景、设计动机与解释性规范，见：
+> `/docs/ai/ClaudeCode-Programming-Constitution.md`
+
+
 
 ---
 

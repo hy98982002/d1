@@ -195,7 +195,7 @@ Slug 必须遵循：
 - 全英文  
 - 全小写  
 - 使用连字符  
-- 包含关键长尾词（如 ai-logo-design-basic）  
+- 包含关键长尾词（如 ai-logo-design-beginner ）  
 
 ### **6.2 Stage Map**
 Stages 必须可扩展至：
@@ -207,7 +207,7 @@ Stages 必须可扩展至：
 Slug 模式推荐：
 `{topic}-{tool}-{stage}`  
 如：  
-`photoshop-ai-design-basic`  
+`photoshop-ai-design-beginner `  
 
 ### **6.3 Consistency**
 Slug 必须进入：
