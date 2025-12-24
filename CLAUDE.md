@@ -327,7 +327,7 @@ beginner | intermediate | advanced
 
 
 
-/programs/
+/programs/ 
 = 教学结构与学习顺序定义页
 = 必须完整展开其 hasPart 的 Course
 = Course 作为 Program 的组成部分呈现，而非独立决策单元
@@ -358,6 +358,23 @@ Skill 页面用于表达“可获得的能力”，
 
 这些都会串权。
 
+- /programs/ 与 /skills/ 仅作为 URL 命名空间存在
+不构成可索引的 AEO 实体页面
+
+
+
+- /programs/、/skills/、/paths/
+仅作为导航或索引路径存在，
+不构成 AEO 实体，不输出实体型 JSON-LD。
+
+所有 AEO 实体必须是具体节点：
+- /programs/{slug}
+- /skills/{slug}
+- /paths/{slug}
+
+- Path 的 slug 必须表达“学习规划目标”，
+不得复用任何 Skill 的 slug。
+/paths/{slug} 与 /skills/{slug} 在语义上必须不同。
 
 
 
