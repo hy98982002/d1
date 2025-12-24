@@ -305,81 +305,41 @@ beginner | intermediate | advanced
 - **programPrerequisites**:Clearly define prerequisites for Program pages
 - **educationalUse**:Use LRMI educationalUse values to categorize content types
 
-- 一旦 Skill 拥有独立实体页（/skills/），
-所有 Program / Course 与 Skill 的关系
-必须使用实体级关系（hasPart / isPartOf / @id），
-不再使用字符串型 teaches 作为主干表达。
+### AEO 语义主权：Program / Skill / Path（强制）
 
-- /programs/
-= 教学结构顺序的唯一主权实体
-= 唯一允许使用 hasPart / isPartOf
-= 唯一明确表达“学习顺序”的实体
-表达「课程之间的强教学依赖与顺序」
+#### 1) Skill 实体规则（/skills/{slug}）
+- 一旦 Skill 拥有独立实体页（/skills/{slug}），所有 Program / Course 与 Skill 的关系**必须使用实体级引用**（@id / isPartOf / relatedTo 等），**不再使用字符串型 teaches 作为主干表达**。
+- /skills/{slug} 是“能力抽象与入口页”：
+  - ✅ 允许：链接 Program（体系入口）、抽象描述能力构成/收益
+  - ❌ 禁止：展开或链接任何 Course；禁止在 skills 页定义学习顺序；禁止解释 Level（Beginner/Intermediate/Advanced）
 
-- /paths/
-= 学习规划与推荐顺序（建议性、外生、可调整）
-= 不得使用 hasPart / isPartOf
-  表达教学结构，仅用于导航与决策辅助
+#### 2) 教学结构主权（/programs/{slug}）
+- /programs/{slug} 是“教学结构顺序”的唯一主权实体（跨课程结构主干）：
+  - ✅ 允许：Program → Course 使用 hasPart；Course → Program 使用 isPartOf；在 Program 内定义课程的强依赖与顺序
+  - ❌ 禁止：把 Path 的推荐顺序写进 Program；禁止把商业权限/会员等级混入 Level/Stage 语义
 
-- /course/
-= 可使用 hasPart 表达课程内部结构（如 CourseSection）
-= 不得使用 hasPart 表达跨课程教学顺序
+#### 3) 学习规划与推荐顺序（/paths/{slug}）
+- /paths/{slug} 只负责“Skill 之间的推荐学习顺序”（建议性、外生、可调整）：
+  - ✅ 页面内容层：可写推荐顺序；可解释性推荐 Program（可链接）
+  - ❌ 结构主干（JSON-LD）：不得用 hasPart / isPartOf 表达教学结构；不得把 Program 当作路径步骤；不得出现 Course 链接
 
+#### 4) Course 内部结构权限（/course/{slug}）
+- /course/{slug} 可使用 hasPart 表达课程内部结构（如 CourseSection）
+- /course/{slug} 不得使用 hasPart 表达跨课程教学顺序
 
+#### 5) 命名空间 vs 实体页（强制）
+- /programs/、/skills/、/paths/ 仅作为 URL 命名空间或索引/导航页存在，**不构成 AEO 实体页，不输出实体型 JSON-LD**。
+- 所有 AEO 实体必须是具体节点：
+  - /programs/{slug}
+  - /skills/{slug}
+  - /paths/{slug}
 
-/programs/ 
-= 教学结构与学习顺序定义页
-= 必须完整展开其 hasPart 的 Course
-= Course 作为 Program 的组成部分呈现，而非独立决策单元
+#### 6) Slug 防冲突规则（强制）
+- /paths/{slug} 的 slug 必须表达“学习规划目标”，不得复用任何 /skills/{slug} 或 /programs/{slug}（避免语义同名冲突）。
 
-/skills/
-= 能力抽象与体系入口页
-= 仅允许链接 Program
-= 可抽象性描述 Program 内的学习阶段
-= 不得展开或链接任何 Course
-=  能力抽象层，不定义顺序
+#### 7) LRMI 使用范围（强制）
+- LRMI 仅用于教育语义字段（educationalLevel、educationalUse、learningResourceType 等教育相关字段）；非教育字段按 Schema.org 常规写法处理。
 
-Skill 是能力并列集合，
-不定义学习顺序；
-学习顺序只能通过 UI 暗示或 Path 明示，
-不得写入 Skill 的结构化语义
-
-Skill 页面用于表达“可获得的能力”，
-优先关联 Program（学习路径），
-而不是直接聚合 Course（教学单元）。
-
-❌ 不推荐
-
-- 在 skills 页直接列 course
-
-- 在 skills 页定义学习顺序
-
-- 在 skills 页解释 Beginner / Intermediate
-
-这些都会串权。
-
-- /programs/ 与 /skills/ 仅作为 URL 命名空间存在
-不构成可索引的 AEO 实体页面
-
-
-
-- /programs/、/skills/、/paths/
-仅作为导航或索引路径存在，
-不构成 AEO 实体，不输出实体型 JSON-LD。
-
-所有 AEO 实体必须是具体节点：
-- /programs/{slug}
-- /skills/{slug}
-- /paths/{slug}
-
-- Path 的 slug 必须表达“学习规划目标”，
-不得复用任何 Skill 的 slug。
-/paths/{slug} 与 /skills/{slug} 在语义上必须不同。
-
-
-
-
-LRMI 仅用于教育语义字段（educationalLevel 等）。
 
 ---
 
