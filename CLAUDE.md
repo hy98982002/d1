@@ -339,6 +339,11 @@ beginner | intermediate | advanced
 = 不得展开或链接任何 Course
 =  能力抽象层，不定义顺序
 
+Skill 是能力并列集合，
+不定义学习顺序；
+学习顺序只能通过 UI 暗示或 Path 明示，
+不得写入 Skill 的结构化语义
+
 Skill 页面用于表达“可获得的能力”，
 优先关联 Program（学习路径），
 而不是直接聚合 Course（教学单元）。
