@@ -1,9 +1,9 @@
 # CLAUDE.md
 
-**🔥 强制要求：**
+**🔥 基础规则（默认策略 + 允许例外）：**
 
-- **语言：所有交流必须使用中文，包括 bmad 代理、CCPlugins 命令和任何工具调用的对话**
-- **文件读取：项目内文件必须使用 Claude 内置 Read 工具，禁用 mcp**filesystem**\*工具**
+- **语言：默认中文；当工具/协议要求固定英文/语法时，以工具协议为准，但解释必须中文**
+- **文件读取：默认优先使用内置 Read 工具；若当前执行器不支持或读取失败，允许使用等价安全读取方式，必须在输出中声明采用了哪种读取方式**
 
 This document defines the immutable rules, semantic contracts, and AI-execution constraints of this project.
 
@@ -243,9 +243,11 @@ beginner | intermediate | advanced
 - ❌ 禁止使用拼音:URL 路径、HTML class/id、Schema.org 数据、图片文件名、Meta 标签
 
 **Course Slug Format**:
-- Format:`{topic}-{tool}-{level}`
-- Level part:Must use system-defined level terms (`beginner` / `intermediate` / `advanced`)
-- Example:`photoshop-ai-design-beginner`
+- Slug 必须可读、稳定、与内容一致
+- Level 必须出现且只能是枚举值（`beginner` / `intermediate` / `advanced`）
+- Tool 作为可选段：有工具就写，没有就不写
+- 明确禁止：堆砌营销词、临时状态、UI 状态
+- Example:`photoshop-ai-design-beginner` (带工具) 或 `design-psychology-beginner` (无工具)
 
 ---
 
@@ -328,7 +330,9 @@ beginner | intermediate | advanced
 - /course/{slug} 不得使用 hasPart 表达跨课程教学顺序
 
 #### 5) 命名空间 vs 实体页（强制）
-- /programs/、/skills/、/paths/ 仅作为 URL 命名空间或索引/导航页存在，**不构成 AEO 实体页，不输出实体型 JSON-LD**。
+- /programs/、/skills/、/paths/ 仅作为 URL 命名空间或索引/导航页存在：
+  - ✅ 允许：`BreadcrumbList`、`WebPage`、`CollectionPage`
+  - ❌ 禁止：把它当作 Program/Skill/Path 实体输出（比如 `@type: Course`/`DefinedTermSet`/实体型）
 - 所有 AEO 实体必须是具体节点：
   - /programs/{slug}
   - /skills/{slug}
@@ -395,8 +399,8 @@ beginner | intermediate | advanced
 
 - 所有 AI 修改必须可 Review、可回滚
 - All rule changes must be documented in CLAUDE.md
-- Must record change reasons and impact
 - Must maintain backward compatibility whenever possible
+- 任何会影响 URL/slug/实体语义/枚举 的改动必须显式声明
 
 ### ClaudeCode 交流与执行协议（强制）
 
@@ -408,15 +412,14 @@ ClaudeCode 必须按以下“自动执行版”输出与行动：
 4) 不确定就明说：严禁编造“最佳实践/搜索引擎规则”；区分事实/推断/假设。  
 5) 不得静默改动：URL/slug/实体语义/Schema 字段/枚举值不得无声修改。  
 6) 必须对齐宪法：与 /CLAUDE.md 或 /frontend/CLAUDE.md 冲突时，以宪法为准并指出冲突点。  
-7) 变更需可审计：输出必须列出新增/修改/删除文件清单，并说明可回滚方式。  
-8) 禁止“能跑就行”：必须说明取舍、影响面、替代方案；避免一次性 hack。  
-9) 发现误解必须回滚：一旦确认理解错误，必须停止、承认、给出修正方案。  
-10) 该不改就不改：若正确动作是“不修改”，必须明确提出并说明原因与验证方式。
+7) 发现误解必须回滚：一旦确认理解错误，必须停止、承认、给出修正方案。  
+8) 该不改就不改：若正确动作是“不修改”，必须明确提出并说明原因与验证方式。
 
 > 说明：
 > 本条为 ClaudeCode 的「自动执行级规则」。
 > 其完整背景、设计动机与解释性规范，见：
 > `/docs/ai/ClaudeCode-Programming-Constitution.md`
+> 执行流程细节（如输出文件清单、回滚方式、原因影响分析）请参考 `frontend/CLAUDE.md`
 
 
 
@@ -495,6 +498,8 @@ Documents MUST NOT duplicate responsibilities.
 本节内容仅供说明与预案使用,不具备强制约束力。
 
 ### Example JSON-LD Structures
+
+> ⚠️ 警告：以下示例仅供参考，**严禁直接复制**。使用时必须与页面内容逐项核对，确保 Schema 与实际内容真实一致。
 
 #### Course Page JSON-LD Example
 ```json
