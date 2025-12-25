@@ -90,7 +90,7 @@ AI Agents:
 
 ### 权威文档
 - 详细规则请参见：
-  `docs/跨平台仓库命名铁律.md`
+  `docs/ai/跨平台仓库命名铁律.md`
 
 > 违反本规则的提交一律视为 **无效提交**，必须修复后才能继续。
 
@@ -279,7 +279,7 @@ beginner | intermediate | advanced
 
 ### Schema 真实表达原则
 
-- 所有 Course / Program / Level 页面 MUST 提供 JSON-LD
+- 所有 Courses / Programs / Levels 的实体页面 MUST 提供 JSON-LD
 - Schema 必须与页面内容真实一致
 - 禁止夸大技能、成果或前置条件
 
