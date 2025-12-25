@@ -6,6 +6,25 @@
 
 ---
 
+## [2025-12-25]
+
+### 文档治理
+- **CLAUDE.md 宪法级升级到 2.0.1**:进行了多轮宪法级修改和极致洁癖微调
+  - 修改顶部强制要求为默认策略+允许例外
+  - 明确索引页JSON-LD规则
+  - 优化Course Slug Format为语义约束+可选段
+  - 收紧Review Requirements的规则变更范围
+  - 增强附录示例安全性
+  - 新增Priority 1.5 — Topic Hub定义
+  - 新增AEO Entity Expansion Plan（预案·非激活）
+  - 新增预案约束规则
+  - 微调正文Topic定义的语义预留
+  - 收紧Topic Hub的Schema类型描述
+  - Review Requirements的职责去重
+  - 更新版本号至2.0.1
+
+---
+
 ## [2025-12-21]
 
 ### 文档治理

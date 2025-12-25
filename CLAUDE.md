@@ -132,7 +132,7 @@ AI Agents:
 ---
 
 #### Topic（/t/{topic}）
-主题页用于**按主题聚合课程**。
+主题页用于**按主题聚合内容（以 Course 为主）**。
 
 - 只负责"内容相关性"
 - 不表达先后顺序
@@ -398,7 +398,7 @@ beginner | intermediate | advanced
 ### Review Requirements（审查要求）
 
 - 所有 AI 修改必须可 Review、可回滚
-- All rule changes must be documented in CLAUDE.md
+- 仅当规则变更**影响 URL / slug / 实体语义 / 枚举（如 Level、StageKey）**时，才必须更新 CLAUDE.md；其余流程性、实现性、工具性规则应记录在 `frontend/CLAUDE.md` 或 `docs/` 中
 - Must maintain backward compatibility whenever possible
 - 任何会影响 URL/slug/实体语义/枚举 的改动必须显式声明
 
@@ -489,7 +489,7 @@ Documents MUST NOT duplicate responsibilities.
 
 - Violations of this constitution MUST be corrected
 - Temporary exceptions require explicit documentation
-- Review checklists MUST reference this document
+- Review checklists MUST reference this document（审查标准详见 §6）
 
 ---
 
@@ -548,9 +548,70 @@ Documents MUST NOT duplicate responsibilities.
 4. **Semantic overlap**:Having Program pages repeat course content instead of focusing on learning order
 5. **Ignoring single source of truth**:Defining level meanings in multiple places
 
-### Future Entity Proposals
+### Priority 1.5 — Topic Hub（/t/，语义聚合实体 · 非教学）
 
-（本节预留用于未来实体草案）
+**`/t/`（Topic Hub）** 是主题级语义聚合实体，用于：
+- 跨 Course / Skill / HowTo / FAQ 的主题归档
+- 构建稳定的主题语义锚点
+- 作为站内内链与语义关联的中心节点
+
+#### 语义边界（强制）
+
+- `/t/` **不定义** 学习阶段（Level）
+- `/t/` **不定义** 学习顺序或学习路径
+- `/t/` **不具备** 教学结构主权
+- `/t/` **不得表现为** Program / Path / Skill
+
+#### 允许的职责
+
+- ✅ 按“主题相关性”聚合内容
+- ✅ 作为内链与语义推荐中心
+- ✅ 关联 Course / Skill / HowTo / FAQ（非顺序、非依赖）
+
+#### 禁止的行为（FORBIDDEN）
+
+- ❌ 使用 `hasPart` 表达教学结构
+- ❌ 表达先学 / 后学、阶段划分
+- ❌ 替代或弱化 Program / Path 的结构主权
+- ❌ 在 `/t/` 中解释 Beginner / Intermediate / Advanced 含义
+
+#### AEO / Schema 原则
+
+- `/t/` 仅作为 **主题聚合语义节点**
+- Schema 类型应使用 `Thing` 或等价的**非教学型**轻量语义类型
+- 不得输出 Course / EducationalOccupationalProgram / DefinedTermSet
+
+### AEO Entity Expansion Plan（预案 · 非激活）
+
+#### 实体优先级路线图（非承诺）
+
+* Priority 0：Course / Program / Level（已激活）
+* Priority 1：Skill（/skills/{slug}）
+* Priority 1.5：Topic Hub（/t/）
+* Priority 2：Role / Career（如 /roles/{slug}）
+* Priority 3：Tool / Glossary / Other abstractions
+
+#### 字段预留规则（Interface Reservation）
+
+* 允许在数据模型中预留但不得启用以下字段：
+  `skills / tools / targetRoles / topics / levelRef / programRef`
+* 禁止在页面、JSON-LD、站点地图中提前暴露这些实体
+
+#### 实体启用强制流程（Activation Gate）
+
+* 内容成熟 → 页面模板 → Schema → sitemap → 内链 → Search Console 监控
+* 缺任一步，实体不得激活
+
+#### 强制声明
+
+* 本节仅为长期规划预案
+* 不构成当前系统的一部分
+* AI 不得基于本节自动创建页面、路由或 JSON-LD
+
+### 预案约束规则
+
+本 Appendix 中的任何未来实体规划
+**不得反向修改、弱化或解释 CLAUDE.md 正文中的既有规则**。
 
 ---
 
@@ -565,5 +626,5 @@ consistent AEO / LRMI semantic alignment and optimal search engine understanding
 
 ---
 
-*Version: 2.0.0*
-*Last restructured: 2025-12-21*
+*Version: 2.0.1*
+*Last restructured: 2025-12-25*
