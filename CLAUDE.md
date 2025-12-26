@@ -60,7 +60,7 @@ All human and AI changes MUST comply with this document.
 以下目录包含项目的**概念源头与体系推演文档**：
 
 核心设计蓝本位于：
-- frontend/docs/00-core-design/
+- frontend/docs/25-00-core-design/
 
 这些文档：
 - 不参与日常实现
