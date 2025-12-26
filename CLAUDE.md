@@ -73,6 +73,30 @@ AI Agents:
 - MUST 优先遵守 CLAUDE.md 与 frontend/CLAUDE.md
 除非当前任务明确涉及体系或语义重构。
 
+### AI Working Context Map（AI 工作上下文地图）
+
+在执行任何任务前，AI Agent 应理解以下文档的**职责差异**：
+
+- `/CLAUDE.md`  
+  → 唯一宪法。定义语义主权、实体关系、AEO 红线。  
+  → 不解释实现，不描述工程现实。
+
+- `/frontend/CLAUDE.md`  
+  → 前端执行细则。说明在前端“如何实现”宪法规则。  
+  → 仅约束前端，不得扩展或修改宪法语义。
+
+- `/AI_EXECUTION_CONTEXT.md`  
+  → AI 理解工程现实的背景材料。  
+  → 描述当前代码结构、历史迁移、现实假设。  
+  → **不具备任何约束力，不得作为规则依据。**
+
+- `/DEPLOY_NOTES.md`  
+  → 部署、构建、环境与运维说明。  
+  → 与语义、AEO、实体规则无关，不得反向影响宪法判断。
+
+AI Agent 在发生冲突时：
+**必须以 `/CLAUDE.md` 为唯一裁决来源。**
+
 ## 文件与目录命名规则（跨平台强制）
 
 本项目 **必须** 在 Windows / macOS / Linux 环境下
