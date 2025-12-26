@@ -173,10 +173,10 @@
 
 | 命令                 | 说明                          |
 | -------------------- | ----------------------------- |
-| `npm run dev`        | 启动开发服务器                |
-| `npm run build`      | 构建生产版本                  |
-| `npm run typecheck`  | 运行类型检查                  |
-| `npm run lint`       | 运行代码质量检查              |
+| `pnpm run dev`       | 启动开发服务器                |
+| `pnpm run build`     | 构建生产版本                  |
+| `pnpm run typecheck` | 运行类型检查                  |
+| `pnpm run lint`      | 运行代码质量检查              |
 
 ## 10. 测试与质量保障
 
