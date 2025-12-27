@@ -19,3 +19,10 @@
    - 不将 CHANGE_SUMMARY 视为规则或宪法的一部分
 
 如果本次任务未产生任何可记录的变化，请明确说明“无需更新日志”。
+
+## Authority & Scope
+
+- This document does NOT define constitutional or project rules
+- It has no project-level authority
+- It exists solely to constrain AI task completion behavior
+- It MUST NOT override, reinterpret, or conflict with `/CLAUDE.md`

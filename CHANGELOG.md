@@ -11,6 +11,9 @@
 ### 文档治理
 - **生成One-Click Prompt Template中文版**:新增中文版一键提示模板，方便中文环境下的AI代理使用
 - **生成START_TASK.block中文版**:新增docs/ai/START_TASK.block-cn.md，为AI代理提供中文任务开始模板
+- **更新CLAUDE.md**:在AI执行协议部分添加了Mandatory Task Start Protocol引用，规范AI代理的任务开始流程
+- **清理CLAUDE.md**:对Mandatory Task End Protocol部分进行严格清理，只保留标题和引用行，删除冗余解释内容
+- **更新docs/ai/END_TASK.block.md**:在文件末尾添加了Authority & Scope部分，明确文档的权限和范围
 
 ## [2025-12-26]
 
