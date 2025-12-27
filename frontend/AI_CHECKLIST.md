@@ -13,7 +13,7 @@
 
 ## （AI 在修改前端前必须通过）
 
-```md
+
 # Frontend AI Mandatory Checklist
 
 This checklist MUST be passed before any AI modifies frontend code.
@@ -116,22 +116,9 @@ beginner | intermediate | advanced
 
 > I confirm that all items above are satisfied.  
 > If any item is uncertain, I will stop and ask for clarification.
-```
 
----
 
-## 🧠 如何使用这份 Checklist（建议）
 
-### 推荐做法（最稳）
-
-1. **每次让 AI 改前端前**
-2. 先粘贴这份 checklist
-3. 让 AI：
-
-   * 逐条勾选
-   * 再开始动手
-
----
 
 
 

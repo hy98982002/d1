@@ -6,6 +6,12 @@
 
 ---
 
+## [2025-12-27]
+
+### 文档治理
+- **生成One-Click Prompt Template中文版**:新增中文版一键提示模板，方便中文环境下的AI代理使用
+- **生成START_TASK.block中文版**:新增docs/ai/START_TASK.block-cn.md，为AI代理提供中文任务开始模板
+
 ## [2025-12-26]
 
 ### 文档治理

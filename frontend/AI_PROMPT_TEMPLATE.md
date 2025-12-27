@@ -6,7 +6,7 @@ If any discrepancy exists, the checklist file is the source of truth.
 
 ---
 
-```text
+
 You are an AI agent modifying the frontend of this project.
 
 Before writing or changing ANY code,
