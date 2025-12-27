@@ -31,14 +31,15 @@ This repository uses **pre-created Git worktrees** as part of its normal develop
 - Creating a **new branch within the current worktree** is allowed and preferred:
   ```bash
   git checkout -b <feature-branch>
-Override Rule (Critical)
+  ```
+
+### Override Rule (Critical)
+
 Git worktree creation is ONLY allowed when the user explicitly asks for:
 
-parallel editors
-
-simultaneous branch comparison
-
-multi-branch runtime execution
+- parallel editors
+- simultaneous branch comparison
+- multi-branch runtime execution
 
 This declaration overrides any default Superpowers assumptions about repository state.
 
