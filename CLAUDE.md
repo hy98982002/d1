@@ -132,6 +132,14 @@ AI Agent 在发生冲突时：
 提高 AI 修改行为的一致性、可控性与可追溯性。
 
 
+### Superpowers × Git Worktree Rule (Constitutional)
+
+This project already uses isolated Git worktrees.
+
+- `using-git-worktrees` means **ensure isolation**, not **always create a new worktree**
+- If already on a non-main branch in a dedicated worktree → requirement is fulfilled
+- Do NOT create new worktrees unless explicitly requested
+- Prefer creating new branches inside the current worktree
 
 
 ## 文件与目录命名规则（跨平台强制）

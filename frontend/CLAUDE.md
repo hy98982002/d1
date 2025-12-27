@@ -1,3 +1,48 @@
+## Superpowers × Git Worktree Compatibility Declaration
+
+This repository uses **pre-created Git worktrees** as part of its normal development workflow.
+
+### Current Assumptions (IMPORTANT)
+
+- The current working directory MAY already be an **isolated Git worktree**
+- The active branch MAY already be a **non-main development branch**
+- Isolation via `git worktree` MAY already be satisfied
+
+### Mandatory Interpretation Rules for AI Agents
+
+- The `using-git-worktrees` skill MUST be interpreted as:
+  > "Ensure development is isolated from `main`"  
+  NOT as:  
+  > "Always create a new git worktree"
+
+- If the agent is already operating inside:
+  - a non-`main` branch, AND
+  - a dedicated worktree directory  
+  THEN the `using-git-worktrees` requirement is considered **FULFILLED**
+
+### Explicit Prohibitions
+
+- Do NOT create additional git worktrees by default
+- Do NOT nest or chain worktrees
+- Do NOT suggest creating a new worktree unless explicitly requested by the user
+
+### Allowed Actions
+
+- Creating a **new branch within the current worktree** is allowed and preferred:
+  ```bash
+  git checkout -b <feature-branch>
+Override Rule (Critical)
+Git worktree creation is ONLY allowed when the user explicitly asks for:
+
+parallel editors
+
+simultaneous branch comparison
+
+multi-branch runtime execution
+
+This declaration overrides any default Superpowers assumptions about repository state.
+
+
 # 前端执行细则（Frontend Execution Charter）
 
 ## 1. 权威与优先级
