@@ -76,7 +76,7 @@ All human and AI changes MUST comply with this document.
 以下目录包含项目的**概念源头与体系推演文档**：
 
 核心设计蓝本位于：
-- frontend/docs/25-00-core-design/00 老的体系与新的体系.md
+- frontend/docs/25-00-core-design/00老的体系与新的体系.md
 
 这些文档：
 - 不参与日常实现
@@ -538,12 +538,16 @@ ClaudeCode 必须按以下“自动执行版”输出与行动：
 
 - 规则变化 → 更新 CLAUDE.md
 - 可观测变化 → 更新 CHANGELOG.md
-- 过程细节 → 更新 docs/
+- 过程细节 → 记录于 `frontend/docs/`（仅在用户明确指示时由 AI 参与整理）
+
+
 
 **Synchronization Protocol**:
 - Rule change → update `CLAUDE.md`
 - Observable behavior change → update `CHANGELOG.md`
-- Process detail → update `frontend/docs/`
+- Process details → documented in `frontend/docs/` only when explicitly requested by the user
+
+
 
 Documents MUST NOT duplicate responsibilities.
 
