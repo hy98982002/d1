@@ -6,6 +6,12 @@
 
 ---
 
+## [2025-12-28]
+
+### 文档治理
+- **更新AI_EXECUTION_CONTEXT.md**:添加Accessibility & Keyboard Interaction (A11y Mandatory Rules)章节，包含WCAG 2.1 AA合规要求、键盘导航规则、禁止的实践、焦点可见性规则和减少动画支持
+- **更新AI_EXECUTION_CONTEXT.md**:在A11y章节末尾添加弱引用，指向common implementation patterns文档
+
 ## [2025-12-27]
 
 ### 文档治理

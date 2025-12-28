@@ -209,9 +209,48 @@ src/
 - 当前课程图片命名模式：`{课程名称}(-membership)-{难度阶段}-cover-{尺寸}.{格式}`
 - 示例：`photoshop-beginner-cover-480.png`、`python-intermediate-cover-1280.webp`
 
-## 8. 开发工作流
+## 8. Accessibility & Keyboard Interaction (A11y Mandatory Rules)
 
-### 8.1 常见开发任务
+### 8.1 WCAG Compliance
+
+- MUST comply with WCAG 2.1 AA standards
+- MUST use semantic HTML elements (header, nav, main, footer, etc.)
+- MUST provide meaningful alt attributes for all images
+- MUST use decorative images with empty alt attributes
+- MUST associate labels with form controls
+- MUST use aria-describedby for additional form instructions
+
+### 8.2 Keyboard Navigation
+
+- MUST ensure all interactive elements are keyboard accessible via Tab
+- MUST maintain logical tab order that matches visual layout
+- MUST ensure buttons and links can be activated with Enter/Space keys
+- MUST ensure modals and dropdowns can be closed with Escape key
+- MUST manage focus when modals are opened and closed
+
+### 8.3 Prohibited Practices
+
+- FORBIDDEN: Using div/span elements as buttons or links without complete accessibility implementation
+- FORBIDDEN: Removing outline or hiding focus indicators
+- FORBIDDEN: Relying solely on hover for interactive state indication
+
+### 8.4 Focus Visibility
+
+- MUST use :focus-visible for custom focus styles
+- MUST NOT remove or hide focus indicators
+
+### 8.5 Reduced Motion Support
+
+- MUST support prefers-reduced-motion media query
+- MUST disable animations and transitions when prefers-reduced-motion is enabled
+- MUST ensure all animation rules degrade gracefully for users who prefer reduced motion
+
+> Reference only (non-normative): 
+> See docs/ai/snippets/a11y-reference-snippets.md for common implementation patterns. 
+
+## 9. 开发工作流
+
+### 9.1 常见开发任务
 
 当前代码库中，添加新功能的常见流程通常包括：
 
@@ -222,7 +261,7 @@ src/
 5. 在 `src/views/` 中创建页面组件，使用现有模式
 6. 在 `src/router/index.ts` 中更新路由配置以支持新路由
 
-### 8.2 质量门禁
+### 9.2 质量门禁
 
 当前实现中，通常会检查以下质量指标：
 
@@ -234,7 +273,7 @@ src/
 - Props 和 emits 使用 TypeScript 接口
 - Pinia 存储遵循 Composition API 模式
 
-## 9. 代码观察结果
+## 10. 代码观察结果
 
 在理解与修改现有代码时，通常可以观察到以下实践：
 
@@ -251,6 +290,6 @@ src/
 - 使用字符串路径导入图片
 - 跳过 TypeScript 类型定义
 
-## 10. 部署与配置说明
+## 11. 部署与配置说明
 
 （本节已移出 AI_EXECUTION_CONTEXT.md，相关内容请参考独立的部署与运维说明文档）
