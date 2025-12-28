@@ -115,14 +115,17 @@ AI Agent 在发生冲突时：
 
 ### AI Execution Protocols（AI 执行协议）
 
+### Mandatory Task Start Protocol
+
+See `docs/ai/START_TASK.block.md` for mandatory task start protocol.
+
 本项目在使用 AI Agent **执行具体任务**（如修改代码、调整文档）时，
 配合使用独立的 AI 执行协议文档，
 用于规范 AI 在任务开始前与任务完成后的行为（如风险校验、日志生成等）。
 
-- AI 执行协议文档位于：`/docs/ai/00-00每次必用的结尾提示词.md`
-- 该类文档不属于宪法规则本身
-- 不具备项目约束力，仅用于约定 AI 的执行行为
-- 其内容不得反向修改、覆盖或解释 `/CLAUDE.md` 中的任何规则
+### Mandatory Task End Protocol
+
+See `docs/ai/END_TASK.block.md` for mandatory task end protocol.
 
 当 AI Agent 被明确用于**执行任务**时，
 应优先遵循对应的 AI 执行协议文档；
@@ -159,7 +162,7 @@ This project already uses isolated Git worktrees.
 
 ### 权威文档
 - 详细规则请参见：
-  `docs/跨平台仓库命名铁律.md`
+  `docs/ai/跨平台仓库命名铁律.md`
 
 > 违反本规则的提交一律视为 **无效提交**，必须修复后才能继续。
 

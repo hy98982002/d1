@@ -162,7 +162,7 @@ This project already uses isolated Git worktrees.
 
 ### 权威文档
 - 详细规则请参见：
-  `docs/跨平台仓库命名铁律.md`
+  `docs/ai/跨平台仓库命名铁律.md`
 
 > 违反本规则的提交一律视为 **无效提交**，必须修复后才能继续。
 

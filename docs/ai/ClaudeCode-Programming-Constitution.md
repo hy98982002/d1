@@ -83,7 +83,7 @@ ClaudeCode 在生成或修改任何代码前，**必须逐条自检并显式确�
 
   * `/CLAUDE.md`
   * `/frontend/CLAUDE.md`（如存在）
-  * `/docs/**` 中相关 PRD / 技术文档
+  
 * [ ] 是否会破坏：
 
   * 路由结构

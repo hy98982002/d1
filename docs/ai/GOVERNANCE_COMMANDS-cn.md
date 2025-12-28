@@ -48,7 +48,7 @@
 
 **当您确信可能需要宪法变更时使用此命令。**
 
-```text
+
 暂停所有修改 CLAUDE.md 的提议。
 使用 docs/ai/CLAUDE_UPDATE_EVAL.block.md 运行完整的 CLAUDE.md 更新评估
 并将结果提交给我做决定。
