@@ -29,6 +29,9 @@
 - 优化 URL 结构
 - 添加 sitemap 生成
 
+### 2.2 教师角色说明
+平台当前不存在"教师作为系统角色"的概念，所有讲师信息仅作为内容元数据展示，不涉及系统角色权限或教师端功能。
+
 ## 3. 实际目录结构与模块划分
 
 ```
@@ -66,7 +69,7 @@ src/
 │   ├── SidebarPricingCard.vue           # Sidebar pricing card
 │   ├── StageTabs.vue                    # Course stage tabs/首页每个阶段的标签
 │   ├── StarRating.vue                   # Star rating component
-│   ├── TeacherCard.vue                  # Teacher card component
+│   ├── TeacherCard.vue                  # Static instructor profile display (NOT a teacher system)
 │   ├── Toast.vue                        # Toast notification component
 │   ├── WorksShowSection.vue             # Works show section
 │   ├── cart/                            # Shopping cart components
@@ -172,6 +175,9 @@ src/
 - 使用基于用户状态与课程属性的显式访问判断逻辑（如 `canAccessCourse(user, course)`）。
 - 权限判断集中在明确的业务函数中，而非通过角色-权限映射间接表达。
 
+**关于 rbac.ts 文件的说明**：
+当前项目中存在的 `rbac.ts` 文件仅为历史命名遗留，实际实现不构成完整 RBAC 体系，仅包含基于用户状态的简单访问控制指令，禁止在其上扩展角色模型。
+
 **RBAC 启用的硬性前提条件**（需同时满足至少两项）：
 - 出现 5 种及以上长期并存的系统角色（如教师、助教、运营、审核、企业管理员等）。
 - 出现明显的操作级权限差异（创建、编辑、审核、发布、回滚等）。
@@ -233,6 +239,51 @@ src/
 - 海外用户需求明确，需要支持多种语言。
 
 在未满足以上条件前，禁止引入完整的 i18n 实现。
+
+### 5.8 SPA → SSG 迁移规划
+
+**当前状态**：
+- 项目当前处于纯 SPA（Single-Page Application）模式，使用 Vue Router 和 Vite 构建。
+- 已实现的实体页：
+  - `/` - 首页
+  - `/about` - 关于页
+  - `/course/:slug` - 课程详情页
+  - `/cart` - 购物车
+  - `/order/:id?` - 订单页
+  - `/user` - 个人中心
+  - `/program/:slug` - 学习路径详情页
+- 缺少的实体页（计划开发）：
+  - `/levels` - 学习阶段定义页
+  - `/programs` - 学习路径列表页
+  - `/how-to` - 教程页
+  - `/faq` - 常见问题页
+  - `/paths` - 宏观学习路线页
+  - `/skills` - 技能抽象页
+  - `/t/` - 主题聚合页
+- 无 SSG（Static Site Generation）相关配置或依赖。
+
+**当前结论**：在现有项目阶段与体系结构下，暂不引入 SSG 框架或实现 SSG 功能。
+
+**原因说明**：
+- SSG 迁移需要稳定的 URL 结构和完整的实体页支持。
+- 当前缺少多个核心实体页，SSG 迁移会因为实体页不完整而无法发挥最大价值。
+- 先开发所有实体页可以确保 SSG 迁移时一次性覆盖所有页面，避免分批次迁移导致的不一致性。
+- 完整的实体页开发可以帮助确定最终的 URL 结构和路由设计，为 SSG 迁移提供清晰的基础。
+
+**当前采用策略**：
+- 继续使用纯 SPA 模式开发所有核心实体页。
+- 优先开发缺少的实体页，包括 `/levels`、`/programs`、`/how-to`、`/faq`、`/paths`、`/skills` 和 `/t/`。
+- 保持代码结构清晰，为未来 SSG 迁移预留空间。
+- 开发过程中考虑 SSG 兼容性，避免使用复杂的运行时依赖。
+
+**SSG 迁移的触发条件**（需满足全部条件）：
+- 所有核心实体页开发完成，包括计划中的 `/levels`、`/programs`、`/how-to`、`/faq`、`/paths`、`/skills` 和 `/t/`。
+- URL 结构稳定，不再有重大变更计划。
+- 路由设计完整，包括所有实体页的路由配置。
+- 内容管理策略确定，包括内容更新频率和方式。
+- SEO/AEO 策略确定，包括 sitemap 生成、canonical 规则和 hreflang 配置。
+
+在未满足以上条件前，禁止引入完整的 SSG 实现。
 
 ## 6. 历史遗留或待修正的现实状态
 
@@ -486,7 +537,7 @@ if (ENTERPRISE_FLAGS.ENTERPRISE_ADMIN_PANEL_ENABLED) {
 
 ### 8.1 WCAG Compliance
 
-- Currently implemented to comply with WCAG 2.1 AA standards
+- Currently implemented with the intent to align with WCAG 2.1 AA principles
 - Currently implemented to use semantic HTML elements (header, nav, main, footer, etc.)
 - Currently implemented to provide meaningful alt attributes for all images
 - Currently implemented to use decorative images with empty alt attributes
@@ -773,5 +824,62 @@ if (ENTERPRISE_FLAGS.ENTERPRISE_ADMIN_PANEL_ENABLED) {
 4. 避免重复发明轮子，提高开发效率
 
 这些示例代码仅供参考，AI 在使用时应根据实际情况进行调整，确保代码符合当前项目的具体需求和约束。
+
+## 16. 功能实现状态检查
+
+### 16.1 明确未实现的功能接口
+
+根据对当前代码库的全面检查，以下功能在当前代码架构中**完全没有接口或实现**：
+
+| 功能类型 | 具体功能 | 检查结果 |
+|----------|----------|----------|
+| 企业功能 | 多租户企业空间 | ❌ 无任何接口或实现 |
+| 教师端功能 | 教师端（产品形态） | ❌ 无任何接口或实现 |
+| 后台功能 | 复杂后台管理系统 | ❌ 无任何接口或实现 |
+| 社交功能 | 社交互动功能 | ❌ 无任何接口或实现 |
+| 架构设计 | 微前端架构 | ❌ 无任何接口或实现 |
+| 性能优化 | 复杂缓存策略 | ❌ 无任何接口或实现 |
+
+### 16.2 检查依据
+
+**路由配置检查** (`src/router/index.ts`)：
+- 未发现任何与多租户企业空间相关的路由
+- 未发现任何与教师端相关的路由
+- 未发现任何与复杂后台相关的路由
+- 未发现任何与社交功能相关的路由
+- 未发现任何与微前端相关的路由
+
+**状态管理检查** (`src/store/`)：
+- 未发现任何与企业空间、教师端、复杂后台、社交功能、微前端或复杂缓存相关的状态定义
+- 未发现任何与这些功能相关的 actions 或 mutations
+
+**组件检查** (`src/components/`)：
+- 虽然存在 `TeacherCard.vue` 组件，但仅为展示讲师信息的静态组件，不包含教师端功能逻辑
+- 未发现任何与企业空间、复杂后台、社交功能、微前端或复杂缓存相关的组件
+
+**API 与服务层检查**：
+- 未发现任何与这些功能相关的 API 调用或服务定义
+- 未发现任何与这些功能相关的依赖包
+
+### 16.3 相关组件说明
+
+**TeacherCard.vue** 组件说明：
+- 仅为展示讲师信息的静态 UI 组件
+- 不包含任何教师端功能逻辑
+- 不与后端 API 交互（除了一个待实现的课程列表跳转功能）
+- 不属于教师端产品形态的一部分
+
+### 16.4 功能实现建议
+
+根据当前项目的核心定位和架构设计，建议继续保持这些功能的未实现状态，直到满足以下条件：
+
+1. **多租户企业空间**：出现明确的企业客户需求，且企业客户数量达到一定规模
+2. **教师端**：需要支持教师自主发布课程或平台转型为开放课程平台
+3. **复杂后台**：课程数量和用户规模大幅增长，管理需求超出简单的内容编辑
+4. **社交功能**：用户明确需要学习社区功能，且社交互动能提升用户留存和学习效果
+5. **微前端架构**：项目拆分为多个独立的业务模块，需要支持独立部署和团队自治
+6. **复杂缓存策略**：API 响应时间成为瓶颈，或需要支持大规模用户访问
+
+在未满足以上条件前，禁止引入这些功能的完整实现。
 
 
