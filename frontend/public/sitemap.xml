@@ -7,7 +7,7 @@
   <!-- 首页 -->
   <url>
     <loc>https://www.doviai.com/</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,7 +15,7 @@
   <!-- About页面 -->
   <url>
     <loc>https://www.doviai.com/about</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -23,120 +23,190 @@
   <!-- Program学习路径页面 -->
   <url>
     <loc>https://www.doviai.com/program/aigc-intermediate</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://www.doviai.com/program/ai-designer-advanced</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- 课程详情页面 -->
   <url>
-    <loc>https://www.doviai.com/course/photoshop-ai-design-basic</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://www.doviai.com/course/photoshop-ai-design-beginner</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.doviai.com/course/illustrator-design-basic</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://www.doviai.com/course/illustrator-design-beginner</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.doviai.com/course/photoshop-basic</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://www.doviai.com/course/photoshop-beginner</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.doviai.com/course/python-basic</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://www.doviai.com/course/python-beginner</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.doviai.com/course/illustrator-basic</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://www.doviai.com/course/illustrator-beginner</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.doviai.com/course/unreal-engine-basic</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://www.doviai.com/course/unreal-engine-beginner</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.doviai.com/course/photoshop-intro-basic</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://www.doviai.com/course/photoshop-intro-beginner</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.doviai.com/course/python-intermediate</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.doviai.com/course/logo-analysis-intermediate</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.doviai.com/course/unreal-engine-intermediate</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.doviai.com/course/photoshop-environment-intermediate</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.doviai.com/course/python-web-intermediate</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.doviai.com/course/photoshop-advanced-composition</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://www.doviai.com/course/photoshop-composition-advanced</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.doviai.com/course/ai-creative-engine-advanced</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.doviai.com/course/professional-logo-design-advanced</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/ai-creative-engine-membership-intermediate</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/ai-driven-brand-design-membership-intermediate</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/aia-illustration-membership-intermediate</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/business-landing-training-membership-intermediate</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/elite-designer-membership-intermediate</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/logo-psychology-membership-intermediate</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/advanced-logo-system-membership-intermediate</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/ai-video-creation-membership-intermediate-coming-soon</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/ai-interaction-design-membership-intermediate-coming-soon</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doviai.com/course/3d-scene-ai-rendering-membership-intermediate-coming-soon</loc>
+    <lastmod>2025-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

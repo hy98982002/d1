@@ -25,6 +25,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import type { StageKey } from '../types'
 import { STAGES } from '../types'
 
@@ -44,17 +45,27 @@ const emit = defineEmits<{
   'update:showVipOnly': [value: boolean]
 }>()
 
+// Router实例
+const router = useRouter()
+
 // 计算属性
 const activeStage = computed(() => props.modelValue)
 const showVipOnly = computed(() => props.showVipOnly)
 
 // 事件处理
 const handleStageChange = (stage: StageKey) => {
+  // 1. 更新store状态（通过emit通知父组件）
   emit('update:modelValue', stage)
-  // 切换阶段时关闭会员模式
+
+  // 2. 同步更新URL参数
+  router.push({ query: { stage } })
+
+  // 3. 切换阶段时关闭会员模式
   if (props.showVipOnly) {
     emit('update:showVipOnly', false)
   }
+
+  console.log(`[StageTabs] 阶段切换: ${stage}, URL已更新`)
 }
 
 const handleVipToggle = () => {

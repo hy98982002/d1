@@ -32,7 +32,7 @@ const mockCourses: Course[] = [
     slug: 'photoshop-ai-design-beginner',
     description: '零基础入门Photoshop编程',
     price: 0,
-    stage: 'basic',
+    stage: 'beginner',
     cover: photoshopBasicCover,
     tags: ['PhotoshopAI', 'AIGC', 'AI+logo'],
     rating: 4.5,
@@ -47,7 +47,7 @@ const mockCourses: Course[] = [
     slug: 'illustrator-design-beginner',
     description: '零基础入门Illustrator设计',
     price: 0,
-    stage: 'basic',
+    stage: 'beginner',
     cover: unrealBasicCover,
     tags: ['Illustrator', 'AIGC', 'AI+logo'],
     rating: 4.3,
@@ -62,7 +62,7 @@ const mockCourses: Course[] = [
     slug: 'photoshop-beginner',
     description: 'PS图像处理基础入门',
     price: 0,
-    stage: 'basic',
+    stage: 'beginner',
     cover: photoshopBasicCover,
     tags: ['Photoshop', '图像处理', '入门', 'AI+logo'],
     rating: 4.7,
@@ -77,7 +77,7 @@ const mockCourses: Course[] = [
     slug: 'python-beginner',
     description: 'Python编程基础知识',
     price: 199,
-    stage: 'basic',
+    stage: 'beginner',
     cover: pythonBasicCover,
     tags: ['Python', '基础', '入门'],
     rating: 4.6,
@@ -92,7 +92,7 @@ const mockCourses: Course[] = [
     slug: 'illustrator-beginner',
     description: 'illustrator核心概念',
     price: 299,
-    stage: 'basic',
+    stage: 'beginner',
     cover: pythonBasicCover,
     tags: ['illustrator', 'logo设计', 'AIGC', 'AIGC+logo'],
     rating: 4.8,
@@ -107,7 +107,7 @@ const mockCourses: Course[] = [
     slug: 'unreal-engine-beginner',
     description: '虚幻引擎基础开发',
     price: 299,
-    stage: 'basic',
+    stage: 'beginner',
     cover: unrealBasicCover,
     tags: ['UE', '基础', '入门'],
     rating: 4.4,
@@ -122,7 +122,7 @@ const mockCourses: Course[] = [
     slug: 'photoshop-intro-beginner',
     description: 'PS图像处理基础技巧',
     price: 199,
-    stage: 'basic',
+    stage: 'beginner',
     cover: photoshopBasicCover,
     tags: ['Photoshop', 'AIGC', '入门', 'AI+logo'],
     rating: 4.5,
@@ -493,7 +493,7 @@ export const useCourseStore = defineStore('course', {
   state: () => ({
     courses: mockCourses, // 直接使用新三级体系的课程数据
     programs: mockPrograms, // Program学习路径配置
-    currentStage: 'basic' as StageKey, // 默认阶段：basic（入门基础）
+    currentStage: 'beginner' as StageKey, // 默认阶段：beginner（入门基础）
     selectedTags: [] as string[],
     showVipOnly: false,
     searchKeyword: ''

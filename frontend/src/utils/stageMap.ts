@@ -1,5 +1,5 @@
 // stageMap.ts
-// 课程阶段映射工具 - 新三级体系（basic / intermediate / advanced）
+// 课程阶段映射工具 - 新三级体系（beginner / intermediate / advanced）
 
 import { STAGES, assertStageKey, type StageKey } from '@/types'
 
@@ -8,7 +8,7 @@ import { STAGES, assertStageKey, type StageKey } from '@/types'
 // ============================================
 
 export const StageMeta = {
-  basic: {
+  beginner: {
     label: '入门',
     slug: 'beginner',
     textClass: 'text-primary',

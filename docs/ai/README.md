@@ -1,0 +1,1 @@
+frontend/docs/25-1226Superpowers工作原理 ,这里有CLAUDE_UPDATE_HINT.block.md文件  的启动说明

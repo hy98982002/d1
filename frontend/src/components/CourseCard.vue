@@ -216,7 +216,7 @@ const levelStyleClass = computed(() => {
     return 'deep-intermediate-badge'
   }
   const stageColors: Record<StageKey, string> = {
-    basic: 'success',
+    beginner: 'success',
     intermediate: 'primary',
     advanced: 'danger'
   }

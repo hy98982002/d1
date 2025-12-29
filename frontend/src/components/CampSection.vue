@@ -153,12 +153,14 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import StageTabs from './StageTabs.vue'
 import CourseGrid from './CourseGrid.vue'
 import StarRating from './StarRating.vue'
 import { useCourseStore } from '../store/courseStore'
 import { useUIStore } from '../store/uiStore'
 import type { Course, StageKey } from '../types'
+import { StageKeySchema } from '../types'
 // Props
 interface Props {
   showPopularTags?: boolean
@@ -174,8 +176,11 @@ const props = withDefaults(defineProps<Props>(), {
 const courseStore = useCourseStore()
 const uiStore = useUIStore()
 
+// Router
+const route = useRoute()
+
 // 响应式状态
-const currentStage = ref<StageKey>('basic')
+const currentStage = ref<StageKey>(courseStore.currentStage)
 const displayCount = ref(props.initialDisplayCount)
 const showAllCourses = ref(false)
 const loading = ref(false)
@@ -285,7 +290,7 @@ const toggleVipCoursesDisplay = () => {
   showAllCourses.value = !showAllCourses.value
 }
 
-// 监听阶段变化
+// 监听阶段变化（组件内部 → store）
 watch(currentStage, newStage => {
   // 使用setCurrentStageOnly避免清空标签
   courseStore.setCurrentStageOnly(newStage)
@@ -293,11 +298,37 @@ watch(currentStage, newStage => {
   showAllCourses.value = false
 })
 
+// 监听 store 阶段变化（store → 组件内部）
+// 用于处理外部修改 store（如路由守卫、其他组件）时同步组件状态
+watch(
+  () => courseStore.currentStage,
+  newStage => {
+    currentStage.value = newStage
+  }
+)
+
 // 监听会员模式切换,重置显示状态
 watch(showVipOnly, () => {
   displayCount.value = props.initialDisplayCount
   showAllCourses.value = false
 })
+
+// 监听URL query参数变化（处理浏览器前进/后退）
+watch(
+  () => route.query.stage,
+  (newStage) => {
+    if (newStage && StageKeySchema.safeParse(newStage).success) {
+      // URL有有效的stage参数，更新store
+      courseStore.setCurrentStageOnly(newStage as StageKey)
+      console.log(`[CampSection] URL参数变化，更新阶段: ${newStage}`)
+    } else {
+      // URL没有stage参数，恢复默认值
+      courseStore.setCurrentStageOnly('beginner')
+      console.log('[CampSection] URL无stage参数，恢复默认阶段: beginner')
+    }
+  },
+  { immediate: false } // 不立即执行，避免初始化时重复
+)
 </script>
 
 <style scoped>

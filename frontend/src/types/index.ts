@@ -5,7 +5,7 @@ import { z } from 'zod'
 // ============================================
 
 // Zod Schema 定义 - 运行时类型校验
-export const StageKeySchema = z.enum(['basic', 'intermediate', 'advanced'])
+export const StageKeySchema = z.enum(['beginner', 'intermediate', 'advanced'])
 export type StageKey = z.infer<typeof StageKeySchema>
 
 // 类型守卫函数 - 安全检查
@@ -20,7 +20,7 @@ export const assertStageKey = (value: string): asserts value is StageKey => {
 
 // 课程阶段枚举 - 三级体系
 export const STAGES = {
-  basic: '入门',
+  beginner: '入门',
   intermediate: '进阶',
   advanced: '高阶'
 } as const
@@ -32,7 +32,7 @@ export type LevelKey = StageKey
 
 // 阶段样式映射 - 三级体系
 export const STAGE_STYLES = {
-  basic: { textClass: 'text-primary', bgClass: 'bg-primary-subtle', label: '入门' },
+  beginner: { textClass: 'text-primary', bgClass: 'bg-primary-subtle', label: '入门' },
   intermediate: { textClass: 'text-info', bgClass: 'bg-info-subtle', label: '进阶' },
   advanced: { textClass: 'text-danger', bgClass: 'bg-danger-subtle', label: '高阶' }
 } as const

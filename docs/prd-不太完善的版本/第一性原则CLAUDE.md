@@ -165,7 +165,7 @@ Claude must ALWAYS follow these rules:
 - BreadcrumbList  
 
 Program 页面必须包含：
-- hasCourse  
+- hasPart 
 - programPrerequisites（如适用）  
 - isBasedOn（仅用于真正内容衍生关系）  
 
@@ -195,19 +195,21 @@ Slug 必须遵循：
 - 全英文  
 - 全小写  
 - 使用连字符  
-- 包含关键长尾词（如 ai-logo-design-basic）  
+- 包含关键长尾词（如 ai-logo-design-beginner ）  
 
 ### **6.2 Stage Map**
 Stages 必须可扩展至：
 - beginner  
 - intermediate  
 - advanced  
-- pro / master（如未来新增）
+任何会员 / 权限 / 商业层级
+不得以 Stage / Level / Slug 形式表达
+
 
 Slug 模式推荐：
 `{topic}-{tool}-{stage}`  
 如：  
-`photoshop-ai-design-basic`  
+`photoshop-ai-design-beginner `  
 
 ### **6.3 Consistency**
 Slug 必须进入：

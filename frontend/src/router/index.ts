@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../store/authStore'
 import { useCourseStore } from '../store/courseStore'
+import { StageKeySchema, type StageKey } from '../types'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,7 +9,22 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: () => import('../views/HomeView.vue'),
+      beforeEnter: (to, _from, next) => {
+        const courseStore = useCourseStore()
+
+        // 1. 从query读取stage参数
+        const queryStage = to.query.stage as string | undefined
+
+        // 2. 如果有有效的stage参数，更新store
+        if (queryStage && StageKeySchema.safeParse(queryStage).success) {
+          courseStore.setCurrentStageOnly(queryStage as StageKey)
+          console.log(`[Route Guard] 从URL参数设置阶段: ${queryStage}`)
+        }
+
+        // 3. 允许导航继续
+        next()
+      }
     },
     {
       path: '/about',
