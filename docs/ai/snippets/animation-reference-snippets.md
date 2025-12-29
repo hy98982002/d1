@@ -1,4 +1,8 @@
-# 动画效果规范示例
+> Reference only (non-normative)
+> These are example animation patterns used in this project.
+> They are NOT mandatory rules.
+
+# 动画效果参考示例
 
 ## 核心原则
 

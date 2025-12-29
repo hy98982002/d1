@@ -1,19 +1,11 @@
 
 
 
-## `docs/ai/snippets/a11y-reference-snippets.md`
+> Reference only (non-normative)
+> This document lists common accessibility implementation patterns.
+> It does NOT define rules or requirements.
 
-下面是**可直接落盘的完整版本**：
-
-* 不教学
-* 不啰嗦
-* 不升级为规范
-* 只覆盖 **80% 会真实出问题的 a11y 场景**
-
----
-
-
-# A11y Reference Snippets (Non-Normative)
+# A11y Reference Snippets
 
 ⚠️ This document is **REFERENCE ONLY**.  
 It provides **common implementation patterns** for accessibility and keyboard interaction.
@@ -197,6 +189,35 @@ Use only when native elements are impossible.
 </p>
 ```
 
+### ✅ Required fields
+
+```html
+<label for="email">邮箱 <span class="text-danger">*</span></label>
+<input type="email" id="email" name="email" aria-required="true" />
+```
+
+### ✅ Group related fields
+
+```html
+<fieldset>
+  <legend>性别</legend>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+    <label class="form-check-label" for="male">男</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+    <label class="form-check-label" for="female">女</label>
+  </div>
+</fieldset>
+```
+
+### ✅ Search input with aria-label
+
+```html
+<input type="search" aria-label="搜索课程" />
+```
+
 ---
 
 ## 9. Escape Key Handling
@@ -213,7 +234,59 @@ Attach only when the modal or dropdown is active.
 
 ---
 
-## 10. Common Anti-Patterns (Do Not Copy)
+## 10. ARIA Roles and Attributes
+
+### ✅ Navigation with aria-label
+
+```html
+<nav aria-label="主导航">
+  <ul>
+    <li><a href="/">首页</a></li>
+    <li><a href="/courses">课程</a></li>
+    <li><a href="/about">关于我们</a></li>
+  </ul>
+</nav>
+```
+
+### ✅ Expandable panel with aria-expanded
+
+```html
+<button 
+  @click="togglePanel" 
+  :aria-expanded="isExpanded"
+  aria-controls="panel-content"
+>
+  展开/折叠面板
+</button>
+<div id="panel-content" v-show="isExpanded">
+  面板内容
+</div>
+```
+
+### ✅ Live region for dynamic content
+
+```html
+<div aria-live="polite" class="toast-container">
+  <!-- 动态添加的通知会被屏幕阅读器读取 -->
+</div>
+```
+
+---
+
+## 11. Complex Image Accessibility
+
+### ✅ Long description for complex images
+
+```html
+<img :src="complexChart" alt="课程完成率统计图表" longdesc="#chart-description" />
+<div id="chart-description" class="sr-only">
+  该图表显示了我们平台上不同课程的完成率，其中 Python 基础课程完成率最高，达到 85%。
+</div>
+```
+
+---
+
+## 12. Common Anti-Patterns (Do Not Copy)
 
 * Relying on hover only
 * Removing focus outline

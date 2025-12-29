@@ -1,3 +1,7 @@
+> Reference only (non-normative)
+> This example shows one possible membership integration pattern.
+> Business logic, pricing rules, and access policies are NOT defined here.
+
 # 会员系统集成示例
 
 ## 1. 会员状态管理

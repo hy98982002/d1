@@ -406,41 +406,41 @@ if (ENTERPRISE_FLAGS.ENTERPRISE_ADMIN_PANEL_ENABLED) {
 - 集成到构建流程，执行构建命令时自动生成
 - 支持生成 16 个 URL
 
-## 8. Accessibility & Keyboard Interaction (A11y Mandatory Rules)
+## 8. Accessibility & Keyboard Interaction (Current Implementation Baseline)
 
 ### 8.1 WCAG Compliance
 
-- MUST comply with WCAG 2.1 AA standards
-- MUST use semantic HTML elements (header, nav, main, footer, etc.)
-- MUST provide meaningful alt attributes for all images
-- MUST use decorative images with empty alt attributes
-- MUST associate labels with form controls
-- MUST use aria-describedby for additional form instructions
+- Currently implemented to comply with WCAG 2.1 AA standards
+- Currently implemented to use semantic HTML elements (header, nav, main, footer, etc.)
+- Currently implemented to provide meaningful alt attributes for all images
+- Currently implemented to use decorative images with empty alt attributes
+- Currently implemented to associate labels with form controls
+- Currently implemented to use aria-describedby for additional form instructions
 
 ### 8.2 Keyboard Navigation
 
-- MUST ensure all interactive elements are keyboard accessible via Tab
-- MUST maintain logical tab order that matches visual layout
-- MUST ensure buttons and links can be activated with Enter/Space keys
-- MUST ensure modals and dropdowns can be closed with Escape key
-- MUST manage focus when modals are opened and closed
+- Currently implemented to ensure all interactive elements are keyboard accessible via Tab
+- Currently implemented to maintain logical tab order that matches visual layout
+- Currently implemented to ensure buttons and links can be activated with Enter/Space keys
+- Currently implemented to ensure modals and dropdowns can be closed with Escape key
+- Currently implemented to manage focus when modals are opened and closed
 
 ### 8.3 Prohibited Practices
 
-- FORBIDDEN: Using div/span elements as buttons or links without complete accessibility implementation
-- FORBIDDEN: Removing outline or hiding focus indicators
-- FORBIDDEN: Relying solely on hover for interactive state indication
+- Currently avoided: Using div/span elements as buttons or links without complete accessibility implementation
+- Currently avoided: Removing outline or hiding focus indicators
+- Currently avoided: Relying solely on hover for interactive state indication
 
 ### 8.4 Focus Visibility
 
-- MUST use :focus-visible for custom focus styles
-- MUST NOT remove or hide focus indicators
+- Currently implemented to use :focus-visible for custom focus styles
+- Currently implemented to avoid removing or hiding focus indicators
 
 ### 8.5 Reduced Motion Support
 
-- MUST support prefers-reduced-motion media query
-- MUST disable animations and transitions when prefers-reduced-motion is enabled
-- MUST ensure all animation rules degrade gracefully for users who prefer reduced motion
+- Currently implemented to support prefers-reduced-motion media query
+- Currently implemented to disable animations and transitions when prefers-reduced-motion is enabled
+- Currently implemented to ensure all animation rules degrade gracefully for users who prefer reduced motion
 
 > Reference only (non-normative): 
 > See docs/ai/snippets/a11y-reference-snippets.md for common implementation patterns. 
@@ -648,13 +648,13 @@ if (ENTERPRISE_FLAGS.ENTERPRISE_ADMIN_PANEL_ENABLED) {
 - **用途**: 展示 Pinia 存储的最佳实践和示例代码
 - **内容**: 包含状态定义、getters 和 actions 的完整存储示例
 
-### 15.3 动画效果规范示例
-- **文件路径**: `docs/ai/snippets/animation-guidelines.md`
+### 15.3 动画效果参考示例
+- **文件路径**: `docs/ai/snippets/animation-reference-snippets.md`
 - **用途**: 展示推荐的动画实现方式和规范
 - **内容**: 包含各种动画效果的 CSS 实现和最佳实践
 
 ### 15.4 无障碍设计示例
-- **文件路径**: `docs/ai/snippets/accessibility-examples.md`
+- **文件路径**: `docs/ai/snippets/a11y-reference-snippets.md`
 - **用途**: 展示图像无障碍、表单无障碍和键盘可访问性的实现
 - **内容**: 包含各种无障碍设计模式的代码示例
 
@@ -684,7 +684,7 @@ if (ENTERPRISE_FLAGS.ENTERPRISE_ADMIN_PANEL_ENABLED) {
 - **内容**: 包含会员状态管理、访问控制组件和导航栏集成示例
 
 ### 15.10 RBAC 权限系统示例
-- **文件路径**: `docs/ai/snippets/rbac-implementation.md`
+- **文件路径**: `docs/ai/snippets/rbac-reference-implementation.md`
 - **用途**: 展示基于角色的访问控制实现
 - **内容**: 包含 RBAC 状态管理、权限指令、权限门组件和组合式 API 示例
 

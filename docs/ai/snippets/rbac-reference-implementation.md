@@ -1,4 +1,8 @@
-# RBAC 权限系统示例
+> Reference only (non-normative)
+> This file demonstrates one possible RBAC implementation pattern.
+> Actual business rules are defined elsewhere.
+
+# RBAC 权限系统参考实现
 
 ## 1. RBAC 状态管理
 
