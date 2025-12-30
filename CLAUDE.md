@@ -59,6 +59,9 @@ All human and AI changes MUST comply with this document.
   - 在前端“具体怎么做”
   - Vue / Vite / Pinia / JSON-LD / SEO 的实现约定  
   ❗不得重复本文件中的全局规则。
+  
+  **重要引用**: Frontend semantic and AEO execution rules are defined in /frontend/CLAUDE.md.
+  Any AI modifying frontend content, routing, or structured data MUST comply with those rules.
 
 - **/frontend/docs/**  
   过程性与历史性文档存档区，包括：

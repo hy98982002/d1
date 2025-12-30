@@ -295,6 +295,14 @@ This declaration overrides any default Superpowers assumptions about repository 
 - 严重违规者将受到相应的处罚
 - 定期进行规则执行情况的检查和评估
 
+## 16. Level Entity Naming Rule (Mandatory)
+
+- Level entity names (Beginner / Intermediate / Advanced) MUST be preserved in English across all languages.
+- This rule applies to Course pages, Program pages, Level pages, and JSON-LD.
+- Translated equivalents (e.g. 初级 / 进阶 / 高阶) MUST NOT replace Level entity names when used as references.
+- Explanatory or descriptive text MAY be localized.
+- Violations are considered semantic integrity errors.
+
 ## 15. 版本信息
 
 *Version: 1.0.0*
