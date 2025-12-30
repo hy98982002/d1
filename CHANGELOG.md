@@ -6,6 +6,16 @@
 
 ---
 
+## [2025-12-30]
+
+### 工具新增
+- **添加aeo-lint工具**:创建了tools/aeo-lint目录，实现了Level实体名称翻译检查规则
+- **实现level-name-translation规则**:新增rules/level-name-translation.js规则，用于检测并禁止在AEO语境中使用中文翻译的Level实体名称（如初级、进阶等）
+- **支持目录递归扫描**:工具支持对文件和目录进行递归扫描，检查Vue、MD、JS、TS等文件类型
+- **实体锚点检查**:仅在出现实体锚点（Beginner/Intermediate/Advanced//levels/educationalLevel）时触发错误，避免误杀普通中文文本
+- **紧邻语境匹配**:使用严格的正则表达式，只匹配同一行内紧邻的Level翻译和语境词
+- **白名单机制**:允许正常的中文词汇如"能力进阶"、"高级功能"等通过检查
+
 ## [2025-12-28]
 
 ### 文档治理
