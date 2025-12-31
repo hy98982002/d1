@@ -273,9 +273,13 @@ This declaration overrides any default Superpowers assumptions about repository 
 ### 1) Entity Identity & Canonical IDs
 
 #### Rule 1.1: Language-agnostic Canonical @id
-All Level entities MUST use a language-agnostic canonical @id.
-Page URLs MUST NOT be used as entity identifiers.
-Entity identifiers MUST remain stable across all languages/locales.
+Entity identifiers (Level / Program / Course) MUST:
+- Use language-agnostic canonical @id under /_entity/
+- Never use page URLs as @id
+- Never include language or Level information in slugs
+- Remain stable across all locales
+
+Violation is considered a semantic integrity error.
 
 #### Rule 1.2: Level Entity Names Preservation
 Level entity names (Beginner / Intermediate / Advanced)

@@ -19,6 +19,7 @@
 - **提升 Level 实体名规则级别**: 将 Level 实体名不可翻译规则提升为 Entity Identity & Canonical IDs 小节下的同级硬规则
 - **修复 JSON-LD 引用**: 将课程 JSON-LD 规则中的页面 URL 引用修改为 Level canonical entity @id 引用
 - **优化规则表述**: 为硬规则添加编号，提高可读性和执行权重
+- **补充 Entity Identity 规则**: 完善了 Entity Identity & Canonical IDs 规则，明确指定使用 /_entity/ 下的语言无关 canonical @id
 
 ---
 
