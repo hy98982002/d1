@@ -20,6 +20,7 @@
 - **修复 JSON-LD 引用**: 将课程 JSON-LD 规则中的页面 URL 引用修改为 Level canonical entity @id 引用
 - **优化规则表述**: 为硬规则添加编号，提高可读性和执行权重
 - **补充 Entity Identity 规则**: 完善了 Entity Identity & Canonical IDs 规则，明确指定使用 /_entity/ 下的语言无关 canonical @id
+- **添加 hreflang 规则**: 新增 "hreflang & Entity Identity Separation (Hard Rule)" 小节，明确 hreflang 必须只引用页面 URL，不能使用实体 @id
 
 ---
 

@@ -276,10 +276,11 @@ This declaration overrides any default Superpowers assumptions about repository 
 Entity identifiers (Level / Program / Course) MUST:
 - Use language-agnostic canonical @id under /_entity/
 - Never use page URLs as @id
-- Never include language or Level information in slugs
+- Slugs MUST NOT be treated as carriers of entity identity (language, level, or canonical identity)
 - Remain stable across all locales
 
 Violation is considered a semantic integrity error.
+
 
 #### Rule 1.2: Level Entity Names Preservation
 Level entity names (Beginner / Intermediate / Advanced)
@@ -323,6 +324,14 @@ Explanatory/descriptive text MAY be localized.
 - 必须使用 `hasPart` 定义课程顺序
 - 必须明确学习路径的目标和预期成果
 
+### 4) hreflang & Entity Identity Separation (Hard Rule)
+
+Entity @id MUST NOT be used in hreflang.
+hreflang MUST reference page URLs only.
+Entity identity and page localization are separate layers.
+
+Violation is considered a semantic integrity error.
+
 ### 为什么不写进根目录宪法 /CLAUDE.md
 
 这类规则属于前端落地执行细则，不应膨胀根宪法。根宪法只保留跨全仓的长期红线，前端执行细则负责实现与可执行约束。根据根宪法对 `/frontend/CLAUDE.md` 的职责定义，前端的语义与 AEO 执行细则应在 `frontend/CLAUDE.md` 中落地。
@@ -333,6 +342,7 @@ Explanatory/descriptive text MAY be localized.
 - Removed/De-duplicated: 原有的分散 AEO 相关章节
 - Restructured: Separated UI/State rules from AEO entity rules, clarified entity identity rules
 - Fixed: JSON-LD educationalLevel reference to use canonical entity @id instead of page URL
+- Added: hreflang & Entity Identity Separation (Hard Rule) to clarify hreflang usage
 - No semantic changes to /CLAUDE.md
 
 ## 15. 版本信息
