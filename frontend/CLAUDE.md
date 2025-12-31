@@ -128,35 +128,6 @@ This declaration overrides any default Superpowers assumptions about repository 
 
 ## 5. JSON-LD 实现
 
-### 5.1 JSON-LD 生成工具
-
-| 工具函数                | 职责说明                                  |
-| ----------------------- | ----------------------------------------- |
-| `buildCourseJsonLd.ts`  | 生成课程页面的JSON-LD数据                 |
-| `buildProgramJsonLd.ts` | 生成学习路径页面的JSON-LD数据             |
-
-### 5.2 JSON-LD 核心维度
-
-| Vue 页面            | JSON-LD 核心维度             |
-| ------------------- | ---------------------------- |
-| `CourseIntro.vue`   | Type + Outcome               |
-| `CourseCatalog.vue` | Level + Pathway（课程章节）  |
-| `CourseReviews.vue` | Access（通过用户身份判定）   |
-| `CourseRelated.vue` | Type + Pathway（跨课程推荐） |
-
-### 5.3 课程 JSON-LD 规则
-
-- 必须使用 `DefinedTerm` 格式的 `educationalLevel`，引用 `/levels` 页面
-- 必须包含 `offers` 字段，明确课程价格和访问方式
-- 必须包含 `learningOutcome`，描述学习结果
-- 必须使用 `isPartOf` 关联到对应的学习路径
-
-### 5.4 学习路径 JSON-LD 规则
-
-- Schema 类型必须使用 `EducationalOccupationalProgram`
-- 必须使用 `hasPart` 定义课程顺序
-- 必须明确学习路径的目标和预期成果
-
 ## 6. 组件开发规范
 
 ### 6.1 组件命名
@@ -295,15 +266,72 @@ This declaration overrides any default Superpowers assumptions about repository 
 - 严重违规者将受到相应的处罚
 - 定期进行规则执行情况的检查和评估
 
-## 16. Level Entity Naming Rule (Mandatory)
 
-- Level entity names (Beginner / Intermediate / Advanced) MUST be preserved in English across all languages.
-- This rule applies to Course pages, Program pages, Level pages, and JSON-LD.
-- Translated equivalents (e.g. 初级 / 进阶 / 高阶) MUST NOT replace Level entity names when used as references.
-- Explanatory or descriptive text MAY be localized.
-- Violations are considered semantic integrity errors.
+
+## AEO / Structured Entity Rules (Hard Constraints)
+
+### 1) Entity Identity & Canonical IDs
+
+#### Rule 1.1: Language-agnostic Canonical @id
+All Level entities MUST use a language-agnostic canonical @id.
+Page URLs MUST NOT be used as entity identifiers.
+Entity identifiers MUST remain stable across all languages/locales.
+
+#### Rule 1.2: Level Entity Names Preservation
+Level entity names (Beginner / Intermediate / Advanced)
+MUST be preserved in English across all languages when used as entity references.
+Explanatory/descriptive text MAY be localized.
+
+> 注意：这里的“entity references”指 JSON-LD 的 `name`（作为实体名）/ `@id` 引用 / 以及正文中“作为实体指代”出现的情况；普通中文语境的“进阶/高级”（非实体指代）不算违规。
+
+### 2) Level / Program / Course Page–Entity Separation
+
+- Page URLs and slugs are presentation-layer concerns and MUST NOT be used as entity identifiers.
+
+### 3) JSON-LD Output Contract (Frontend)
+
+#### JSON-LD 生成工具
+
+| 工具函数                | 职责说明                                  |
+| ----------------------- | ----------------------------------------- |
+| `buildCourseJsonLd.ts`  | 生成课程页面的JSON-LD数据                 |
+| `buildProgramJsonLd.ts` | 生成学习路径页面的JSON-LD数据             |
+
+#### JSON-LD 核心维度
+
+| Vue 页面            | JSON-LD 核心维度             |
+| ------------------- | ---------------------------- |
+| `CourseIntro.vue`   | Type + Outcome               |
+| `CourseCatalog.vue` | Level + Pathway（课程章节）  |
+| `CourseReviews.vue` | Access（通过用户身份判定）   |
+| `CourseRelated.vue` | Type + Pathway（跨课程推荐） |
+
+#### 课程 JSON-LD 规则
+
+- 必须使用 `DefinedTerm` 格式的 `educationalLevel`，引用 Level canonical entity @id
+- 必须包含 `offers` 字段，明确课程价格和访问方式
+- 必须包含 `learningOutcome`，描述学习结果
+- 必须使用 `isPartOf` 关联到对应的学习路径
+
+#### 学习路径 JSON-LD 规则
+
+- Schema 类型必须使用 `EducationalOccupationalProgram`
+- 必须使用 `hasPart` 定义课程顺序
+- 必须明确学习路径的目标和预期成果
+
+### 为什么不写进根目录宪法 /CLAUDE.md
+
+这类规则属于前端落地执行细则，不应膨胀根宪法。根宪法只保留跨全仓的长期红线，前端执行细则负责实现与可执行约束。根据根宪法对 `/frontend/CLAUDE.md` 的职责定义，前端的语义与 AEO 执行细则应在 `frontend/CLAUDE.md` 中落地。
+
+### Change Log (this edit)
+- Moved: 3.4 阶段管理、4 Slug 管理、5 JSON-LD 实现、16 Level Entity Naming Rule
+- Added: AEO / Structured Entity Rules (Hard Constraints) + 2 new hard rules
+- Removed/De-duplicated: 原有的分散 AEO 相关章节
+- Restructured: Separated UI/State rules from AEO entity rules, clarified entity identity rules
+- Fixed: JSON-LD educationalLevel reference to use canonical entity @id instead of page URL
+- No semantic changes to /CLAUDE.md
 
 ## 15. 版本信息
 
-*Version: 1.0.0*
-*Last updated: 2025-12-25*
+*Version: 1.0.1*
+*Last updated: 2025-12-31*

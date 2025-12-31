@@ -6,6 +6,22 @@
 
 ---
 
+## [2025-12-31]
+
+### 文档治理
+- **整合 frontend/CLAUDE.md AEO 规则**: 将分散的 AEO 相关内容归并到新的统一章节 "AEO / Structured Entity Rules (Hard Constraints)"
+- **新增两条硬规则**: 添加了语言无关的实体 ID 规则和 Level 实体名不可翻译规则
+- **建立 AEO 总目录**: 创建了包含 Entity Identity、Level/Program/Course 分离、JSON-LD 输出契约的完整 AEO 规则体系
+- **明确文档职责边界**: 解释了为什么 AEO 执行细则应放在前端 CLAUDE.md 而非根宪法
+- **添加变更清单**: 在 frontend/CLAUDE.md 中添加了详细的变更记录
+- **更新版本信息**: 将 frontend/CLAUDE.md 版本从 1.0.0 更新到 1.0.1
+- **修正 AEO 规则结构**: 分离 UI/State 规则与 AEO 实体规则，确保 AEO 章节只包含 Level/Program/Course 实体相关规则
+- **提升 Level 实体名规则级别**: 将 Level 实体名不可翻译规则提升为 Entity Identity & Canonical IDs 小节下的同级硬规则
+- **修复 JSON-LD 引用**: 将课程 JSON-LD 规则中的页面 URL 引用修改为 Level canonical entity @id 引用
+- **优化规则表述**: 为硬规则添加编号，提高可读性和执行权重
+
+---
+
 ## [2025-12-30]
 
 ### 工具新增
