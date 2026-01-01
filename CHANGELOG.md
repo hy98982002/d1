@@ -8,6 +8,45 @@
 
 ## [2025-12-31]
 
+### 工具新增
+- **完整开发 aeo-lint 工具**: 创建了工程级 AEO 结构防火墙，用于在本地/CI阶段自动阻断结构上必然错误的语义与 AEO 违规
+- **实现工具核心架构**: 
+  - `scan.js`: 文件扫描，支持排除 node_modules、dist/build、.git 目录
+  - `utils/report.js`: 统一输出，优化 ERROR 和 WARN 的输出顺序
+  - `index.js`: CLI 入口，支持指定目标目录
+
+### 规则新增
+- **实现 8 个 AEO 规则**: 
+  - **ERROR 级别规则**: 
+    - `level-url.js`: Level URL / Query 禁止（L1）
+    - `jsonld-level.js`: JSON-LD Level 表达规则（L2）
+    - `program-course.js`: Program / Course 关系规则（P1）
+    - `ui-leak.js`: UI 状态不得进入语义层（UI1）
+    - `level-id-stability.js`: Level @id 跨语言稳定性（N1）
+    - `topic-program.js`: Topic/Tag 禁止 isPartOf Program（N2）
+  - **WARN 级别规则**: 
+    - `level-centrality.js`: Level 中心性规则（L3）
+    - `course-atomic.js`: Course 原子性规则（C1）
+- **整合现有规则**: 明确 `level-name-translation.js` 的级别区分（语言展示差异为 WARN，slug/@id/JSON-LD 中翻译为 ERROR）
+
+### 文档更新
+- **编写 aeo-lint README.md**: 详细记录工具定位、设计原则、与整体体系的关系、目录结构、规则总览、扫描范围、运行方式、输出规范、扩展与维护原则等
+- **调整 README.md 结构**: 更新为更清晰的文档结构，包含定位与原则、与整体体系的关系、目录结构、规则总览、扫描范围与排除规则、运行方式、输出规范、扩展与维护原则、最终声明等章节
+- **完善工具定位与原则**: 明确 aeo-lint 作为工程级静态扫描工具的定位，强调不依赖 LLM、不做语义理解、只检查结构路径字段关系、误杀可接受漏检不可接受的设计原则
+- **明确与整体体系关系**: 清晰定义 aeo-lint 与 CLAUDE.md 和 Execution Guards 的关系，形成完整的语义治理体系
+- **规范目录结构**: 定义终态目录结构，明确各文件职责
+- **优化规则总览**: 按照 ERROR 和 WARN 级别分类，明确规则编号和具体内容
+- **定义扫描范围与排除规则**: 明确默认扫描文件类型和强制排除目录
+- **规范运行方式**: 提供本地运行和 CI 集成示例
+- **统一输出规范**: 明确 ERROR 优先输出，WARN 次级输出，最后输出 summary
+- **制定扩展与维护原则**: 规定新规则只能新增，不得修改既有规则语义，所有 ERROR 规则必须对应 /CLAUDE.md 中的明确红线
+- **添加附录内容**: 
+  - **Appendix C**: 工程示例与执行细节，包含 CLI 输出示例、level-name-translation 规则等级说明、执行路径示例和明确不支持的能力
+  - **Appendix D**: 版本冻结与变更控制，确立规则语义冻结原则、允许的变更类型、明确禁止的变更、规则变更的唯一合法流程、审计与追责机制和终态声明
+- **强化最终声明**: 明确 aeo-lint 作为工程级防火墙的地位，只负责发现结构上不可能正确的状态并阻止其进入主分支
+- **统一命名规范**: 移除 claudex 命名，直接统一到 aeo-lint
+- **保持 CLAUDE.md 独立性**: 确保 aeo-lint 规则不写入宪法，规则的唯一立法源始终是 /CLAUDE.md
+
 ### 文档治理
 - **整合 frontend/CLAUDE.md AEO 规则**: 将分散的 AEO 相关内容归并到新的统一章节 "AEO / Structured Entity Rules (Hard Constraints)"
 - **新增两条硬规则**: 添加了语言无关的实体 ID 规则和 Level 实体名不可翻译规则

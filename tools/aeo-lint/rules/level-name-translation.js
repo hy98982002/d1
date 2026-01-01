@@ -15,8 +15,8 @@ const ENTITY_ANCHOR = /(Beginner|Intermediate|Advanced|\/levels\/|educationalLev
 
 // 紧邻语境（不跨行、不跨段）
 const LEVEL_CONTEXT_REGEX = new RegExp(
-  `(${CHINESE_LEVELS.join('|')})\\s*(阶段|级别|等级)|` +
-  `(阶段|级别|等级)\\s*(${CHINESE_LEVELS.join('|')})`
+  `(${CHINESE_LEVELS.join('|')})\s*(阶段|级别|等级)|` +
+  `(阶段|级别|等级)\s*(${CHINESE_LEVELS.join('|')})`
 );
 
 // 允许的非实体描述（白名单）
@@ -27,33 +27,46 @@ const ALLOWED_DESCRIPTIVE = [
   '高级特性'
 ];
 
-module.exports = function levelNameTranslationRule(content, filePath) {
-  const errors = [];
+module.exports = {
+  check(file) {
+    const results = [];
+    const content = file.content;
+    const filePath = file.path;
 
-  // 只检查可读文本文件
-  const ext = path.extname(filePath);
-  if (!['.md', '.vue', '.js', '.ts', '.jsx', '.tsx'].includes(ext)) {
-    return errors;
-  }
-
-  // 必须先出现实体锚点，否则不认为是 AEO 违规
-  if (!ENTITY_ANCHOR.test(content)) {
-    return errors;
-  }
-
-  const lines = content.split('\n');
-
-  lines.forEach((line, index) => {
-    // 白名单跳过
-    if (ALLOWED_DESCRIPTIVE.some(p => line.includes(p))) return;
-
-    if (LEVEL_CONTEXT_REGEX.test(line)) {
-      errors.push(
-        `Line ${index + 1}: Level 实体名不可翻译。` +
-        `请使用英文 Beginner / Intermediate / Advanced 作为实体引用。`
-      );
+    // 只检查可读文本文件
+    const ext = path.extname(filePath);
+    if (!['.md', '.vue', '.js', '.ts', '.jsx', '.tsx'].includes(ext)) {
+      return null;
     }
-  });
 
-  return errors;
+    // 必须先出现实体锚点，否则不认为是 AEO 违规
+    if (!ENTITY_ANCHOR.test(content)) {
+      return null;
+    }
+
+    const lines = content.split('\n');
+
+    lines.forEach((line, index) => {
+      // 白名单跳过
+      if (ALLOWED_DESCRIPTIVE.some(p => line.includes(p))) return;
+
+      if (LEVEL_CONTEXT_REGEX.test(line)) {
+        // 根据上下文确定级别
+        let level = 'WARN';
+        
+        // 检查是否在slug/@id/JSON-LD中翻译（ERROR级别）
+        if (/\/(slug|@id|url|href)\s*:\s*[^\s]*(${CHINESE_LEVELS.join('|')})|@context[^}]*(${CHINESE_LEVELS.join('|')})/.test(content)) {
+          level = 'ERROR';
+        }
+        
+        results.push({
+          level: level,
+          file: filePath,
+          message: `Line ${index + 1}: Level 实体名不可翻译。请使用英文 Beginner / Intermediate / Advanced 作为实体引用。`
+        });
+      }
+    });
+
+    return results.length > 0 ? results : null;
+  }
 };

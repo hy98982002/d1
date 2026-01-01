@@ -150,6 +150,18 @@ Therefore:
 配合使用独立的 AI 执行协议文档，
 用于规范 AI 在任务开始前与任务完成后的行为（如风险校验、日志生成等）。
 
+#### Tooling Enforcement Reference (Non-Normative)
+
+Engineering-level enforcement of this constitution’s AEO/semantic constraints
+is implemented by `tools/aeo-lint`.
+
+Its execution modes and frozen change-control policy are documented in:
+`tools/aeo-lint/README.md`.
+
+This reference does NOT introduce new rules and does NOT grant
+aeo-lint any authority beyond enforcing existing constitutional constraints.
+
+
 ### Mandatory Task End Protocol
 
 See `docs/ai/END_TASK.block.md` for mandatory task end protocol.
