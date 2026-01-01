@@ -1,3 +1,4 @@
+
 👉 **Program / Course 完整 Guard（≤10 行，可直接嵌入）**。
 这是**AI 的“权限边界声明”，不是说明文**。
 
@@ -34,3 +35,5 @@ If any rule fails → STOP execution and request human review.
 * AI **不能偷偷在 Course 里塞学习顺序**
 
 ---
+
+

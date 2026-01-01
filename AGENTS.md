@@ -799,6 +799,12 @@ Usage notes:
 </skill>
 
 <skill>
+<name>guard-naming-and-order</name>
+<description>Enforce immutable naming conventions, load order, and extension rules for all Execution Guards. This skill prevents guard drift, order corruption, guard bypass, and semantic integrity collapse by ensuring all guards are strictly ordered, append-only, and fail-fast.</description>
+<location>global</location>
+</skill>
+
+<skill>
 <name>internal-comms</name>
 <description>A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).</description>
 <location>global</location>
