@@ -122,14 +122,15 @@ AI Agent 在发生冲突时：
 
 See `docs/ai/START_TASK.block.md` for mandatory task start protocol.
 
-### Level Integrity Execution Gate（强制）
+### Execution Guards（强制执行 Gate）
 
-Any AI task involving Level / Stage / educationalLevel
-MUST comply with the execution gate defined in:
+For any AI task involving semantic entities or structure,
+the following execution guards are MANDATORY and enforceable:
 
-- `docs/ai/LEVEL_INTEGRITY_EXECUTION_PROMPT.md`
+- Level integrity → `docs/ai/LEVEL_INTEGRITY_EXECUTION_PROMPT.md`
+- Program / Course boundary → `docs/ai/PROGRAM_COURSE_GUARD.md`
 
-Violation requires immediate STOP and human review.
+If any guard fails, the AI MUST STOP execution and request human review.
 
 本项目在使用 AI Agent **执行具体任务**（如修改代码、调整文档）时，
 配合使用独立的 AI 执行协议文档，

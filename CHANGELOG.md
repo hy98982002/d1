@@ -22,6 +22,8 @@
 - **补充 Entity Identity 规则**: 完善了 Entity Identity & Canonical IDs 规则，明确指定使用 /_entity/ 下的语言无关 canonical @id
 - **添加 hreflang 规则**: 新增 "hreflang & Entity Identity Separation (Hard Rule)" 小节，明确 hreflang 必须只引用页面 URL，不能使用实体 @id
 - **添加 Level 完整性执行协议**: 创建 docs/ai/LEVEL_INTEGRITY_EXECUTION_PROMPT.md 执行协议，并在 CLAUDE.md 中添加引用声明
+- **添加 Program/Course 执行协议**: 创建 docs/ai/PROGRAM_COURSE_GUARD.md 执行协议，规范 Program 和 Course 实体的关系
+- **重构执行守卫引用**: 将独立的 Level Integrity Execution Gate 重构为统一的 Execution Guards 小节，同时引用 Level 和 Program/Course 守卫
 
 ---
 
