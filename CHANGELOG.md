@@ -24,6 +24,9 @@
 - **添加 Level 完整性执行协议**: 创建 docs/ai/LEVEL_INTEGRITY_EXECUTION_PROMPT.md 执行协议，并在 CLAUDE.md 中添加引用声明
 - **添加 Program/Course 执行协议**: 创建 docs/ai/PROGRAM_COURSE_GUARD.md 执行协议，规范 Program 和 Course 实体的关系
 - **重构执行守卫引用**: 将独立的 Level Integrity Execution Gate 重构为统一的 Execution Guards 小节，同时引用 Level 和 Program/Course 守卫
+- **组织 Guard 文件**: 在 docs/ai/ 下创建 guards 文件夹，统一存放 Guard 类文件
+- **规范 Guard 命名**: 按照 {NN}-{SCOPE}-{ENTITY}-GUARD.md 格式重命名 Guard 文件，确保加载顺序和作用域清晰
+- **更新 Guard 引用**: 将 CLAUDE.md 中的 Execution Guards 引用路径更新为新的文件路径
 
 ---
 

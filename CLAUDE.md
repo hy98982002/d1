@@ -122,15 +122,19 @@ AI Agent 在发生冲突时：
 
 See `docs/ai/START_TASK.block.md` for mandatory task start protocol.
 
-### Execution Guards（强制执行 Gate）
+### Execution Guards（Mandatory, Ordered）
 
-For any AI task involving semantic entities or structure,
-the following execution guards are MANDATORY and enforceable:
+AI Agents MUST load and validate execution guards
+in the following strict order before making any change:
 
-- Level integrity → `docs/ai/LEVEL_INTEGRITY_EXECUTION_PROMPT.md`
-- Program / Course boundary → `docs/ai/PROGRAM_COURSE_GUARD.md`
+1) Global semantic integrity  
+   → `docs/ai/guards/01-GLOBAL-LEVEL-GUARD.md`
 
-If any guard fails, the AI MUST STOP execution and request human review.
+2) Semantic structure boundaries  
+   → `docs/ai/guards/02-SEMANTIC-PROGRAM-COURSE-GUARD.md`
+
+Failure of any guard MUST immediately STOP execution
+and request explicit human review.
 
 本项目在使用 AI Agent **执行具体任务**（如修改代码、调整文档）时，
 配合使用独立的 AI 执行协议文档，
