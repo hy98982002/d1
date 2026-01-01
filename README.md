@@ -59,6 +59,9 @@ All human and AI changes MUST comply with this document.
   - 在前端“具体怎么做”
   - Vue / Vite / Pinia / JSON-LD / SEO 的实现约定  
   ❗不得重复本文件中的全局规则。
+  
+  **重要引用**: Frontend semantic and AEO execution rules are defined in /frontend/CLAUDE.md.
+  Any AI modifying frontend content, routing, or structured data MUST comply with those rules.
 
 - **/frontend/docs/**  
   过程性与历史性文档存档区，包括：
@@ -118,6 +121,30 @@ AI Agent 在发生冲突时：
 ### Mandatory Task Start Protocol
 
 See `docs/ai/START_TASK.block.md` for mandatory task start protocol.
+
+### Execution Guards（Mandatory, Ordered）
+
+AI Agents MUST load and validate execution guards
+in the following strict order before making any change:
+
+1) Global semantic integrity  
+   → `docs/ai/guards/01-GLOBAL-LEVEL-GUARD.md`
+
+2) Semantic structure boundaries  
+   → `docs/ai/guards/02-SEMANTIC-PROGRAM-COURSE-GUARD.md`
+
+Failure of any guard MUST immediately STOP execution
+and request explicit human review.
+
+#### Guard Activation Note (Skill / Path)
+
+Skill (`/skills`) and Path (`/paths`) entities are NOT activated yet.
+They do NOT have entity-level pages or canonical JSON-LD.
+
+Therefore:
+- No execution guards apply to Skill or Path at this stage
+- AI MUST NOT invent Skill / Path entities, guards, or relations
+- Guards for Skill / Path may ONLY be introduced after explicit activation
 
 本项目在使用 AI Agent **执行具体任务**（如修改代码、调整文档）时，
 配合使用独立的 AI 执行协议文档，
@@ -501,7 +528,7 @@ ClaudeCode 必须按以下“自动执行版”输出与行动：
 
 ### Governance Rules（治理规则）
 
-- MCP / CCPlugins 需显式启用
+- CCPlugins 需显式启用
 - 禁止自动安装、自动执行
 - 影响代码或数据的工具必须人工确认
 
