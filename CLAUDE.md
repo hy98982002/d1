@@ -122,6 +122,15 @@ AI Agent 在发生冲突时：
 
 See `docs/ai/START_TASK.block.md` for mandatory task start protocol.
 
+### Level Integrity Execution Gate（强制）
+
+Any AI task involving Level / Stage / educationalLevel
+MUST comply with the execution gate defined in:
+
+- `docs/ai/LEVEL_INTEGRITY_EXECUTION_PROMPT.md`
+
+Violation requires immediate STOP and human review.
+
 本项目在使用 AI Agent **执行具体任务**（如修改代码、调整文档）时，
 配合使用独立的 AI 执行协议文档，
 用于规范 AI 在任务开始前与任务完成后的行为（如风险校验、日志生成等）。

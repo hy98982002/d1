@@ -21,6 +21,7 @@
 - **优化规则表述**: 为硬规则添加编号，提高可读性和执行权重
 - **补充 Entity Identity 规则**: 完善了 Entity Identity & Canonical IDs 规则，明确指定使用 /_entity/ 下的语言无关 canonical @id
 - **添加 hreflang 规则**: 新增 "hreflang & Entity Identity Separation (Hard Rule)" 小节，明确 hreflang 必须只引用页面 URL，不能使用实体 @id
+- **添加 Level 完整性执行协议**: 创建 docs/ai/LEVEL_INTEGRITY_EXECUTION_PROMPT.md 执行协议，并在 CLAUDE.md 中添加引用声明
 
 ---
 
