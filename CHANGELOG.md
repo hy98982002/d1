@@ -6,6 +6,27 @@
 
 ---
 
+## [2026-01-02]
+
+### 核心原则新增
+- **添加 AEO 第一原则**: 在根 `/CLAUDE.md` 中添加了 "### Semantic Identity Isolation (AEO First Principle)"，明确规定："If an identifier participates in @id, it must never participate in navigation, localization, or ranking signals."
+
+### 规则新增与优化
+- **新增 2 个 CI 级 ERROR 规则**: 
+  - `no-entity-id-in-page-metadata.js`: 禁止实体 @id 出现在页面元数据（canonical/hreflang/og:url/twitter:url）中
+  - `entity-namespace-not-indexable.js`: 确保 `/ _entity /` 是语义命名空间，仅包含机器可读内容，禁止 HTML 页面
+- **修复规则误杀风险**: 调整 `entity-namespace-not-indexable.js` 规则，仅对 `.html|.vue` 文件进行检查，避免误杀合法的纯 JSON/LD/RDF 文件
+
+### 文档更新
+- **更新 frontend/CLAUDE.md**: 
+  - 添加 "Entity Namespace Specification" 部分，定义 `/ _entity /` 为语义命名空间
+  - 明确 `/ _entity /` 仅包含机器可读资源，禁止 HTML 页面
+- **添加变更记录**: 在 frontend/CLAUDE.md 中添加了今天的变更记录
+
+### 工具更新
+- **更新 aeo-lint 规则集**: 将新规则整合到 aeo-lint 工具中
+- **优化规则检查逻辑**: 确保规则正确识别文件类型和内容，减少误报
+
 ## [2025-12-31]
 
 ### 工具新增

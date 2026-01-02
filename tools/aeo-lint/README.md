@@ -82,6 +82,9 @@ tools/aeo-lint/
 | L2 | `educationalLevel` 必须使用 `DefinedTerm` + `/levels/*` 的稳定 `@id` |
 | P1 | Course ❌ `hasPart`；Program ✅ `hasPart`；Topic / Tag ❌ `hasPart` |
 | UI1 | UI 状态（stage / tab / filter）不得进入 JSON-LD 或 canonical URL |
+| UI2 | Entity @id 不得用于 hreflang；hreflang 必须只引用页面 URL |
+| UI3 | Entity canonical @id (/_entity/*) 不得出现在页面级元数据中（canonical / og:url / twitter:url） |
+| UI4 | "/_entity/" 命名空间仅用于语义标识，不得作为可索引或可导航的内容页面 |
 | N1 | Level `@id` 必须跨语言稳定（禁止 `/zh/levels/*` 等变体） |
 | N2 | Topic / Tag ❌ `isPartOf` Program（禁止反向污染结构主权） |
 

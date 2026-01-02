@@ -332,6 +332,15 @@ Entity identity and page localization are separate layers.
 
 Violation is considered a semantic integrity error.
 
+### 5) Entity Namespace Specification
+
+`/_entity/` = semantic namespace
+- May contain machine-readable artifacts (JSON-LD / RDF / JSON)
+- MUST NOT be HTML pages
+- Must be treated as semantic identity only, not content pages
+
+Violation is considered a semantic integrity error.
+
 ### 为什么不写进根目录宪法 /CLAUDE.md
 
 这类规则属于前端落地执行细则，不应膨胀根宪法。根宪法只保留跨全仓的长期红线，前端执行细则负责实现与可执行约束。根据根宪法对 `/frontend/CLAUDE.md` 的职责定义，前端的语义与 AEO 执行细则应在 `frontend/CLAUDE.md` 中落地。
@@ -343,9 +352,11 @@ Violation is considered a semantic integrity error.
 - Restructured: Separated UI/State rules from AEO entity rules, clarified entity identity rules
 - Fixed: JSON-LD educationalLevel reference to use canonical entity @id instead of page URL
 - Added: hreflang & Entity Identity Separation (Hard Rule) to clarify hreflang usage
+- Added: Entity Namespace Specification, defining `/ _entity /` as semantic namespace
+- Added: Rule that `/ _entity /` must only contain machine-readable artifacts,禁止 HTML pages
 - No semantic changes to /CLAUDE.md
 
 ## 15. 版本信息
 
-*Version: 1.0.1*
-*Last updated: 2025-12-31*
+*Version: 1.0.2*
+*Last updated: 2026-01-02*

@@ -15,7 +15,10 @@ const rules = [
   require('./rules/course-atomic'),
   require('./rules/ui-leak'),
   require('./rules/level-id-stability'),
-  require('./rules/topic-program')
+  require('./rules/topic-program'),
+  require('./rules/no-entity-id-in-hreflang'),
+  require('./rules/no-entity-id-in-page-metadata'),
+  require('./rules/entity-namespace-not-indexable')
 ];
 
 // 执行扫描

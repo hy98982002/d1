@@ -447,6 +447,10 @@ beginner | intermediate | advanced
 - **避免将业务语义编码进 UI 表现层**:Avoid coupling business semantics with presentation logic
 - **禁止同一概念存在多个真源**:Single source of truth for each concept
 
+### Semantic Identity Isolation (AEO First Principle)
+
+If an identifier participates in @id, it must never participate in navigation, localization, or ranking signals.
+
 ### Data Model Principles（数据模型原则）
 
 - **Course**:Contains specific course content, lessons, outcomes, and metadata
