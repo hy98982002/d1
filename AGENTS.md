@@ -501,7 +501,7 @@ ClaudeCode 必须按以下“自动执行版”输出与行动：
 
 ### Governance Rules（治理规则）
 
-- MCP / CCPlugins 需显式启用
+- CCPlugins 需显式启用
 - 禁止自动安装、自动执行
 - 影响代码或数据的工具必须人工确认
 

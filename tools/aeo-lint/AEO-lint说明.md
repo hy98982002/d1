@@ -1,0 +1,2 @@
+AEO-lint 是一个用于验证和测试 AEO（Application Experience Optimization，应用体验优化）配置的工具。它主要针对 VMware NSX-T Data Center 环境中的 AEO 配置进行验证，以确保配置的正确性和最佳实践。AEO-lint 可以帮助自动化测试过程，提高配置的准确性和效率。
+AEO-lint 并不是专门用于测试 AEO 的，而是用于验证和确保 AEO 配置的正确性。它通过自动化测试和验证，帮助 IT 专业人员确保他们的 AEO 配置符合预期，从而优化应用体验。

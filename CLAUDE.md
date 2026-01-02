@@ -136,31 +136,9 @@ in the following strict order before making any change:
 Failure of any guard MUST immediately STOP execution
 and request explicit human review.
 
-#### Guard Activation Note (Skill / Path)
-
-Skill (`/skills`) and Path (`/paths`) entities are NOT activated yet.
-They do NOT have entity-level pages or canonical JSON-LD.
-
-Therefore:
-- No execution guards apply to Skill or Path at this stage
-- AI MUST NOT invent Skill / Path entities, guards, or relations
-- Guards for Skill / Path may ONLY be introduced after explicit activation
-
 本项目在使用 AI Agent **执行具体任务**（如修改代码、调整文档）时，
 配合使用独立的 AI 执行协议文档，
 用于规范 AI 在任务开始前与任务完成后的行为（如风险校验、日志生成等）。
-
-#### Tooling Enforcement Reference (Non-Normative)
-
-Engineering-level enforcement of this constitution’s AEO/semantic constraints
-is implemented by `tools/aeo-lint`.
-
-Its execution modes and frozen change-control policy are documented in:
-`tools/aeo-lint/README.md`.
-
-This reference does NOT introduce new rules and does NOT grant
-aeo-lint any authority beyond enforcing existing constitutional constraints.
-
 
 ### Mandatory Task End Protocol
 
@@ -540,7 +518,7 @@ ClaudeCode 必须按以下“自动执行版”输出与行动：
 
 ### Governance Rules（治理规则）
 
-- CCPlugins 需显式启用
+- MCP / CCPlugins 需显式启用
 - 禁止自动安装、自动执行
 - 影响代码或数据的工具必须人工确认
 
