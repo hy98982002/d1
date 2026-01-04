@@ -403,6 +403,9 @@ beginner | intermediate | advanced
 - /skills/{slug} 是“能力抽象与入口页”：
   - ✅ 允许：链接 Program（体系入口）、抽象描述能力构成/收益
   - ❌ 禁止：展开或链接任何 Course；禁止在 skills 页定义学习顺序；禁止解释 Level（Beginner/Intermediate/Advanced）
+- Skill MAY be supported by standalone foundational Courses 
+  Such Courses MUST represent cross-program, cross-domain prerequisites 
+  and MUST NOT encode program-level progression
 
 #### 2) 教学结构主权（/programs/{slug}）
 - /programs/{slug} 是“教学结构顺序”的唯一主权实体（跨课程结构主干）：

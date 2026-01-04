@@ -6,6 +6,14 @@
 
 ---
 
+## [2026-01-04]
+
+### 宪法规则更新
+- **更新 AEO 语义主权规则**: 在根 `/CLAUDE.md` 的 "AEO 语义主权：Program / Skill / Path（强制）" 章节下添加了 Skill 与 Course 关系规则：
+  - Skill MAY be supported by standalone foundational Courses
+  - Such Courses MUST represent cross-program, cross-domain prerequisites
+  - and MUST NOT encode program-level progression
+
 ## [2026-01-02]
 
 ### 核心原则新增
