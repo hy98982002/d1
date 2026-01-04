@@ -14,6 +14,13 @@
   - ✅ 新增规则：Skill entities represent ability abstractions. They MUST NOT define learning order, levels, or program-level progression.
   - ✅ 新增规则：Programs are structured learning paths that support a Skill. A Skill MUST NOT be defined as containing or owning Programs.
 
+### 执行守卫（Execution Guards）更新
+- **新增 3 个语义边界守卫**: 
+  - `03-SEMANTIC-PROGRAM-PATH-GUARD.md`: 防止 Program 与 Path 的语义混淆
+  - `04-SEMANTIC-SKILL-BOUNDARY-GUARD.md`: 确保 Skill 保持为能力抽象层
+  - `05-SEMANTIC-STORE-DECOUPLING-GUARD.md`: 防止基于存储结构的语义耦合
+- **更新 Guard 执行顺序**: 在 `/CLAUDE.md` 的 "Execution Guards（Mandatory, Ordered）" 部分添加了新的守卫顺序
+
 ### 前端执行细则更新
 - **更新 frontend/CLAUDE.md**: 
   - ✅ 新增 "Skill Page Presentation Rules" 章节，包含：

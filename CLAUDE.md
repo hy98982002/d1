@@ -130,8 +130,17 @@ in the following strict order before making any change:
 1) Global semantic integrity  
    → `docs/ai/guards/01-GLOBAL-LEVEL-GUARD.md`
 
-2) Semantic structure boundaries  
+2) Program–Course structural integrity  
    → `docs/ai/guards/02-SEMANTIC-PROGRAM-COURSE-GUARD.md`
+
+3) Program–Path semantic boundary
+   → `docs/ai/guards/03-SEMANTIC-PROGRAM-PATH-GUARD.md`
+
+4) Skill abstraction boundary
+   → `docs/ai/guards/04-SEMANTIC-SKILL-BOUNDARY-GUARD.md`
+
+5) Store–semantic decoupling
+   → `docs/ai/guards/05-SEMANTIC-STORE-DECOUPLING-GUARD.md`
 
 Failure of any guard MUST immediately STOP execution
 and request explicit human review.
