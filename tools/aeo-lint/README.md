@@ -65,7 +65,10 @@ tools/aeo-lint/
 │  ├─ course-atomic.js            # C1: Course 原子性（WARN）
 │  ├─ ui-leak.js                  # UI1: UI 状态渗透
 │  ├─ level-id-stability.js       # N1: Level @id 跨语言稳定性
-│  └─ topic-program.js            # N2: Topic / Tag 禁止 isPartOf Program
+│  ├─ topic-program.js            # N2: Topic / Tag 禁止 isPartOf Program
+│  ├─ program-path.js             # AEO-PROGRAM-PATH-001: Program / Path 语义边界
+│  ├─ skill-boundary.js           # AEO-SKILL-BOUNDARY-002: Skill 抽象边界
+│  └─ store-semantic.js           # AEO-STORE-SEMANTIC-003: Store 与语义解耦
 └─ utils/
    └─ report.js                   # 统一输出与退出码
 ```
@@ -81,6 +84,9 @@ tools/aeo-lint/
 | L1 | 禁止使用 `?stage=` / `#stage` 表达 Level；仅允许 `/levels/{beginner|intermediate|advanced}` |
 | L2 | `educationalLevel` 必须使用 `DefinedTerm` + `/levels/*` 的稳定 `@id` |
 | P1 | Course ❌ `hasPart`；Program ✅ `hasPart`；Topic / Tag ❌ `hasPart` |
+| P2 | Program 不得包含推荐路径相关关键词；Path 不得通过 hasPart/isPartOf 表达教学顺序 |
+| S1 | Skill 页面不得枚举 Courses 作为学习内容；不得使用 CourseCard / CourseList 组件 |
+| S2 | Skill 不得包含或拥有 Programs |
 | UI1 | UI 状态（stage / tab / filter）不得进入 JSON-LD 或 canonical URL |
 | UI2 | Entity @id 不得用于 hreflang；hreflang 必须只引用页面 URL |
 | UI3 | Entity canonical @id (/_entity/*) 不得出现在页面级元数据中（canonical / og:url / twitter:url） |
@@ -96,6 +102,7 @@ tools/aeo-lint/
 |----|----|
 | L3 | Level 页面必须至少有一个非 Course 页面入链（结构风险） |
 | C1 | Course 页面出现顺序/阶段信号（position / step / 第X阶段） |
+| S3 | Store co-location does not imply semantic ownership；禁止从 store 实现结构推断语义关系 |
 
 > WARN 是“高风险信号”，不是违规判决。
 

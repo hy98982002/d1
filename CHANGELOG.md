@@ -21,6 +21,17 @@
   - `05-SEMANTIC-STORE-DECOUPLING-GUARD.md`: 防止基于存储结构的语义耦合
 - **更新 Guard 执行顺序**: 在 `/CLAUDE.md` 的 "Execution Guards（Mandatory, Ordered）" 部分添加了新的守卫顺序
 
+### aeo-lint 规则更新
+- **新增 3 条语义边界检测规则**: 
+  - `program-path.js` (ERROR): 防止 Program 与 Path 的语义越权，确保 Program 表示有序教学结构，Path 表示推荐或规划层
+  - `skill-boundary.js` (ERROR): 确保 Skill 保持为能力抽象层，禁止 Skill 枚举 Courses 作为学习内容或包含 Programs
+  - `store-semantic.js` (WARN): 防止从 store 实现结构中推断语义关系
+- **更新规则注册**: 在 `index.js` 中注册了新的规则
+- **更新 README.md**: 
+  - 更新了目录结构，包含新增的规则文件
+  - 在规则总览中添加了新增的规则
+  - 明确了新增规则的 ID 和用途
+
 ### 前端执行细则更新
 - **更新 frontend/CLAUDE.md**: 
   - ✅ 新增 "Skill Page Presentation Rules" 章节，包含：

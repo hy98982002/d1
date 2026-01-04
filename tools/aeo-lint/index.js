@@ -18,7 +18,10 @@ const rules = [
   require('./rules/topic-program'),
   require('./rules/no-entity-id-in-hreflang'),
   require('./rules/no-entity-id-in-page-metadata'),
-  require('./rules/entity-namespace-not-indexable')
+  require('./rules/entity-namespace-not-indexable'),
+  require('./rules/program-path'),
+  require('./rules/skill-boundary'),
+  require('./rules/store-semantic')
 ];
 
 // 执行扫描
