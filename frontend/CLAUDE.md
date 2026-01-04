@@ -67,6 +67,11 @@ This declaration overrides any default Superpowers assumptions about repository 
 | `/about`               | `views/AboutView.vue`   | 关于页面                  |
 | `/404`                 | `views/NotFound.vue`    | 404页面                   |
 
+Clarification:
+In frontend terminology, Program pages may be colloquially referred to as learning paths.
+Semantically, they represent ordered teaching structures and MUST NOT be treated as
+recommendation paths. Recommendation logic belongs exclusively to /paths/.
+
 ### 2.2 路由守卫
 
 - 首页路由支持从URL参数 `stage` 读取学习阶段，用于保持状态
@@ -97,6 +102,11 @@ This declaration overrides any default Superpowers assumptions about repository 
 | `authStore.ts`         | 管理用户认证状态                          |
 | `courseStore.ts`       | 管理课程数据、程序数据和学习阶段          |
 | `uiStore.ts`           | 管理UI状态，如弹窗、通知等                |
+
+Note:
+The co-location of Course, Program, and Stage data in courseStore.ts
+is an implementation convenience only.
+It MUST NOT be interpreted as semantic ownership, hierarchy, or coupling.
 
 ### 3.3 数据模型
 
@@ -341,6 +351,21 @@ Violation is considered a semantic integrity error.
 
 Violation is considered a semantic integrity error.
 
+### 6) Skill Page Presentation Rules
+
+#### Rule 6.1: Tool Expression
+On Skill pages, Tools MUST be presented as dependencies, not prerequisites.
+Tool learning SHOULD be referenced via Courses, without gating access to the Skill.
+
+#### Rule 6.2: Practice Expression
+Skill-level Practices MUST describe verifiable outcomes.
+They MUST NOT be phrased as guarantees, promises, or marketing claims.
+
+Clarification:
+Skill pages MUST NOT enumerate or deep-link Courses as learning content.
+References to foundational Courses are allowed ONLY as external prerequisites
+(e.g. 'If you lack X, start here'), without forming a learning sequence.
+
 ### 为什么不写进根目录宪法 /CLAUDE.md
 
 这类规则属于前端落地执行细则，不应膨胀根宪法。根宪法只保留跨全仓的长期红线，前端执行细则负责实现与可执行约束。根据根宪法对 `/frontend/CLAUDE.md` 的职责定义，前端的语义与 AEO 执行细则应在 `frontend/CLAUDE.md` 中落地。
@@ -354,9 +379,13 @@ Violation is considered a semantic integrity error.
 - Added: hreflang & Entity Identity Separation (Hard Rule) to clarify hreflang usage
 - Added: Entity Namespace Specification, defining `/ _entity /` as semantic namespace
 - Added: Rule that `/ _entity /` must only contain machine-readable artifacts,禁止 HTML pages
+- Added: Skill Page Presentation Rules, including Tool Expression and Practice Expression rules
+- Added: Program ≠ Path 前端澄清说明
+- Added: Store 混合承载的语义澄清说明
+- Added: Skill 页与 Course 引用的边界澄清说明
 - No semantic changes to /CLAUDE.md
 
 ## 15. 版本信息
 
-*Version: 1.0.2*
-*Last updated: 2026-01-02*
+*Version: 1.0.4*
+*Last updated: 2026-01-04*

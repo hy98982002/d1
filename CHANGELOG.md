@@ -9,10 +9,22 @@
 ## [2026-01-04]
 
 ### 宪法规则更新
-- **更新 AEO 语义主权规则**: 在根 `/CLAUDE.md` 的 "AEO 语义主权：Program / Skill / Path（强制）" 章节下添加了 Skill 与 Course 关系规则：
-  - Skill MAY be supported by standalone foundational Courses
-  - Such Courses MUST represent cross-program, cross-domain prerequisites
-  - and MUST NOT encode program-level progression
+- **更新 AEO 语义主权规则**: 在根 `/CLAUDE.md` 的 "AEO 语义主权：Program / Skill / Path（强制）" 章节下添加了完整的 Skill 实体规则：
+  - ✅ 已存在规则：Skill MAY be supported by standalone foundational Courses，Such Courses MUST represent cross-program, cross-domain prerequisites，and MUST NOT encode program-level progression
+  - ✅ 新增规则：Skill entities represent ability abstractions. They MUST NOT define learning order, levels, or program-level progression.
+  - ✅ 新增规则：Programs are structured learning paths that support a Skill. A Skill MUST NOT be defined as containing or owning Programs.
+
+### 前端执行细则更新
+- **更新 frontend/CLAUDE.md**: 
+  - ✅ 新增 "Skill Page Presentation Rules" 章节，包含：
+    - Rule 6.1: Tool Expression - Tools MUST be presented as dependencies, not prerequisites on Skill pages
+    - Rule 6.2: Practice Expression - Skill-level Practices MUST describe verifiable outcomes, not guarantees or marketing claims
+  - ✅ 新增三个补丁级澄清说明：
+    - Program ≠ Path 的前端澄清：Program 页面在前端术语中可称为学习路径，但语义上它们代表有序的教学结构，不得视为推荐路径
+    - Store 混合承载的语义澄清：Course、Program 和 Stage 数据在 courseStore.ts 中的共存仅为实现便利，不得解释为语义所有权、层次结构或耦合
+    - Skill 页与 Course 引用的边界澄清：Skill 页面不得枚举或深度链接 Courses 作为学习内容，仅允许将基础 Courses 作为外部先决条件引用
+  - ✅ 更新版本信息从 1.0.2 到 1.0.4
+  - ✅ 更新最后修改日期为 2026-01-04
 
 ## [2026-01-02]
 

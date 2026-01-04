@@ -406,6 +406,10 @@ beginner | intermediate | advanced
 - Skill MAY be supported by standalone foundational Courses 
   Such Courses MUST represent cross-program, cross-domain prerequisites 
   and MUST NOT encode program-level progression
+- Skill entities represent ability abstractions.
+  They MUST NOT define learning order, levels, or program-level progression.
+- Programs are structured learning paths that support a Skill.
+  A Skill MUST NOT be defined as containing or owning Programs.
 
 #### 2) 教学结构主权（/programs/{slug}）
 - /programs/{slug} 是“教学结构顺序”的唯一主权实体（跨课程结构主干）：
