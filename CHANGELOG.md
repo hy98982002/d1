@@ -6,6 +6,21 @@
 
 ---
 
+## [2026-01-06]
+
+### 宪法规则更新
+- **新增 Task Planning & Deliverable Guard**: 
+  - 在 `/CLAUDE.md` 中添加了新的宪法级 Guard 区块
+  - 位置：紧接在 `### Execution Guards（Mandatory, Ordered）` 区块之后
+  - 包含 7 个核心规则：
+    1. Task Execution Model - 强制使用 planning-with-files 执行模型
+    2. File Role Separation - 明确 task_plan.md、notes.md、deliverable.md 的职责边界
+    3. Deliverable Isolation Rule - 交付物必须原子、不可变、历史隔离
+    4. Project State Authority - 建立 docs/ai/project_state/CURRENT_STATE.md 作为项目状态唯一真源
+    5. Task Completion Protocol - 任务完成时必须更新 deliverable.md 和 CURRENT_STATE.md
+    6. Task Startup Protocol - 新任务启动时必须读取 CURRENT_STATE.md
+    7. Immutability & Enforcement - 规则为宪法级约束，不得修改或绕过
+
 ## [2026-01-04]
 
 ### 宪法规则更新

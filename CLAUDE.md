@@ -149,6 +149,107 @@ and request explicit human review.
 配合使用独立的 AI 执行协议文档，
 用于规范 AI 在任务开始前与任务完成后的行为（如风险校验、日志生成等）。
 
+## Task Planning & Deliverable Guard（强制）
+
+### 1. Task Execution Model（任务执行模型）
+
+For any **multi-step, multi-round, or large-scope task**, the AI **MUST** use the `planning-with-files` execution model.
+
+Each task **MUST** have its own isolated task directory:
+
+```
+docs/ai/tasks/<YYYY-MM-DD>-<task-name>/
+```
+
+Containing exactly:
+
+* `task_plan.md`
+* `notes.md`
+* `deliverable.md`
+
+---
+
+### 2. File Role Separation（文件职责隔离）
+
+The following role boundaries are **STRICT and NON-NEGOTIABLE**:
+
+#### `task_plan.md`
+
+* Controls task state and execution order
+* Tracks phases, status, and next actions
+* Used to determine what to do next
+* **MUST be read before any major decision**
+
+#### `notes.md`
+
+* Stores execution details, technical reasoning, and errors
+* Records failed attempts, edge cases, and investigations
+* Used to continue work across multiple rounds
+* **MUST NOT be treated as final conclusions**
+
+#### `deliverable.md`
+
+* Represents the **final, usable outcome** of the task
+* Contains only stable results, conclusions, and usage instructions
+* **MUST NOT include** logs, errors, raw reasoning, or execution traces
+* **MUST be readable as a standalone artifact**
+
+---
+
+### 3. Deliverable Isolation Rule（交付物隔离铁律）
+
+* A `deliverable.md` **MUST NOT** embed, merge, or inherit content from previous task deliverables.
+* Task deliverables are **atomic, immutable, and historically isolated**.
+* Deliverables exist to record **what was achieved in that task only**.
+
+---
+
+### 4. Project State Authority（项目状态唯一真源）
+
+The project **MUST maintain** a single, authoritative project-level state file:
+
+```
+docs/ai/project_state/CURRENT_STATE.md
+```
+
+Rules:
+
+* `CURRENT_STATE.md` is the **Single Source of Truth (SSOT)** for all active rules, structures, and constraints.
+* Only stable, currently valid conclusions may exist in `CURRENT_STATE.md`.
+* Historical decisions or superseded rules **MUST NOT** remain.
+
+---
+
+### 5. Task Completion Protocol（任务完成协议）
+
+Upon completing any task, the AI **MUST**:
+
+1. Finalize the task’s `deliverable.md`
+2. **Extract and merge only valid outcomes** into `CURRENT_STATE.md`
+3. Remove or mark obsolete rules in `CURRENT_STATE.md`
+4. Leave previous task deliverables unchanged
+
+---
+
+### 6. Task Startup Protocol（新任务启动协议）
+
+When starting a new task, the AI **MUST**:
+
+1. Read `docs/ai/project_state/CURRENT_STATE.md`
+2. Create a new task directory under `docs/ai/tasks/`
+3. Initialize a fresh `task_plan.md`
+4. **MUST NOT** automatically read all previous task deliverables
+
+Historical deliverables may be read **only if explicitly relevant**.
+
+---
+
+### 7. Immutability & Enforcement（不可变性）
+
+* This Guard defines a **constitutional execution constraint**
+* The AI **MUST NOT modify, weaken, or bypass** these rules
+* Any violation **invalidates the task output**
+
 ### Mandatory Task End Protocol
 
 See `docs/ai/END_TASK.block.md` for mandatory task end protocol.
