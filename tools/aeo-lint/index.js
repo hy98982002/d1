@@ -21,7 +21,12 @@ const rules = [
   require('./rules/entity-namespace-not-indexable'),
   require('./rules/program-path'),
   require('./rules/skill-boundary'),
-  require('./rules/store-semantic')
+  require('./rules/store-semantic'),
+  require('./rules/task-dir-structure'),
+  require('./rules/task-planning-files-required'),
+  require('./rules/deliverable-atomic'),
+  require('./rules/deliverable-no-process'),
+  require('./rules/project-state-sync')
 ];
 
 // 执行扫描
@@ -30,16 +35,29 @@ const files = scanFiles(targetDir);
 // 检查文件
 const results = [];
 
+// First, run per-file checks for all rules
 for (const file of files) {
   for (const rule of rules) {
-    const result = rule.check(file);
-    if (result) {
-      // 支持返回单个结果或结果数组
-      if (Array.isArray(result)) {
-        results.push(...result);
-      } else {
-        results.push(result);
+    if (rule.check) {
+      const result = rule.check(file);
+      if (result) {
+        // 支持返回单个结果或结果数组
+        if (Array.isArray(result)) {
+          results.push(...result);
+        } else {
+          results.push(result);
+        }
       }
+    }
+  }
+}
+
+// Then, run global checks for rules that support it
+for (const rule of rules) {
+  if (rule.checkGlobal) {
+    const globalResult = rule.checkGlobal(files);
+    if (globalResult && Array.isArray(globalResult)) {
+      results.push(...globalResult);
     }
   }
 }

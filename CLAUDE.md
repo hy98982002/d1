@@ -142,6 +142,9 @@ in the following strict order before making any change:
 5) Store–semantic decoupling
    → `docs/ai/guards/05-SEMANTIC-STORE-DECOUPLING-GUARD.md`
 
+6) Task planning & deliverable integrity
+   → `docs/ai/guards/06-TASK-PLANNING-DELIVERABLE-GUARD.md`
+
 Failure of any guard MUST immediately STOP execution
 and request explicit human review.
 

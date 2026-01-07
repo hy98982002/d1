@@ -6,6 +6,23 @@
 
 ---
 
+## [2026-01-07]
+
+### aeo-lint 规则更新
+- **新增 5 条 Task Planning & Deliverable Guard 相关规则**: 
+  - `task-dir-structure.js` (ERROR): 强制实施 planning-with-files 任务目录结构，要求 docs/ai/tasks/<task-name>/ 目录包含 task_plan.md、notes.md、deliverable.md
+  - `task-planning-files-required.js` (ERROR): 当任务目录存在 deliverable.md 时，必须同时存在 task_plan.md 和 notes.md
+  - `deliverable-atomic.js` (ERROR): 确保交付物是原子的、历史隔离的，禁止引用或嵌入其他任务交付物
+  - `deliverable-no-process.js` (WARN): 交付物必须只描述最终结果，禁止包含执行过程、步骤、日志或推理
+  - `project-state-sync.js` (WARN): 当任务交付物存在或变更时，提醒检查并更新 CURRENT_STATE.md
+- **架构增强**: 
+  - 新增支持全局规则的 `checkGlobal` 方法
+  - 更新 `index.js` 以处理单文件检查和全局检查两种规则类型
+
+### 执行守卫（Execution Guards）更新
+- **更新 Guard 执行顺序**: 在 `/CLAUDE.md` 的 "### Execution Guards（Mandatory, Ordered）" 区块中添加第 6 条 Guard：
+  - 6) Task planning & deliverable integrity → `docs/ai/guards/06-TASK-PLANNING-DELIVERABLE-GUARD.md`
+
 ## [2026-01-06]
 
 ### 宪法规则更新
