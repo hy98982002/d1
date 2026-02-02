@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doviai 多维AI课堂 - 行为首页线框 Demo</title>
+
+  <!-- Bootstrap 5.3.x -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand:#0ea5b7;         /* tech blue */
+      --brand-2:#ff8a3d;       /* orange accent */
+      --ink:#0f172a;
+      --muted:#64748b;
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --border: rgba(15, 23, 42, .10);
+      --shadow: 0 12px 40px rgba(2, 8, 23, .08);
+      --shadow-soft: 0 10px 30px rgba(2, 8, 23, .06);
+      --radius: 18px;
+    }
+
+    body{
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1200px 500px at 20% 0%, rgba(14,165,183,.10), transparent 60%),
+                  radial-gradient(1000px 600px at 80% 10%, rgba(255,138,61,.08), transparent 60%),
+                  var(--bg);
+    }
+
+    .nav-blur{
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.7);
+      border-bottom: 1px solid rgba(15,23,42,.06);
+    }
+
+    .brand-dot{ color: var(--brand-2); }
+    .btn-brand{
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(14,165,183,.18);
+    }
+    .btn-brand:hover{ background:#0b92a3; border-color:#0b92a3; color:#fff; }
+    .btn-ghost{
+      border: 1px solid rgba(14,165,183,.35);
+      color: var(--brand);
+      background: rgba(255,255,255,.7);
+    }
+    .btn-ghost:hover{ background: rgba(14,165,183,.08); }
+
+    .glass{
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .section{
+      padding: 56px 0;
+    }
+
+    .h1-tight{
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+    }
+
+    .text-muted2{ color: var(--muted) !important; }
+
+    .video-card{
+      position: relative;
+      overflow: hidden;
+      border-radius: calc(var(--radius) + 6px);
+      border: 1px solid rgba(15,23,42,.10);
+      box-shadow: var(--shadow-soft);
+      background: linear-gradient(135deg, rgba(14,165,183,.18), rgba(255,138,61,.12));
+      min-height: 280px;
+    }
+
+    .video-thumb{
+      position:absolute; inset:0;
+      opacity:.9;
+      background:
+        radial-gradient(800px 400px at 20% 15%, rgba(255,255,255,.55), transparent 55%),
+        radial-gradient(600px 350px at 85% 40%, rgba(255,255,255,.45), transparent 55%),
+        linear-gradient(135deg, rgba(14,165,183,.25), rgba(255,138,61,.18));
+    }
+
+    .play-pill{
+      display:inline-flex; align-items:center; gap:.55rem;
+      padding: .55rem .85rem;
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(15,23,42,.10);
+      border-radius: 999px;
+      box-shadow: 0 12px 24px rgba(2,8,23,.10);
+    }
+
+    .badge-soft{
+      background: rgba(14,165,183,.10);
+      color: #0b6b79;
+      border: 1px solid rgba(14,165,183,.18);
+    }
+
+    .step-strip{
+      border-radius: var(--radius);
+      border: 1px dashed rgba(15,23,42,.18);
+      background: rgba(255,255,255,.6);
+      padding: 18px 18px;
+    }
+
+    .step-dot{
+      width: 10px; height:10px; border-radius:50%;
+      background: var(--brand);
+      box-shadow: 0 0 0 6px rgba(14,165,183,.12);
+      display:inline-block;
+      margin-right: 10px;
+      transform: translateY(-1px);
+    }
+
+    .tab-card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.72);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .mini-kpi{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .mini-kpi .kpi{
+      border: 1px solid rgba(15,23,42,.10);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.7);
+      min-width: 160px;
+    }
+
+    .program-card{
+      border-radius: calc(var(--radius) + 6px);
+      border: 1px solid rgba(15,23,42,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.72));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .program-topbar{
+      background: linear-gradient(135deg, rgba(14,165,183,.18), rgba(255,138,61,.12));
+      border-bottom: 1px solid rgba(15,23,42,.08);
+    }
+
+    .portfolio{
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.75);
+      overflow:hidden;
+      box-shadow: var(--shadow-soft);
+      height: 120px;
+    }
+    .portfolio .img{
+      height: 72px;
+      background: linear-gradient(135deg, rgba(14,165,183,.22), rgba(255,138,61,.14));
+    }
+
+    .price-card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.74);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .faq .accordion-button{
+      background: rgba(255,255,255,.75);
+    }
+
+    .footer{
+      border-top: 1px solid rgba(15,23,42,.08);
+      color: var(--muted);
+      padding: 28px 0;
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+    }
+
+    /* small helpers */
+    .maxw-980{ max-width: 980px; }
+    .maxw-1140{ max-width: 1140px; }
+    .pill{
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.7);
+      padding: .35rem .7rem;
+      font-size: .875rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg sticky-top nav-blur">
+    <div class="container maxw-1140">
+      <a class="navbar-brand fw-bold" href="#">
+        doviai<span class="brand-dot">.</span>
+        <span class="ms-2 fw-semibold text-muted2" style="font-size:.92rem;">多维AI课堂</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+          <li class="nav-item"><a class="nav-link" href="#program">职业项目</a></li>
+          <li class="nav-item"><a class="nav-link" href="#paths">学习路径</a></li>
+          <li class="nav-item"><a class="nav-link" href="#free">免费起步</a></li>
+          <li class="nav-item"><a class="nav-link" href="#proof">案例与成果</a></li>
+        </ul>
+
+        <form class="d-flex gap-2 align-items-center" role="search">
+          <input class="form-control form-control-sm" type="search" placeholder="搜索：UI/UX / 作品集 / 交互…" aria-label="Search" style="width: 260px;">
+          <a class="btn btn-sm btn-outline-dark" href="#">登录</a>
+          <a class="btn btn-sm btn-dark" href="#">注册</a>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO (BEHAVIOR HERO) -->
+  <header class="section pt-5">
+    <div class="container maxw-1140">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="d-flex gap-2 flex-wrap mb-3">
+            <span class="pill">单项目主攻：UI/UX 产品设计</span>
+            <span class="pill">免费起步</span>
+            <span class="pill">行为系统首页 Demo</span>
+          </div>
+
+          <h1 class="display-5 fw-bold h1-tight">
+            AI时代如何不被淘汰？
+          </h1>
+          <p class="mt-3 fs-5 text-muted2">
+            用 <strong>3 分钟</strong>判断：你是否适合走 <strong>产品设计（UI/UX）</strong>职业路径。
+            不需要你先懂理论——先把<strong>下一步动作</strong>做出来。
+          </p>
+
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <button class="btn btn-brand btn-lg" data-bs-toggle="modal" data-bs-target="#videoModal">
+              ▶ 立即观看 3 分钟视频
+            </button>
+            <button class="btn btn-ghost btn-lg" data-bs-toggle="modal" data-bs-target="#quizModal">
+              ✅ 做 60 秒自测（可跳过）
+            </button>
+          </div>
+
+          <div class="mini-kpi">
+            <div class="kpi">
+              <div class="fw-semibold">你将得到</div>
+              <div class="text-muted2 small">一条可执行的起步学习路径</div>
+            </div>
+            <div class="kpi">
+              <div class="fw-semibold">降低焦虑</div>
+              <div class="text-muted2 small">把“选什么”变成“从这开始”</div>
+            </div>
+            <div class="kpi">
+              <div class="fw-semibold">微信任</div>
+              <div class="text-muted2 small">同款内容投放：B站 / 抖音</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card -->
+        <div class="col-lg-6">
+          <div class="video-card">
+            <div class="video-thumb"></div>
+            <div class="position-relative p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge badge-soft rounded-pill px-3 py-2">3:12 · 职业选择 · UI/UX</span>
+                <span class="text-muted2 small">更新：随时可替换为真实视频</span>
+              </div>
+
+              <div class="mt-4 pt-4">
+                <div class="play-pill">
+                  <span class="fs-5">▶</span>
+                  <span class="fw-semibold">点击播放：AI时代如何做职业选择</span>
+                </div>
+                <p class="text-muted2 mt-3 mb-0">
+                  这不是“讲道理”，而是帮你快速判断：你该不该把时间投到 UI/UX 上。
+                </p>
+                <button class="btn btn-brand mt-3" data-bs-toggle="modal" data-bs-target="#videoModal">
+                  播放视频
+                </button>
+                <button class="btn btn-outline-dark mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#quizModal">
+                  先做自测
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="text-muted2 small mt-2">
+            * 提示：真实上线时建议「视频 + 自测」二选一为主 CTA，另一个做次 CTA。
+          </div>
+        </div>
+      </div>
+
+      <!-- Step Strip -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="step-strip d-flex flex-column flex-md-row gap-3 justify-content-between align-items-md-center">
+            <div class="d-flex align-items-center">
+              <span class="step-dot"></span>
+              <div>
+                <div class="fw-bold">1 观看</div>
+                <div class="text-muted2 small">先获得方向，不先堆知识</div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <span class="step-dot"></span>
+              <div>
+                <div class="fw-bold">2 自测</div>
+                <div class="text-muted2 small">60 秒分流：你属于哪类起点</div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <span class="step-dot"></span>
+              <div>
+                <div class="fw-bold">3 起步计划</div>
+                <div class="text-muted2 small">给你 1 个免费起步课 + 下一步</div>
+              </div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-brand" data-bs-toggle="modal" data-bs-target="#videoModal">先看视频</button>
+              <button class="btn btn-ghost" data-bs-toggle="modal" data-bs-target="#quizModal">做自测</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PERSONALIZED ENTRY (TABS) -->
+  <section id="paths" class="section pt-2">
+    <div class="container maxw-1140">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <div>
+          <h2 class="fw-bold mb-1">把“选择”变成“被引导”</h2>
+          <p class="text-muted2 mb-0">你不需要先看一堆课程。先选你的起点，我们只给你一个可执行的下一步。</p>
+        </div>
+        <span class="pill">提示：早期不要上“课程超市”</span>
+      </div>
+
+      <ul class="nav nav-pills gap-2" id="pathTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="t1" data-bs-toggle="pill" data-bs-target="#p1" type="button" role="tab">零基础</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="t2" data-bs-toggle="pill" data-bs-target="#p2" type="button" role="tab">有设计基础</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="t3" data-bs-toggle="pill" data-bs-target="#p3" type="button" role="tab">想转行</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="t4" data-bs-toggle="pill" data-bs-target="#p4" type="button" role="tab">只想提升判断力</button>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3" id="pathTabsContent">
+        <!-- Tab 1 -->
+        <div class="tab-pane fade show active" id="p1" role="tabpanel" aria-labelledby="t1">
+          <div class="tab-card p-4">
+            <div class="row g-4 align-items-center">
+              <div class="col-lg-7">
+                <h3 class="fw-bold mb-2">零基础起步：先学“最小可交付”</h3>
+                <p class="text-muted2 mb-3">
+                  你先做出一个最小作品（小页面 + 交互说明），建立成就感。别一上来学“体系大全”。
+                </p>
+                <div class="d-flex gap-2 flex-wrap">
+                  <span class="badge text-bg-light border">免费起步课</span>
+                  <span class="badge text-bg-light border">30–60 分钟</span>
+                  <span class="badge text-bg-light border">可立即产出</span>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="p-3 glass">
+                  <div class="fw-semibold">推荐起步课（免费）</div>
+                  <div class="text-muted2 small">《UI/UX 最小可行交付：做出你的第一个界面》</div>
+                  <div class="mt-3 d-grid gap-2">
+                    <button class="btn btn-brand">从这里开始（免费）</button>
+                    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#quizModal">不确定？先做自测</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2 -->
+        <div class="tab-pane fade" id="p2" role="tabpanel" aria-labelledby="t2">
+          <div class="tab-card p-4">
+            <div class="row g-4 align-items-center">
+              <div class="col-lg-7">
+                <h3 class="fw-bold mb-2">有设计基础：补“产品思维 + 信息架构”</h3>
+                <p class="text-muted2 mb-3">
+                  你不缺审美，缺的是“从问题 → 结构 → 交付”的链路。先把 IA 和用户任务流补齐。
+                </p>
+                <div class="d-flex gap-2 flex-wrap">
+                  <span class="badge text-bg-light border">免费起步课</span>
+                  <span class="badge text-bg-light border">案例驱动</span>
+                  <span class="badge text-bg-light border">可迁移技能</span>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="p-3 glass">
+                  <div class="fw-semibold">推荐起步课（免费）</div>
+                  <div class="text-muted2 small">《信息架构 IA：把混乱需求变成可落地结构》</div>
+                  <div class="mt-3 d-grid gap-2">
+                    <button class="btn btn-brand">从这里开始（免费）</button>
+                    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#videoModal">先看 3 分钟视频</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3 -->
+        <div class="tab-pane fade" id="p3" role="tabpanel" aria-labelledby="t3">
+          <div class="tab-card p-4">
+            <div class="row g-4 align-items-center">
+              <div class="col-lg-7">
+                <h3 class="fw-bold mb-2">转行路径：先做“可被面试解释”的项目</h3>
+                <p class="text-muted2 mb-3">
+                  转行最怕“学了很多但说不清”。起步就做一个能讲清决策逻辑的项目框架。
+                </p>
+                <div class="d-flex gap-2 flex-wrap">
+                  <span class="badge text-bg-light border">免费起步课</span>
+                  <span class="badge text-bg-light border">面试表达</span>
+                  <span class="badge text-bg-light border">项目骨架</span>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="p-3 glass">
+                  <div class="fw-semibold">推荐起步课（免费）</div>
+                  <div class="text-muted2 small">《从 0 到 1：用一个项目讲清你的设计判断》</div>
+                  <div class="mt-3 d-grid gap-2">
+                    <button class="btn btn-brand">从这里开始（免费）</button>
+                    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#quizModal">先分流：我适合转吗</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4 -->
+        <div class="tab-pane fade" id="p4" role="tabpanel" aria-labelledby="t4">
+          <div class="tab-card p-4">
+            <div class="row g-4 align-items-center">
+              <div class="col-lg-7">
+                <h3 class="fw-bold mb-2">只想提升判断力：先学“可执行的决策框架”</h3>
+                <p class="text-muted2 mb-3">
+                  你可能暂时不做设计，但你需要“如何做选择、如何评估、如何复盘”的能力。
+                </p>
+                <div class="d-flex gap-2 flex-wrap">
+                  <span class="badge text-bg-light border">免费起步课</span>
+                  <span class="badge text-bg-light border">框架工具</span>
+                  <span class="badge text-bg-light border">可复用</span>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="p-3 glass">
+                  <div class="fw-semibold">推荐起步课（免费）</div>
+                  <div class="text-muted2 small">《设计判断的为什么：用 3 个问题做出更稳的选择》</div>
+                  <div class="mt-3 d-grid gap-2">
+                    <button class="btn btn-brand">从这里开始（免费）</button>
+                    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#videoModal">先看视频</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- tab-content -->
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section id="program" class="section">
+    <div class="container maxw-1140">
+      <div class="program-card">
+        <div class="program-topbar p-4">
+          <div class="d-flex justify-content-between flex-wrap gap-2 align-items-start">
+            <div>
+              <div class="text-muted2 small">单一旗舰项目（早期只主攻它）</div>
+              <h2 class="fw-bold mb-1">产品设计 UI/UX 职业项目</h2>
+              <p class="text-muted2 mb-0">从免费起步到可面试作品集：把学习变成连续可交付的行为链。</p>
+            </div>
+            <div class="d-flex gap-2">
+              <a class="btn btn-outline-dark" href="#free">查看免费起步</a>
+              <button class="btn btn-brand">查看项目大纲</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="fw-semibold mb-2">你将学会（输出导向）</div>
+              <ul class="text-muted2 mb-0">
+                <li>需求洞察：把“想法”变成可验证的问题</li>
+                <li>信息架构（IA）：把复杂内容组织成清晰结构</li>
+                <li>交互设计：让用户以最小路径完成任务</li>
+                <li>评审表达：解释你的设计判断（不是只会做图）</li>
+                <li>作品集：用项目讲清决策链路</li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
+              <div class="fw-semibold mb-2">项目结构（行为链）</div>
+              <div class="d-flex flex-column gap-2">
+                <div class="p-3 glass">
+                  <div class="fw-semibold">① 免费起步</div>
+                  <div class="text-muted2 small">建立最小成就感（30–60分钟可交付）</div>
+                </div>
+                <div class="p-3 glass">
+                  <div class="fw-semibold">② 核心能力</div>
+                  <div class="text-muted2 small">IA / Flow / Interaction / Critique</div>
+                </div>
+                <div class="p-3 glass">
+                  <div class="fw-semibold">③ 项目实战</div>
+                  <div class="text-muted2 small">用真实情境训练判断与取舍</div>
+                </div>
+                <div class="p-3 glass">
+                  <div class="fw-semibold">④ 作品集与面试</div>
+                  <div class="text-muted2 small">让你的输出可被解释、可被雇佣</div>
+                </div>
+              </div>
+              <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-brand">立即开始（免费起步）</button>
+                <button class="btn btn-ghost" data-bs-toggle="modal" data-bs-target="#quizModal">先做自测再开始</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section id="proof" class="section pt-2">
+    <div class="container maxw-1140">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <div>
+          <h2 class="fw-bold mb-1">减少怀疑：先看结果</h2>
+          <p class="text-muted2 mb-0">早期不用堆很多课程，用“成果+评价”先把信任打出来。</p>
+        </div>
+        <span class="pill">Proof 是行为链的一部分</span>
+      </div>
+
+      <div class="row g-3">
+        <!-- Portfolio wall -->
+        <div class="col-md-4">
+          <div class="portfolio">
+            <div class="img"></div>
+            <div class="p-3">
+              <div class="fw-semibold">作品卡 01</div>
+              <div class="text-muted2 small">任务流 + 关键界面</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="portfolio">
+            <div class="img"></div>
+            <div class="p-3">
+              <div class="fw-semibold">作品卡 02</div>
+              <div class="text-muted2 small">信息架构 + 交互说明</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="portfolio">
+            <div class="img"></div>
+            <div class="p-3">
+              <div class="fw-semibold">作品卡 03</div>
+              <div class="text-muted2 small">决策解释 + 复盘</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="col-lg-4">
+          <div class="p-4 glass h-100">
+            <div class="fw-bold">学员评价</div>
+            <p class="text-muted2 mt-2 mb-0">“终于不是看完一堆课还不知道下一步。起步课直接让我做出一个可交付。”</p>
+            <div class="text-muted2 small mt-2">— 学员A（转行）</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="p-4 glass h-100">
+            <div class="fw-bold">学员评价</div>
+            <p class="text-muted2 mt-2 mb-0">“我之前只会做图，这里把判断链路补齐了，面试能讲清楚。”</p>
+            <div class="text-muted2 small mt-2">— 学员B（平面转UI）</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="p-4 glass h-100">
+            <div class="fw-bold">学员评价</div>
+            <p class="text-muted2 mt-2 mb-0">“最爽的是路径明确：看视频→自测→起步课→下一步。没有选择焦虑。”</p>
+            <div class="text-muted2 small mt-2">— 学员C（零基础）</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-brand btn-lg">我也要先免费开始</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER -->
+  <section id="free" class="section">
+    <div class="container maxw-1140">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <div>
+          <h2 class="fw-bold mb-1">把价格变成“下一步”，不是终点</h2>
+          <p class="text-muted2 mb-0">首要目标：让用户先进入学习行为。付费放在“已经行动过的人”身上。</p>
+        </div>
+        <span class="pill">首屏主 CTA：先行动</span>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="price-card p-4 h-100">
+            <div class="fw-bold">免费起步（¥0）</div>
+            <div class="display-6 fw-bold mt-2">¥0</div>
+            <div class="text-muted2">30–60分钟，获得第一次可交付</div>
+            <ul class="text-muted2 mt-3">
+              <li>1 节起步课</li>
+              <li>1 个最小作业</li>
+              <li>1 条下一步建议</li>
+            </ul>
+            <div class="d-grid">
+              <button class="btn btn-brand">立即开始（免费）</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="price-card p-4 h-100">
+            <div class="fw-bold">会员（月/年）</div>
+            <div class="display-6 fw-bold mt-2">¥99<span class="fs-6 text-muted2">/月起</span></div>
+            <div class="text-muted2">适合：已经开始学习，想系统推进的人</div>
+            <ul class="text-muted2 mt-3">
+              <li>核心能力课程</li>
+              <li>作业点评（可选）</li>
+              <li>学习路径解锁</li>
+            </ul>
+            <div class="d-grid">
+              <button class="btn btn-outline-dark">了解会员</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="price-card p-4 h-100">
+            <div class="fw-bold">职业项目（一次性/分期）</div>
+            <div class="display-6 fw-bold mt-2">¥1999<span class="fs-6 text-muted2"> 起</span></div>
+            <div class="text-muted2">适合：明确要转UI/UX、要作品集的人</div>
+            <ul class="text-muted2 mt-3">
+              <li>项目实战 + 作品集</li>
+              <li>面试表达训练</li>
+              <li>完整路径与节奏</li>
+            </ul>
+            <div class="d-grid">
+              <button class="btn btn-outline-dark">查看项目说明</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-brand btn-lg" data-bs-toggle="modal" data-bs-target="#quizModal">不确定选哪个？先做 60 秒自测</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section pt-2 faq">
+    <div class="container maxw-980">
+      <h2 class="fw-bold mb-3">FAQ（压住最后的反对点）</h2>
+
+      <div class="accordion" id="faqAcc">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#f1">
+              我完全零基础，能学吗？
+            </button>
+          </h2>
+          <div id="f1" class="accordion-collapse collapse show" data-bs-parent="#faqAcc">
+            <div class="accordion-body text-muted2">
+              能。起步课的目标不是“学完体系”，而是让你在 30–60 分钟内做出一个最小可交付，先建立成就感，再进入系统学习。
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f2">
+              我该先看视频还是先做自测？
+            </button>
+          </h2>
+          <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+            <div class="accordion-body text-muted2">
+              两个都可以，但首页推荐：先看 3 分钟视频（降低不确定感），再做 60 秒自测（分流到适合你的起步课）。
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f3">
+              多久能看到效果？
+            </button>
+          </h2>
+          <div id="f3" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+            <div class="accordion-body text-muted2">
+              起步课当次就能交付一个最小产物；想形成“可面试作品集”，通常需要按路径连续推进数周到数月（取决于你的基础与时间投入）。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container maxw-1140 d-flex flex-column flex-md-row justify-content-between gap-2">
+      <div>© <span id="year"></span> doviai · 多维AI课堂</div>
+      <div class="d-flex gap-3 flex-wrap">
+        <a href="#" class="text-decoration-none text-muted2">关于</a>
+        <a href="#" class="text-decoration-none text-muted2">联系</a>
+        <a href="#" class="text-decoration-none text-muted2">隐私</a>
+        <a href="#" class="text-decoration-none text-muted2">协议</a>
+        <a href="#" class="text-decoration-none text-muted2">站点地图</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- VIDEO MODAL -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content glass">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold">3 分钟视频：AI时代如何做职业选择（占位）</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <div class="ratio ratio-16x9 rounded-4 overflow-hidden border">
+            <!-- 你可以把 VIDEO_URL 换成真实链接：B站/抖音/YouTube/自建播放器 -->
+            <iframe id="videoFrame" src="about:blank" title="Video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="text-muted2 small mt-2">
+            * 替换方式：把下方脚本里的 VIDEO_URL 改成你的 embed 链接即可。
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button class="btn btn-ghost" data-bs-toggle="modal" data-bs-target="#quizModal">看完再做 60 秒自测</button>
+          <button class="btn btn-brand">从免费起步课开始</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ MODAL -->
+  <div class="modal fade" id="quizModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content glass">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold">60 秒自测：你适合哪条起步路径？</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body pt-0">
+          <div class="text-muted2 small mb-3">
+            5 个问题，帮你分流到「零基础 / 有设计基础 / 转行 / 判断力」四类起步入口。
+          </div>
+
+          <form id="quizForm" class="d-grid gap-3">
+
+            <div class="p-3 glass">
+              <div class="fw-semibold mb-2">1) 你当前最接近哪种状态？</div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="beginner" checked> <label class="form-check-label">完全零基础</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="design"> <label class="form-check-label">有设计基础（平面/视觉/插画等）</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="switch"> <label class="form-check-label">想从别的行业转到UI/UX</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="decision"> <label class="form-check-label">暂不转行，只想提升判断力</label></div>
+            </div>
+
+            <div class="p-3 glass">
+              <div class="fw-semibold mb-2">2) 你更愿意从什么开始？</div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q2" value="do" checked> <label class="form-check-label">先做出一个最小作品（立刻有产出）</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q2" value="learn"> <label class="form-check-label">先了解体系与概念（再动手）</label></div>
+            </div>
+
+            <div class="p-3 glass">
+              <div class="fw-semibold mb-2">3) 你现在最大的卡点是？</div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q3" value="choose" checked> <label class="form-check-label">不知道选什么方向</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q3" value="portfolio"> <label class="form-check-label">缺作品集/项目链路</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q3" value="explain"> <label class="form-check-label">做得出来但讲不清决策</label></div>
+            </div>
+
+            <div class="p-3 glass">
+              <div class="fw-semibold mb-2">4) 你每周可投入时间？</div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q4" value="low" checked> <label class="form-check-label">≤ 3 小时</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q4" value="mid"> <label class="form-check-label">3–8 小时</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q4" value="high"> <label class="form-check-label">≥ 8 小时</label></div>
+            </div>
+
+            <div class="p-3 glass">
+              <div class="fw-semibold mb-2">5) 你更偏向哪种收益？</div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q5" value="job" checked> <label class="form-check-label">能面试/能被雇佣（职业导向）</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="q5" value="skill"> <label class="form-check-label">提升决策与判断（通用能力）</label></div>
+            </div>
+
+          </form>
+
+          <div id="quizResult" class="mt-3 d-none">
+            <div class="p-3 glass">
+              <div class="fw-bold mb-1">你的推荐起步路径：</div>
+              <div id="resultText" class="text-muted2"></div>
+              <div class="d-flex gap-2 mt-3 flex-wrap">
+                <button id="resultCTA" class="btn btn-brand">从这里开始（免费）</button>
+                <button class="btn btn-outline-dark" data-bs-dismiss="modal">稍后再说</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer border-0">
+          <button id="calcBtn" class="btn btn-brand">生成我的起步建议</button>
+          <button class="btn btn-ghost" data-bs-dismiss="modal">跳过自测</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ====== CONFIG ======
+    // 把这里换成你的真实 embed 链接
+    // 例：YouTube: https://www.youtube.com/embed/VIDEO_ID
+    // B站/抖音的嵌入链接你后面给我，我可以帮你替换到正确格式
+    const VIDEO_URL = "https://www.youtube.com/embed/dQw4w9WgXcQ";
+
+    // ====== YEAR ======
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ====== VIDEO MODAL: load/unload to stop playback ======
+    const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoFrame');
+
+    videoModal.addEventListener('shown.bs.modal', () => {
+      videoFrame.src = VIDEO_URL;
+    });
+    videoModal.addEventListener('hidden.bs.modal', () => {
+      videoFrame.src = "about:blank";
+    });
+
+    // ====== QUIZ ======
+    const calcBtn = document.getElementById('calcBtn');
+    const quizResult = document.getElementById('quizResult');
+    const resultText = document.getElementById('resultText');
+    const resultCTA = document.getElementById('resultCTA');
+
+    function val(name){
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : null;
+    }
+
+    function pickPath(){
+      const q1 = val('q1');
+      const q2 = val('q2');
+      const q3 = val('q3');
+      const q5 = val('q5');
+
+      // 简单分流规则（你后面可以改得更严谨）
+      // 优先：如果只想判断力 => decision
+      if(q1 === 'decision' || q5 === 'skill'){
+        return {
+          key: 'decision',
+          text: '你更适合从【判断力起步课】开始：先掌握“如何做选择与复盘”的框架，再决定是否投入UI/UX路径。',
+          cta: '开始：判断力起步课（免费）'
+        };
+      }
+
+      // 转行 / 作品集导向
+      if(q1 === 'switch' || q3 === 'portfolio' || q3 === 'explain'){
+        return {
+          key: 'switch',
+          text: '你更适合【转行起步路径】：先做一个“可被面试解释”的小项目骨架，快速建立职业叙事。',
+          cta: '开始：转行起步课（免费）'
+        };
+      }
+
+      // 有设计基础
+      if(q1 === 'design'){
+        return {
+          key: 'design',
+          text: '你更适合【设计基础补链路】：重点补“信息架构 IA + 任务流”，把审美能力变成可落地的产品能力。',
+          cta: '开始：IA 起步课（免费）'
+        };
+      }
+
+      // 默认：零基础
+      return {
+        key: 'beginner',
+        text: (q2 === 'do')
+          ? '你更适合【零基础起步】：先做出一个最小可交付界面（当次就有成果），再进入系统学习。'
+          : '你更适合【零基础起步】：先用最短路径理解“UI/UX在做什么”，再快速做出第一个小作品。',
+        cta: '开始：零基础起步课（免费）'
+      };
+    }
+
+    calcBtn.addEventListener('click', () => {
+      const r = pickPath();
+      resultText.textContent = r.text;
+      resultCTA.textContent = r.cta;
+      quizResult.classList.remove('d-none');
+
+      // 这里可以根据 r.key 跳转到不同起步课页面
+      resultCTA.onclick = () => {
+        alert(`（Demo）将跳转到：${r.key} 起步课页面。\n你上线时把这里改成真实链接即可。`);
+      };
+    });
+
+    // reset quiz result when modal closes
+    document.getElementById('quizModal').addEventListener('hidden.bs.modal', () => {
+      quizResult.classList.add('d-none');
+      resultText.textContent = '';
+    });
+  </script>
+</body>
+</html>
